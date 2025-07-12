@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Editar Avaliação</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Editar Avaliação</h1>
+
+  <form id="editar-form">
+    <label>Título da Obra: <input type="text" id="titulo" required /></label><br/>
+
+    <label>Categoria:
+      <select id="categoria" required>
+        <option value="Filmes">Filmes</option>
+        <option value="Doramas">Doramas</option>
+        <option value="Animes">Animes</option>
+        <option value="Séries">Séries</option>
+        <option value="Desenho animado">Desenho animado</option>
+        <option value="Filme de desenho animado">Filme de desenho animado</option>
+        <option value="Filme de Anime">Filme de Anime</option>
+        <option value="Filme Coreano">Filme Coreano</option>
+      </select>
+    </label><br/>
+
+    <label>URL da Imagem: <input type="url" id="imagem_url" required /></label><br/>
+
+    <fieldset>
+      <legend>Miri</legend>
+      <label>Roteiro: <input type="number" id="miri_roteiro" min="0" max="10" /></label><br/>
+      <label>Desenvolvimento: <input type="number" id="miri_desenvolvimento" min="0" max="10" /></label><br/>
+      <label>Direção/Técnica: <input type="number" id="miri_tecnica" min="0" max="10" /></label><br/>
+      <label>Impacto: <input type="number" id="miri_impacto" min="0" max="10" /></label><br/>
+      <label>Originalidade: <input type="number" id="miri_originalidade" min="0" max="10" /></label><br/>
+      <label>Comentário: <textarea id="miri_comentario"></textarea></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Deudeu</legend>
+      <label>Roteiro: <input type="number" id="deudeu_roteiro" min="0" max="10" /></label><br/>
+      <label>Desenvolvimento: <input type="number" id="deudeu_desenvolvimento" min="0" max="10" /></label><br/>
+      <label>Direção/Técnica: <input type="number" id="deudeu_tecnica" min="0" max="10" /></label><br/>
+      <label>Impacto: <input type="number" id="deudeu_impacto" min="0" max="10" /></label><br/>
+      <label>Originalidade: <input type="number" id="deudeu_originalidade" min="0" max="10" /></label><br/>
+      <label>Comentário: <textarea id="deudeu_comentario"></textarea></label>
+    </fieldset>
+
+    <button type="submit">Salvar Alterações</button>
+    <a href="historico.html"><button type="button">Voltar</button></a>
+  </form>
+
+  <script type="module" src="editar.js"></script>
+</body>
+</html>

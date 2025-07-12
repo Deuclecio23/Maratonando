@@ -1,0 +1,164 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #ffccdf;
+  background-image:
+    radial-gradient(circle at 10% 20%, #32cd32 8px, transparent 9px),
+    radial-gradient(circle at 30% 40%, #ffd700 8px, transparent 9px),
+    radial-gradient(circle at 70% 60%, #32cd32 8px, transparent 9px),
+    radial-gradient(circle at 80% 20%, #ffd700 8px, transparent 9px);
+  background-size: 150px 150px;
+  background-attachment: fixed;
+  background-repeat: repeat;
+}
+
+/* Filtros */
+#filtros {
+  margin-bottom: 20px;
+}
+
+/* Botões */
+button {
+  margin: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Card de avaliação */
+.obra {
+  background: white;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Imagem da obra */
+.imagem-obra {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Notas e comentários */
+.notas-categorias p,
+.comentarios p {
+  margin: 3px 0;
+}
+
+/* Nome da Miri em amarelo com fundo suave */
+.nome-miri {
+  color: #FFD700;
+  background-color: #fff8dc;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+/* Nome do Deudeu em verde com fundo suave */
+.nome-deudeu {
+  color: #228B22;
+  background-color: #e0ffe0;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+/* Botões fixos */
+button.fixo {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+
+/* Estilo para abas */
+#tabs {
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+.tab {
+  background-color: #ccc;
+  border: none;
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.tab:hover {
+  background-color: #bbb;
+}
+
+/* Destaques personalizados */
+.miri-bg {
+  background-color: #fff176;
+  color: #000;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.deudeu-bg {
+  background-color: #81c784;
+  color: #000;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.top-card {
+  background-color: #fff;
+  border: 3px solid #f06292;
+  border-radius: 20px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 500px;
+  text-align: center;
+}
+
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.top-pos {
+  color: #d81b60;
+}
+
+.top-nota {
+  color: #4caf50;
+}
+
+.top-titulo {
+  font-size: 1.4rem;
+  color: #880e4f;
+  margin: 10px 0;
+}
+
+.categoria {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.imagem-obra {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+.comentarios {
+  text-align: left;
+  margin-top: 15px;
+}
+
