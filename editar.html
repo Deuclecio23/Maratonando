@@ -7,6 +7,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <header class="global-header">
+    <nav>
+      <a href="index.html">➕ Nova Avaliação</a>
+      <a href="historico.html">📔 Histórico</a>
+      <a href="melhores.html">🏆 Pódio</a>
+      <a href="recomendacoes.html">💡 Recomendações</a>
+    </nav>
+  </header>
+
   <h1>Mudar a nota? Normal.</h1>
 
   <form id="editar-form">
@@ -41,6 +51,15 @@
       <label class="pergunta-pessoal">Momento favorito?
         <input type="text" id="miri_momento_favorito" />
       </label>
+      <label class="pergunta-pessoal">Frase/Fala que ficou na cabeça?
+        <input type="text" id="miri_frase_marcante" />
+      </label>
+      <label class="pergunta-pessoal">Víamos de novo? (Sim, não, talvez...)
+        <input type="text" id="miri_ver_de_novo" />
+      </label>
+      <label class="comentario-geral">Comentários Gerais (coisas aleatórias):
+        <textarea id="miri_comentario_geral"></textarea>
+      </label>
     </fieldset>
 
     <fieldset>
@@ -56,6 +75,15 @@
       </label>
       <label class="pergunta-pessoal">Momento favorito?
         <input type="text" id="deudeu_momento_favorito" />
+      </label>
+      <label class="pergunta-pessoal">Frase/Fala que ficou na cabeça?
+        <input type="text" id="deudeu_frase_marcante" />
+      </label>
+      <label class="pergunta-pessoal">Víamos de novo? (Sim, não, talvez...)
+        <input type="text" id="deudeu_ver_de_novo" />
+      </label>
+      <label class="comentario-geral">Comentários Gerais (coisas aleatórias):
+        <textarea id="deudeu_comentario_geral"></textarea>
       </label>
     </fieldset>
 
