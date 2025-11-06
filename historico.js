@@ -11,7 +11,6 @@ const buscaInput = document.getElementById('busca');
 
 let todasAvaliacoes = [];
 
-// Mapeamento dos nomes técnicos para nomes bonitos
 const nomesBonitos = {
   historia: "História",
   personagens: "Personagens",
@@ -19,7 +18,7 @@ const nomesBonitos = {
   emocao_vibe: "Emoção / Vibe",
   surpresa: "Nível de Surpresa"
 };
-const categoriasDeNotas = Object.keys(nomesBonitos); // ['historia', 'personagens', ...]
+const categoriasDeNotas = Object.keys(nomesBonitos);
 
 async function carregarAvaliacoes() {
   historico.innerHTML = '<p>A carregar o baú...</p>';
@@ -51,9 +50,14 @@ function renderizarAvaliacoes(lista) {
     const nc = clone.querySelector('.notas-categorias');
     const respostasMiri = clone.querySelector('.respostas-miri');
     const respostasDeudeu = clone.querySelector('.respostas-deudeu');
-    nc.innerHTML = '<h3>Notas (Média dos dois)</h3>'; // Limpa mas mantém o H3
+    const comentarioMiri = clone.querySelector('.comentario-miri');
+    const comentarioDeudeu = clone.querySelector('.comentario-deudeu');
+    
+    nc.innerHTML = '<h3>Notas (Média dos dois)</h3>';
     respostasMiri.innerHTML = '<span class="nome-miri">Miri:</span>';
     respostasDeudeu.innerHTML = '<span class="nome-deudeu">Deudeu:</span>';
+    comentarioMiri.innerHTML = '<span class="nome-miri">Miri:</span>';
+    comentarioDeudeu.innerHTML = '<span class="nome-deudeu">Deudeu:</span>';
 
     const medias = {};
     const pessoas = ['miri', 'deudeu'];
@@ -61,7 +65,6 @@ function renderizarAvaliacoes(lista) {
     pessoas.forEach(pessoa => {
       const dados = av[pessoa];
       if (dados) {
-        // Calcular médias das notas
         categoriasDeNotas.forEach(cat => {
           if (!medias[cat]) medias[cat] = { soma: 0, count: 0 };
           if (typeof dados[cat] === 'number') {
@@ -71,16 +74,26 @@ function renderizarAvaliacoes(lista) {
         });
 
         // Mostrar respostas pessoais
-        const container = (pessoa === 'miri') ? respostasMiri : respostasDeudeu;
+        const containerRespostas = (pessoa === 'miri') ? respostasMiri : respostasDeudeu;
         if (dados.personagem_favorito) {
-          const p = document.createElement('p');
-          p.innerHTML = `<strong>Personagem:</strong> ${dados.personagem_favorito}`;
-          container.appendChild(p);
+          containerRespostas.appendChild(criarParagrafo("Personagem:", dados.personagem_favorito));
         }
         if (dados.momento_favorito) {
+          containerRespostas.appendChild(criarParagrafo("Momento:", dados.momento_favorito));
+        }
+        if (dados.frase_marcante) { // NOVO
+          containerRespostas.appendChild(criarParagrafo("Frase:", dados.frase_marcante));
+        }
+        if (dados.ver_de_novo) { // NOVO
+          containerRespostas.appendChild(criarParagrafo("Víamos de novo?", dados.ver_de_novo));
+        }
+        
+        // Mostrar comentários gerais
+        const containerComentarios = (pessoa === 'miri') ? comentarioMiri : comentarioDeudeu;
+        if (dados.comentario_geral) { // NOVO
           const p = document.createElement('p');
-          p.innerHTML = `<strong>Momento:</strong> ${dados.momento_favorito}`;
-          container.appendChild(p);
+          p.textContent = dados.comentario_geral;
+          containerComentarios.appendChild(p);
         }
       }
     });
@@ -103,7 +116,6 @@ function renderizarAvaliacoes(lista) {
     const notaFinal = totalCategoriasFinal > 0 ? (somaMediaFinal / totalCategoriasFinal).toFixed(1) : 'N/A';
     clone.querySelector('.nota-final-numero').textContent = notaFinal;
 
-    // Botões
     clone.querySelector('.btn-excluir').addEventListener('click', async () => {
       if (confirm(`Queres mesmo apagar "${av.titulo}"?`)) {
         await supabase.from('avaliacoes').delete().eq('id', av.id);
@@ -119,6 +131,13 @@ function renderizarAvaliacoes(lista) {
   });
 }
 
+// Função auxiliar para criar parágrafos de perguntas e respostas
+function criarParagrafo(pergunta, resposta) {
+  const p = document.createElement('p');
+  p.innerHTML = `<strong>${pergunta}</strong> ${resposta}`;
+  return p;
+}
+
 // Filtro de busca por título
 buscaInput.addEventListener('input', () => {
   const termo = buscaInput.value.toLowerCase();
@@ -128,21 +147,18 @@ buscaInput.addEventListener('input', () => {
   renderizarAvaliacoes(filtradas);
 });
 
-// Criar botões de categoria dinamicamente
 function criarBotoesCategoria() {
   const categoriasUnicas = [...new Set(todasAvaliacoes.map(av => av.categoria))];
   const categoriasContainer = document.getElementById('categorias');
-  categoriasContainer.innerHTML = ''; // Limpar
+  categoriasContainer.innerHTML = '';
   
-  // Botão "Todos"
   const btnTodos = document.createElement('button');
   btnTodos.textContent = 'Ver Tudo';
   btnTodos.onclick = () => renderizarAvaliacoes(todasAvaliacoes);
   categoriasContainer.appendChild(btnTodos);
 
-  // Botões por categoria
   categoriasUnicas.forEach(cat => {
-    if(cat) { // Ignora categorias vazias
+    if(cat) {
       const btn = document.createElement('button');
       btn.textContent = cat;
       btn.classList.add('categoria-btn');
@@ -155,7 +171,6 @@ function criarBotoesCategoria() {
   });
 }
 
-// Carregar tudo e depois criar os botões
 async function init() {
   await carregarAvaliacoes();
   criarBotoesCategoria();
