@@ -19,10 +19,79 @@
   </header>
 
   <h1>Mudar a nota? Normal.</h1>
+
   <form id="editar-form">
+    <label>Nome da Coisa: <input type="text" id="titulo" required /></label><br/>
+
+    <label>Tipo:
+      <select id="categoria" required>
+        <option value="Filmes">Filmes</option>
+        <option value="Doramas">Doramas</option>
+        <option value="Animes">Animes</option>
+        <option value="Séries">Séries</option>
+        <option value="Desenho animado">Desenho animado</option>
+        <option value="Filme de desenho animado">Filme de desenho animado</option>
+        <option value="Filme de Anime">Filme de Anime</option>
+        <option value="Filme Coreano">Filme Coreano</option>
+      </select>
+    </label><br/>
+
+    <label>Link da Capa/Poster: <input type="url" id="imagem_url" required /></label><br/>
+
+    <fieldset>
+      <legend><span class="nome-miri">Notas da Miri</span></legend>
+      <label>História: <input type="number" id="miri_historia" min="0" max="10" /></label><br/>
+      <label>Personagens: <input type="number" id="miri_personagens" min="0" max="10" /></label><br/>
+      <label>Visual e Estilo: <input type="number" id="miri_visual_estilo" min="0" max="10" /></label><br/>
+      <label>Emoção / Vibe: <input type="number" id="miri_emocao_vibe" min="0" max="10" /></label><br/>
+      <label>Nível de Surpresa: <input type="number" id="miri_surpresa" min="0" max="10" /></label><br/>
+      
+      <label class="pergunta-pessoal">Personagem que mais gostou?
+        <input type="text" id="miri_personagem_favorito" />
+      </label>
+      <label class="pergunta-pessoal">Momento favorito?
+        <input type="text" id="miri_momento_favorito" />
+      </label>
+      <label class="pergunta-pessoal">Frase/Fala que ficou na cabeça?
+        <input type="text" id="miri_frase_marcante" />
+      </label>
+      <label class="pergunta-pessoal">Víamos de novo? (Sim, não, talvez...)
+        <input type="text" id="miri_ver_de_novo" />
+      </label>
+      <label class="comentario-geral">Comentários Gerais (coisas aleatórias):
+        <textarea id="miri_comentario_geral"></textarea>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="nome-deudeu">Notas do Deudeu</span></legend>
+      <label>História: <input type="number" id="deudeu_historia" min="0" max="10" /></label><br/>
+      <label>Personagens: <input type="number" id="deudeu_personagens" min="0" max="10" /></label><br/>
+      <label>Visual e Estilo: <input type="number" id="deudeu_visual_estilo" min="0" max="10" /></label><br/>
+      <label>Emoção / Vibe: <input type="number" id="deudeu_emocao_vibe" min="0" max="10" /></label><br/>
+      <label>Nível de Surpresa: <input type="number" id="deudeu_surpresa" min="0" max="10" /></label><br/>
+      
+      <label class="pergunta-pessoal">Personagem que mais gostou?
+        <input type="text" id="deudeu_personagem_favorito" />
+      </label>
+      <label class="pergunta-pessoal">Momento favorito?
+        <input type="text" id="deudeu_momento_favorito" />
+      </label>
+      <label class="pergunta-pessoal">Frase/Fala que ficou na cabeça?
+        <input type="text" id="deudeu_frase_marcante" />
+      </label>
+      <label class="pergunta-pessoal">Víamos de novo? (Sim, não, talvez...)
+        <input type="text" id="deudeu_ver_de_novo" />
+      </label>
+      <label class="comentario-geral">Comentários Gerais (coisas aleatórias):
+        <textarea id="deudeu_comentario_geral"></textarea>
+      </label>
+    </fieldset>
+
     <button type="submit">Pronto, mudei</button>
     <a href="historico.html" class="btn-voltar">Voltar</a>
   </form>
+
   <script type="module" src="editar.js"></script>
 </body>
 </html>
