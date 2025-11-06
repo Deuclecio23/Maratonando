@@ -1,7 +1,6 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 // ATENÇÃO: Substitui pelos teus dados do Supabase!
-// Podes encontrá-los em Settings > API
 const supabaseUrl = 'https://ojxgshhyzvczdxcpenxj.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qeGdzaGh5enZjemR4Y3BlbnhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyNDEyODEsImV4cCI6MjA2NzgxNzI4MX0.QoGWkfmu3TbgfbrT_gDOKNy6n8YxARFhy4NxrbsYtXY';
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -24,7 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
         emocao_vibe: +document.getElementById('miri_emocao_vibe').value || null,
         surpresa: +document.getElementById('miri_surpresa').value || null,
         personagem_favorito: document.getElementById('miri_personagem_favorito').value,
-        momento_favorito: document.getElementById('miri_momento_favorito').value
+        momento_favorito: document.getElementById('miri_momento_favorito').value,
+        frase_marcante: document.getElementById('miri_frase_marcante').value, // NOVO
+        ver_de_novo: document.getElementById('miri_ver_de_novo').value,       // NOVO
+        comentario_geral: document.getElementById('miri_comentario_geral').value // NOVO
       },
       deudeu: {
         historia: +document.getElementById('deudeu_historia').value || null,
@@ -33,7 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
         emocao_vibe: +document.getElementById('deudeu_emocao_vibe').value || null,
         surpresa: +document.getElementById('deudeu_surpresa').value || null,
         personagem_favorito: document.getElementById('deudeu_personagem_favorito').value,
-        momento_favorito: document.getElementById('deudeu_momento_favorito').value
+        momento_favorito: document.getElementById('deudeu_momento_favorito').value,
+        frase_marcante: document.getElementById('deudeu_frase_marcante').value, // NOVO
+        ver_de_novo: document.getElementById('deudeu_ver_de_novo').value,       // NOVO
+        comentario_geral: document.getElementById('deudeu_comentario_geral').value // NOVO
       }
     };
 
