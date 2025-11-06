@@ -1,6 +1,6 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-// ATENÇÃO: Substitui pelos teus dados do Supabase!
+// ATENÇÃO: Confirma que estes dados são os teus!
 const supabaseUrl = 'https://ojxgshhyzvczdxcpenxj.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qeGdzaGh5enZjemR4Y3BlbnhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyNDEyODEsImV4cCI6MjA2NzgxNzI4MX0.QoGWkfmu3TbgfbrT_gDOKNy6n8YxARFhy4NxrbsYtXY';
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -11,6 +11,7 @@ const buscaInput = document.getElementById('busca');
 
 let todasAvaliacoes = [];
 
+// Mapeamento dos nomes técnicos para nomes bonitos
 const nomesBonitos = {
   historia: "História",
   personagens: "Personagens",
@@ -18,7 +19,7 @@ const nomesBonitos = {
   emocao_vibe: "Emoção / Vibe",
   surpresa: "Nível de Surpresa"
 };
-const categoriasDeNotas = Object.keys(nomesBonitos);
+const categoriasDeNotas = Object.keys(nomesBonitos); // ['historia', 'personagens', ...]
 
 async function carregarAvaliacoes() {
   historico.innerHTML = '<p>A carregar o baú...</p>';
@@ -65,6 +66,7 @@ function renderizarAvaliacoes(lista) {
     pessoas.forEach(pessoa => {
       const dados = av[pessoa];
       if (dados) {
+        // Calcular médias das notas
         categoriasDeNotas.forEach(cat => {
           if (!medias[cat]) medias[cat] = { soma: 0, count: 0 };
           if (typeof dados[cat] === 'number') {
@@ -116,6 +118,7 @@ function renderizarAvaliacoes(lista) {
     const notaFinal = totalCategoriasFinal > 0 ? (somaMediaFinal / totalCategoriasFinal).toFixed(1) : 'N/A';
     clone.querySelector('.nota-final-numero').textContent = notaFinal;
 
+    // Botões
     clone.querySelector('.btn-excluir').addEventListener('click', async () => {
       if (confirm(`Queres mesmo apagar "${av.titulo}"?`)) {
         await supabase.from('avaliacoes').delete().eq('id', av.id);
@@ -147,18 +150,21 @@ buscaInput.addEventListener('input', () => {
   renderizarAvaliacoes(filtradas);
 });
 
+// Criar botões de categoria dinamicamente
 function criarBotoesCategoria() {
   const categoriasUnicas = [...new Set(todasAvaliacoes.map(av => av.categoria))];
   const categoriasContainer = document.getElementById('categorias');
-  categoriasContainer.innerHTML = '';
+  categoriasContainer.innerHTML = ''; // Limpar
   
+  // Botão "Todos"
   const btnTodos = document.createElement('button');
   btnTodos.textContent = 'Ver Tudo';
   btnTodos.onclick = () => renderizarAvaliacoes(todasAvaliacoes);
   categoriasContainer.appendChild(btnTodos);
 
+  // Botões por categoria
   categoriasUnicas.forEach(cat => {
-    if(cat) {
+    if(cat) { // Ignora categorias vazias
       const btn = document.createElement('button');
       btn.textContent = cat;
       btn.classList.add('categoria-btn');
@@ -171,6 +177,7 @@ function criarBotoesCategoria() {
   });
 }
 
+// Carregar tudo e depois criar os botões
 async function init() {
   await carregarAvaliacoes();
   criarBotoesCategoria();
