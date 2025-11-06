@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adicionar Recomendação</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="global-header">
+    <nav>
+      <a href="index.html">➕ Nova Avaliação</a>
+      <a href="historico.html">📔 Histórico</a>
+      <a href="melhores.html">🏆 Pódio</a>
+      <a href="ver-recomendacoes.html" class="active">💡 Recomendações</a>
+    </nav>
+  </header>
+
+  <h1>Nova Ideia Brilhante!</h1>
+
+  <form id="recomendacao-form">
+    <label>Nome da Coisa:
+      <input type="text" id="titulo" required />
+    </label><br/>
+
+    <label>Tipo:
+      <select id="tipo" required>
+        <option value="">Selecione...</option>
+        <option value="Filme">Filme</option>
+        <option value="Série">Série</option>
+        <option value="Anime">Anime</option>
+        <option value="Dorama">Dorama</option>
+        <option value="Outro">Outro</option>
+      </select>
+    </label><br/>
+
+    <label>Quem sugeriu?
+      <select id="quem_sugeriu" required>
+        <option value="">Selecione...</option>
+        <option value="Miri">Miri</option>
+        <option value="Deudeu">Deudeu</option>
+        <option value="Ambos">Ambos</option>
+      </select>
+    </label><br/>
+    
+    <label>Link (Trailer, TikTok, etc.) - Opcional:
+      <input type="url" id="link_extra" />
+    </label><br/>
+
+    <button type="submit">Guardar Ideia</button>
+  </form>
+  
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="ver-recomendacoes.html" class="btn-voltar">Voltar para a Lista</a>
+  </div>
+
+  <script type="module" src="add-recomendacao.js"></script>
+</body>
+</html>
