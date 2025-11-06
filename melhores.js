@@ -1,68 +1,102 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-const supabase = createClient(
-  'https://ojxgshhyzvczdxcpenxj.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qeGdzaGh5enZjemR4Y3BlbnhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyNDEyODEsImV4cCI6MjA2NzgxNzI4MX0.QoGWkfmu3TbgfbrT_gDOKNy6n8YxARFhy4NxrbsYtXY'
-)
+// ATENÇÃO: Confirma que estes dados são os teus!
+const supabaseUrl = 'https://ojxgshhyzvczdxcpenxj.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qeGdzaGh5enZjemR4Y3BlbnhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyNDEyODEsImV4cCI6MjA2NzgxNzI4MX0.QoGWkfmu3TbgfbrT_gDOKNy6n8YxARFhy4NxrbsYtXY';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const conteudo = document.getElementById('conteudo');
-  const tabs = document.querySelectorAll('.tab');
+const nomesBonitos = {
+  historia: "História",
+  personagens: "Personagens",
+  visual_estilo: "Visual e Estilo",
+  emocao_vibe: "Emoção / Vibe",
+  surpresa: "Nível de Surpresa"
+};
+const categoriasDeNotas = Object.keys(nomesBonitos);
 
-  const medalhas = ["🥇", "🥈", "🥉"];
-  const demaisEmoji = "🏅";
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', async () => {
-      const categoria = tab.dataset.categoria;
-      conteudo.innerHTML = '<p>Carregando...</p>';
-
-      const { data } = await supabase.from('avaliacoes').select('*');
-
-      let filtradas = data;
-      if (categoria !== 'Geral') {
-        filtradas = data.filter(av => av.categoria === categoria);
-      }
-
-      filtradas.forEach(av => {
-        const m = av.miri;
-        const d = av.deudeu;
-
-        const medias = [m, d].map(av => {
-          const notas = [av.roteiro, av.desenvolvimento, av.desempenho, av.impacto, av.originalidade];
-          const soma = notas.reduce((a, b) => a + (b || 0), 0);
-          return soma / notas.filter(n => n != null).length;
-        });
-
-        av.mediaGeral = (medias[0] + medias[1]) / 2;
+function calcularMediaFinal(av) {
+  const medias = {};
+  const pessoas = ['miri', 'deudeu'];
+  
+  pessoas.forEach(pessoa => {
+    const dados = av[pessoa];
+    if (dados) {
+      categoriasDeNotas.forEach(cat => {
+        if (!medias[cat]) medias[cat] = { soma: 0, count: 0 };
+        if (typeof dados[cat] === 'number') {
+          medias[cat].soma += dados[cat];
+          medias[cat].count++;
+        }
       });
-
-      const top10 = filtradas
-        .filter(av => !isNaN(av.mediaGeral))
-        .sort((a, b) => b.mediaGeral - a.mediaGeral)
-        .slice(0, 10);
-
-      conteudo.innerHTML = top10.map((av, i) => {
-        const pos = i + 1;
-        const emoji = i < 3 ? medalhas[i] : demaisEmoji;
-
-        return `
-          <div class="top-card">
-            <div class="top-header">
-              <span class="top-pos">TOP ${pos} ${emoji}</span>
-              <span class="top-nota">Média: ${av.mediaGeral.toFixed(2)}</span>
-            </div>
-            <h3 class="top-titulo">${av.titulo} <span class="categoria">(${av.categoria})</span></h3>
-            <img src="${av.imagem_url}" class="imagem-obra"/>
-            <div class="comentarios">
-              <p><span class="miri-bg">Comentário Miri:</span> ${av.miri.comentario}</p>
-              <p><span class="deudeu-bg">Comentário Deudeu:</span> ${av.deudeu.comentario}</p>
-            </div>
-          </div>
-        `;
-      }).join('');
-    });
+    }
   });
 
-  tabs[0].click();
+  let somaMediaFinal = 0;
+  let totalCategoriasFinal = 0;
+
+  for (const cat in medias) {
+    if (medias[cat].count > 0) {
+      const media = medias[cat].soma / medias[cat].count;
+      somaMediaFinal += media;
+      totalCategoriasFinal++;
+    }
+  }
+
+  return totalCategoriasFinal > 0 ? (somaMediaFinal / totalCategoriasFinal) : 0;
+}
+
+async function carregarTopAvaliacoes() {
+  const { data, error } = await supabase.from('avaliacoes').select('*');
+  if (error) {
+    alert('Erro ao carregar avaliações para o pódio!');
+    return [];
+  }
+
+  return data.map(av => ({
+    ...av,
+    notaFinal: calcularMediaFinal(av)
+  })).sort((a, b) => b.notaFinal - a.notaFinal);
+}
+
+function renderizarPodio(avaliacoes, categoria) {
+  const conteudo = document.getElementById('conteudo');
+  conteudo.innerHTML = '';
+
+  let filtradas = avaliacoes;
+  if (categoria !== 'Geral') {
+    filtradas = avaliacoes.filter(av => av.categoria === categoria);
+  }
+
+  if (filtradas.length === 0) {
+    conteudo.innerHTML = '<p style="text-align: center;">Ainda não há nada no pódio para esta categoria.</p>';
+    return;
+  }
+
+  filtradas.slice(0, 10).forEach((av, index) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="top-header" style="display: flex; justify-content: space-between; font-weight: bold;">
+        <span class="top-pos" style="color: #d6336c; font-size: 1.5em;">#${index + 1}</span>
+        <span class="top-nota" style="color: #4cab02; font-size: 1.5em;">${av.notaFinal.toFixed(1)}</span>
+      </div>
+      <h2 class="titulo">${av.titulo}</h2>
+      <p class="categoria">${av.categoria}</p>
+      <img class="imagem-obra" src="${av.imagem_url}" alt="Capa de ${av.titulo}" />
+    `;
+    conteudo.appendChild(card);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const todasAvaliacoes = await carregarTopAvaliacoes();
+  
+  renderizarPodio(todasAvaliacoes, 'Geral');
+
+  document.querySelectorAll('#tabs-categorias .tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const categoria = tab.dataset.categoria;
+      renderizarPodio(todasAvaliacoes, categoria);
+    });
+  });
 });
