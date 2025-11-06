@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Miri & Deudeu - Nova Avaliação</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Bora avaliar uma coisinha nova!</h1>
+
+  <form id="avaliacao-form">
+    <label>Nome da Coisa (Filme, Série...):
+      <input type="text" id="titulo" required />
+    </label><br/>
+
+    <label>Tipo:
+      <select id="categoria" required>
+        <option value="">Selecione...</option>
+        <option value="Filmes">Filmes</option>
+        <option value="Doramas">Doramas</option>
+        <option value="Animes">Animes</option>
+        <option value="Séries">Séries</option>
+        <option value="Desenho animado">Desenho animado</option>
+        <option value="Filme de desenho animado">Filme de desenho animado</option>
+        <option value="Filme de Anime">Filme de Anime</option>
+        <option value="Filme Coreano">Filme Coreano</option>
+      </select>
+    </label><br/>
+
+    <label>Link da Capa/Poster:
+      <input type="url" id="imagem_url" required />
+    </label><br/>
+
+    <fieldset>
+      <legend><span class="nome-miri">Notas da Miri</span></legend>
+      <label>História: <input type="number" id="miri_historia" min="0" max="10" /></label><br/>
+      <label>Personagens: <input type="number" id="miri_personagens" min="0" max="10" /></label><br/>
+      <label>Visual e Estilo: <input type="number" id="miri_visual_estilo" min="0" max="10" /></label><br/>
+      <label>Emoção / Vibe: <input type="number" id="miri_emocao_vibe" min="0" max="10" /></label><br/>
+      <label>Nível de Surpresa: <input type="number" id="miri_surpresa" min="0" max="10" /></label><br/>
+      
+      <label class="pergunta-pessoal">Personagem que mais gostou?
+        <input type="text" id="miri_personagem_favorito" />
+      </label>
+      <label class="pergunta-pessoal">Momento favorito?
+        <input type="text" id="miri_momento_favorito" />
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="nome-deudeu">Notas do Deudeu</span></legend>
+      <label>História: <input type="number" id="deudeu_historia" min="0" max="10" /></label><br/>
+      <label>Personagens: <input type="number" id="deudeu_personagens" min="0" max="10" /></label><br/>
+      <label>Visual e Estilo: <input type="number" id="deudeu_visual_estilo" min="0" max="10" /></label><br/>
+      <label>Emoção / Vibe: <input type="number" id="deudeu_emocao_vibe" min="0" max="10" /></label><br/>
+      <label>Nível de Surpresa: <input type="number" id="deudeu_surpresa" min="0" max="10" /></label><br/>
+      
+      <label class="pergunta-pessoal">Personagem que mais gostou?
+        <input type="text" id="deudeu_personagem_favorito" />
+      </label>
+      <label class="pergunta-pessoal">Momento favorito?
+        <input type="text" id="deudeu_momento_favorito" />
+      </label>
+    </fieldset>
+
+    <button type="submit">Guardar Esta Obra-Prima (ou não)</button>
+  </form>
+
+  <nav class="main-nav">
+    <a href="historico.html">Ver o que já vimos</a>
+    <a href="melhores.html">Ver o Pódio 🏆</a>
+    <a href="recomendacoes.html">Para ver a seguir...</a>
+  </nav>
+
+  <script type="module" src="index.js"></script>
+</body>
+</html>
