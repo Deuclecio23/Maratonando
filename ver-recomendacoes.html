@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Ver a Seguir...</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="global-header">
+    <nav>
+      <a href="index.html">➕ Nova Avaliação</a>
+      <a href="historico.html">📔 Histórico</a>
+      <a href="melhores.html">🏆 Pódio</a>
+      <a href="ver-recomendacoes.html" class="active">💡 Recomendações</a>
+    </nav>
+  </header>
+
+  <h1>Para Ver a Seguir...</h1>
+  
+  <div style="text-align: center; margin-bottom: 20px;">
+    <a href="add-recomendacao.html" class="btn-melhores" style="background-color: #7b2cbf;">➕ Adicionar Nova Ideia</a>
+  </div>
+
+  <div id="lista-recomendacoes-container">
+    </div>
+
+  <template id="template-recomendacao">
+    <div class="card-recomendacao">
+      <h3 class="rec-titulo"></h3>
+      <p class="rec-info"><span class="rec-tipo"></span> | Sugestão de: <span class="rec-quem"></span></p>
+      <a class="rec-link" href="#" target="_blank">Ver Link (se houver)</a>
+      <button class="btn-excluir rec-excluir">Apagar</button>
+    </div>
+  </template>
+
+  <script type="module" src="ver-recomendacoes.js"></script>
+</body>
+</html>
