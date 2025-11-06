@@ -1,164 +1,353 @@
+/* Reset Básico e Fonte Nova */
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  background-color: #ffccdf;
+  font-family: 'Nunito', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fff8f9; /* Um rosa muito clarinho */
+  color: #333;
+  padding-bottom: 100px;
   background-image:
-    radial-gradient(circle at 10% 20%, #32cd32 8px, transparent 9px),
-    radial-gradient(circle at 30% 40%, #ffd700 8px, transparent 9px),
-    radial-gradient(circle at 70% 60%, #32cd32 8px, transparent 9px),
-    radial-gradient(circle at 80% 20%, #ffd700 8px, transparent 9px);
-  background-size: 150px 150px;
-  background-attachment: fixed;
-  background-repeat: repeat;
+    radial-gradient(circle at 10% 20%, #fdcb6e 4px, transparent 5px),
+    radial-gradient(circle at 70% 60%, #a29bfe 4px, transparent 5px);
+  background-size: 100px 100px;
 }
 
-/* Filtros */
-#filtros {
-  margin-bottom: 20px;
+h1 {
+  color: #d6336c; /* Rosa mais forte */
+  text-align: center;
+  margin-top: 80px; /* Espaço para a barra do topo */
 }
 
-/* Botões */
-button {
-  margin: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  border: none;
-  background-color: #4CAF50;
+/* Links e Navegação Principal (em index.html e recomendacoes.html) */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+.main-nav a {
+  text-decoration: none;
+  background-color: #ff85a2;
   color: white;
-  border-radius: 5px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+.main-nav a:hover {
+  background-color: #d6336c;
+  transform: translateY(-2px);
 }
 
-button:hover {
-  background-color: #45a049;
+/* Formulários (index.html e editar.html) */
+form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #fde2e8;
 }
 
-/* Card de avaliação */
-.obra {
-  background: white;
-  border: 1px solid #ddd;
-  margin-bottom: 15px;
-  padding: 15px;
+fieldset {
+  border: 2px dashed #ffc0cb; /* Borda rosa tracejada */
   border-radius: 8px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  padding: 15px;
 }
 
-/* Imagem da obra */
-.imagem-obra {
-  max-width: 150px;
-  height: auto;
+legend {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0 10px;
+  color: #333;
+}
+
+label {
   display: block;
   margin-bottom: 10px;
-}
-
-/* Notas e comentários */
-.notas-categorias p,
-.comentarios p {
-  margin: 3px 0;
-}
-
-/* Nome da Miri em amarelo com fundo suave */
-.nome-miri {
-  color: #FFD700;
-  background-color: #fff8dc;
   font-weight: bold;
-  padding: 2px 5px;
-  border-radius: 4px;
-}
-
-/* Nome do Deudeu em verde com fundo suave */
-.nome-deudeu {
-  color: #228B22;
-  background-color: #e0ffe0;
-  font-weight: bold;
-  padding: 2px 5px;
-  border-radius: 4px;
-}
-
-/* Botões fixos */
-button.fixo {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 1000;
-}
-
-/* Estilo para abas */
-#tabs {
-  margin-top: 60px;
-  margin-bottom: 20px;
-}
-.tab {
-  background-color: #ccc;
-  border: none;
-  padding: 8px 12px;
-  margin: 5px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-.tab:hover {
-  background-color: #bbb;
-}
-
-/* Destaques personalizados */
-.miri-bg {
-  background-color: #fff176;
-  color: #000;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-.deudeu-bg {
-  background-color: #81c784;
-  color: #000;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.top-card {
-  background-color: #fff;
-  border: 3px solid #f06292;
-  border-radius: 20px;
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 500px;
-  text-align: center;
-}
-
-.top-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.top-pos {
-  color: #d81b60;
-}
-
-.top-nota {
-  color: #4caf50;
-}
-
-.top-titulo {
-  font-size: 1.4rem;
-  color: #880e4f;
-  margin: 10px 0;
-}
-
-.categoria {
-  font-size: 0.9rem;
   color: #555;
 }
 
-.imagem-obra {
-  max-width: 100%;
-  border-radius: 12px;
-  margin: 10px 0;
-}
-
-.comentarios {
-  text-align: left;
+label.pergunta-pessoal {
   margin-top: 15px;
+  color: #d6336c;
 }
 
+input[type="text"],
+input[type="url"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box; /* Garante que o padding não quebre o layout */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1em;
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: #ff85a2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 133, 162, 0.5);
+}
+
+/* Nomes coloridos */
+.nome-miri {
+  color: #E67E22; /* Laranja */
+  background-color: #FFF5E6;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.nome-deudeu {
+  color: #27AE60; /* Verde */
+  background-color: #E9F7EF;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Botões */
+button,
+.btn-voltar,
+.btn-melhores {
+  margin: 10px 5px 0 0;
+  padding: 12px 20px;
+  cursor: pointer;
+  border: none;
+  background-color: #58cc02; /* Verde wemmy */
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1em;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+button:hover,
+.btn-voltar:hover,
+.btn-melhores:hover {
+  background-color: #4cab02;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+button[type="submit"] {
+  background-color: #ff4785; /* Rosa forte */
+}
+button[type="submit"]:hover {
+  background-color: #d6336c;
+}
+
+/* Barra do Topo (historico.html) */
+#top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+#btn-voltar {
+  margin: 0;
+  background-color: #7b2cbf; /* Roxo */
+}
+#btn-voltar:hover {
+  background-color: #5a189a;
+}
+
+/* Histórico (historico.html) */
+#busca {
+  display: block;
+  width: 50%;
+  min-width: 250px;
+  margin: 20px auto;
+  padding: 12px;
+  font-size: 1.1em;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+}
+#categorias {
+  text-align: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+#categorias button {
+  background-color: #a29bfe; /* Roxo claro */
+}
+#categorias button:hover {
+  background-color: #7b2cbf;
+}
+
+/* Card do Histórico */
+.card {
+  background: white;
+  border: 1px solid #eee;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  max-width: 700px;
+}
+
+.card .imagem-obra {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto 15px auto;
+  border-radius: 8px;
+}
+
+.card .titulo {
+  text-align: center;
+  color: #d6336c;
+  margin: 0 0 5px 0;
+}
+.card .categoria {
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  margin-top: 0;
+}
+
+.notas-container {
+  display: flex;
+  justify-content: space-around;
+  background: #fdfcff;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.nota-final {
+  text-align: center;
+}
+.nota-final-numero {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #4cab02;
+}
+
+.perguntas-pessoais {
+  margin-top: 20px;
+  background: #fdfcff;
+  border-radius: 8px;
+  padding: 15px;
+}
+.perguntas-pessoais h3 {
+  margin-top: 0;
+}
+.perguntas-pessoais p {
+  margin: 5px 0;
+}
+.perguntas-pessoais strong {
+  color: #d6336c;
+}
+
+.respostas-miri, .respostas-deudeu {
+  margin-top: 10px;
+}
+
+.card-botoes {
+  text-align: right;
+  margin-top: 20px;
+}
+.btn-editar {
+  background-color: #007bff;
+}
+.btn-editar:hover {
+  background-color: #0056b3;
+}
+.btn-excluir {
+  background-color: #dc3545;
+}
+.btn-excluir:hover {
+  background-color: #a71d2a;
+}
+
+
+/* Header de Melhores (melhores.html) */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+.btn-voltar-header {
+  text-decoration: none;
+  background-color: #7b2cbf;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9em;
+  margin-right: 20px;
+  transition: all 0.2s ease;
+}
+.btn-voltar-header:hover {
+  background-color: #5a189a;
+}
+
+#tabs-nav {
+  display: flex;
+  overflow-x: auto; /* Permite scrollar as tabs no telemóvel */
+  gap: 10px;
+}
+
+.tab {
+  margin: 0;
+  padding: 8px 12px;
+  background-color: #eee;
+  color: #333;
+  border-radius: 20px;
+  white-space: nowrap; /* Impede que o texto quebre */
+}
+.tab:hover {
+  background-color: #ddd;
+}
+.tab.active { /* (Adiciona esta classe com JS se quiseres) */
+  background-color: #d6336c;
+  color: white;
+}
+
+/* Página de Recomendações */
+.lista-recomendacoes {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  list-style-type: "💖 ";
+}
+.lista-recomendacoes li {
+  padding: 10px;
+  border-bottom: 1px solid #fde2e8;
+}
+.lista-recomendacoes li:last-child {
+  border-bottom: none;
+}
