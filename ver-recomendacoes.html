@@ -19,12 +19,23 @@
   </header>
 
   <h1>Para Ver a Seguir...</h1>
+  
   <div style="text-align: center; margin-bottom: 20px;">
     <a href="add-recomendacao.html" class="btn-melhores" style="background-color: #7b2cbf;">➕ Adicionar Nova Ideia</a>
   </div>
-  <div id="lista-recomendacoes-container"></div>
+
+  <div id="lista-recomendacoes-container">
+    </div>
+
   <template id="template-recomendacao">
-    </template>
+    <div class="card-recomendacao">
+      <h3 class="rec-titulo"></h3>
+      <p class="rec-info"><span class="rec-tipo"></span> | Sugestão de: <span class="rec-quem"></span></p>
+      <a class="rec-link" href="#" target="_blank">Ver Link (se houver)</a>
+      <button class="btn-excluir rec-excluir">Apagar</button>
+    </div>
+  </template>
+
   <script type="module" src="ver-recomendacoes.js"></script>
 </body>
 </html>
