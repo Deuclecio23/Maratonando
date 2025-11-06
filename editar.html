@@ -4,14 +4,15 @@
   <meta charset="UTF-8" />
   <title>Editar Avaliação</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Editar Avaliação</h1>
+  <h1>Mudar a nota? Normal.</h1>
 
   <form id="editar-form">
-    <label>Título da Obra: <input type="text" id="titulo" required /></label><br/>
+    <label>Nome da Coisa: <input type="text" id="titulo" required /></label><br/>
 
-    <label>Categoria:
+    <label>Tipo:
       <select id="categoria" required>
         <option value="Filmes">Filmes</option>
         <option value="Doramas">Doramas</option>
@@ -24,30 +25,42 @@
       </select>
     </label><br/>
 
-    <label>URL da Imagem: <input type="url" id="imagem_url" required /></label><br/>
+    <label>Link da Capa/Poster: <input type="url" id="imagem_url" required /></label><br/>
 
     <fieldset>
-      <legend>Miri</legend>
-      <label>Roteiro: <input type="number" id="miri_roteiro" min="0" max="10" /></label><br/>
-      <label>Desenvolvimento: <input type="number" id="miri_desenvolvimento" min="0" max="10" /></label><br/>
-      <label>Direção/Técnica: <input type="number" id="miri_tecnica" min="0" max="10" /></label><br/>
-      <label>Impacto: <input type="number" id="miri_impacto" min="0" max="10" /></label><br/>
-      <label>Originalidade: <input type="number" id="miri_originalidade" min="0" max="10" /></label><br/>
-      <label>Comentário: <textarea id="miri_comentario"></textarea></label>
+      <legend><span class="nome-miri">Notas da Miri</span></legend>
+      <label>História: <input type="number" id="miri_historia" min="0" max="10" /></label><br/>
+      <label>Personagens: <input type="number" id="miri_personagens" min="0" max="10" /></label><br/>
+      <label>Visual e Estilo: <input type="number" id="miri_visual_estilo" min="0" max="10" /></label><br/>
+      <label>Emoção / Vibe: <input type="number" id="miri_emocao_vibe" min="0" max="10" /></label><br/>
+      <label>Nível de Surpresa: <input type="number" id="miri_surpresa" min="0" max="10" /></label><br/>
+      
+      <label class="pergunta-pessoal">Personagem que mais gostou?
+        <input type="text" id="miri_personagem_favorito" />
+      </label>
+      <label class="pergunta-pessoal">Momento favorito?
+        <input type="text" id="miri_momento_favorito" />
+      </label>
     </fieldset>
 
     <fieldset>
-      <legend>Deudeu</legend>
-      <label>Roteiro: <input type="number" id="deudeu_roteiro" min="0" max="10" /></label><br/>
-      <label>Desenvolvimento: <input type="number" id="deudeu_desenvolvimento" min="0" max="10" /></label><br/>
-      <label>Direção/Técnica: <input type="number" id="deudeu_tecnica" min="0" max="10" /></label><br/>
-      <label>Impacto: <input type="number" id="deudeu_impacto" min="0" max="10" /></label><br/>
-      <label>Originalidade: <input type="number" id="deudeu_originalidade" min="0" max="10" /></label><br/>
-      <label>Comentário: <textarea id="deudeu_comentario"></textarea></label>
+      <legend><span class="nome-deudeu">Notas do Deudeu</span></legend>
+      <label>História: <input type="number" id="deudeu_historia" min="0" max="10" /></label><br/>
+      <label>Personagens: <input type="number" id="deudeu_personagens" min="0" max="10" /></label><br/>
+      <label>Visual e Estilo: <input type="number" id="deudeu_visual_estilo" min="0" max="10" /></label><br/>
+      <label>Emoção / Vibe: <input type="number" id="deudeu_emocao_vibe" min="0" max="10" /></label><br/>
+      <label>Nível de Surpresa: <input type="number" id="deudeu_surpresa" min="0" max="10" /></label><br/>
+      
+      <label class="pergunta-pessoal">Personagem que mais gostou?
+        <input type="text" id="deudeu_personagem_favorito" />
+      </label>
+      <label class="pergunta-pessoal">Momento favorito?
+        <input type="text" id="deudeu_momento_favorito" />
+      </label>
     </fieldset>
 
-    <button type="submit">Salvar Alterações</button>
-    <a href="historico.html"><button type="button">Voltar</button></a>
+    <button type="submit">Pronto, mudei</button>
+    <a href="historico.html" class="btn-voltar">Voltar</a>
   </form>
 
   <script type="module" src="editar.js"></script>
