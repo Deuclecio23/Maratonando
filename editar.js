@@ -36,6 +36,9 @@ async function carregarAvaliacao() {
   document.getElementById('miri_surpresa').value = miri.surpresa || '';
   document.getElementById('miri_personagem_favorito').value = miri.personagem_favorito || '';
   document.getElementById('miri_momento_favorito').value = miri.momento_favorito || '';
+  document.getElementById('miri_frase_marcante').value = miri.frase_marcante || ''; // NOVO
+  document.getElementById('miri_ver_de_novo').value = miri.ver_de_novo || '';       // NOVO
+  document.getElementById('miri_comentario_geral').value = miri.comentario_geral || ''; // NOVO
 
   const deudeu = data.deudeu || {};
   document.getElementById('deudeu_historia').value = deudeu.historia || '';
@@ -45,6 +48,9 @@ async function carregarAvaliacao() {
   document.getElementById('deudeu_surpresa').value = deudeu.surpresa || '';
   document.getElementById('deudeu_personagem_favorito').value = deudeu.personagem_favorito || '';
   document.getElementById('deudeu_momento_favorito').value = deudeu.momento_favorito || '';
+  document.getElementById('deudeu_frase_marcante').value = deudeu.frase_marcante || ''; // NOVO
+  document.getElementById('deudeu_ver_de_novo').value = deudeu.ver_de_novo || '';       // NOVO
+  document.getElementById('deudeu_comentario_geral').value = deudeu.comentario_geral || ''; // NOVO
 }
 
 form.addEventListener('submit', async (e) => {
@@ -61,7 +67,10 @@ form.addEventListener('submit', async (e) => {
       emocao_vibe: parseFloat(document.getElementById('miri_emocao_vibe').value) || null,
       surpresa: parseFloat(document.getElementById('miri_surpresa').value) || null,
       personagem_favorito: document.getElementById('miri_personagem_favorito').value,
-      momento_favorito: document.getElementById('miri_momento_favorito').value
+      momento_favorito: document.getElementById('miri_momento_favorito').value,
+      frase_marcante: document.getElementById('miri_frase_marcante').value, // NOVO
+      ver_de_novo: document.getElementById('miri_ver_de_novo').value,       // NOVO
+      comentario_geral: document.getElementById('miri_comentario_geral').value // NOVO
     },
     deudeu: {
       historia: parseFloat(document.getElementById('deudeu_historia').value) || null,
@@ -70,7 +79,10 @@ form.addEventListener('submit', async (e) => {
       emocao_vibe: parseFloat(document.getElementById('deudeu_emocao_vibe').value) || null,
       surpresa: parseFloat(document.getElementById('deudeu_surpresa').value) || null,
       personagem_favorito: document.getElementById('deudeu_personagem_favorito').value,
-      momento_favorito: document.getElementById('deudeu_momento_favorito').value
+      momento_favorito: document.getElementById('deudeu_momento_favorito').value,
+      frase_marcante: document.getElementById('deudeu_frase_marcante').value, // NOVO
+      ver_de_novo: document.getElementById('deudeu_ver_de_novo').value,       // NOVO
+      comentario_geral: document.getElementById('deudeu_comentario_geral').value // NOVO
     }
   };
 
