@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nosso Baú de Memórias</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
@@ -18,48 +19,13 @@
   </header>
 
   <h1>Nosso Baú de Memórias</h1>
-
   <a href="melhores.html" class="btn-melhores">Ver o Pódio 🏆</a>
-
   <input type="text" id="busca" placeholder="Procurar no baú..." />
-
   <div id="categorias"></div>
   <div id="historico"></div>
 
   <template id="template-historico">
-    <div class="card">
-      <img class="imagem-obra" src="" alt="Capa" />
-      <h2 class="titulo"></h2>
-      <p class="categoria"></p>
-      
-      <div class="notas-container">
-        <div class="notas-categorias">
-          <h3>Notas (Média dos dois)</h3>
-        </div>
-        <div class="nota-final">
-          <h3>Média Final</h3>
-          <span class="nota-final-numero"></span>
-        </div>
-      </div>
-      
-      <div class="perguntas-pessoais">
-        <h3>Respostas Pessoais</h3>
-        <div class="respostas-miri"></div>
-        <div class="respostas-deudeu"></div>
-      </div>
-
-      <div class="comentarios-gerais">
-        <h3>Comentários Gerais</h3>
-        <div class="comentario-miri"></div>
-        <div class="comentario-deudeu"></div>
-      </div>
-
-      <div class="card-botoes">
-        <button class="btn-editar">Editar</button>
-        <button class="btn-excluir">Excluir</button>
-      </div>
-    </div>
-  </template>
+    </template>
 
   <script type="module" src="historico.js"></script>
 </body>
