@@ -2,68 +2,51 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Histórico de Avaliações</title>
+  <title>Nosso Baú de Memórias</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    #top-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #f8f8f8;
-      padding: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      z-index: 999;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      gap: 20px;
-    }
-
-    #btn-voltar {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    body {
-      padding-top: 60px; /* espaço para a barra fixa */
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Barra do topo com botão de voltar -->
+  
   <div id="top-bar">
-    <button id="btn-voltar" onclick="window.location.href='index.html'">⬅ Voltar para a Página Inicial</button>
+    <button id="btn-voltar" onclick="window.location.href='index.html'">⬅ Voltar p'ra casa</button>
   </div>
 
-  <h1>Histórico de Avaliações</h1>
+  <h1>Nosso Baú de Memórias</h1>
 
-  <a href="melhores.html"><button id="btn-melhores">Melhores Avaliações</button></a>
+  <a href="melhores.html" class="btn-melhores">Ver o Pódio 🏆</a>
 
-  <!-- Campo de busca -->
-  <input type="text" id="busca" placeholder="Buscar por título..." />
+  <input type="text" id="busca" placeholder="Procurar no baú..." />
 
-  <!-- Botões de categoria -->
   <div id="categorias"></div>
-
-  <!-- Container onde as avaliações serão listadas -->
   <div id="historico"></div>
 
-  <!-- Template de card de avaliação -->
   <template id="template-historico">
     <div class="card">
       <img class="imagem-obra" src="" alt="Capa" />
       <h2 class="titulo"></h2>
       <p class="categoria"></p>
-      <div class="notas-categorias"></div>
-      <div class="nota-final"></div>
-      <div class="comentarios"></div>
-      <button class="btn-editar">Editar</button>
-      <button class="btn-excluir">Excluir</button>
+      
+      <div class="notas-container">
+        <div class="notas-categorias">
+          <h3>Notas (Média dos dois)</h3>
+        </div>
+        <div class="nota-final">
+          <h3>Média Final</h3>
+          <span class="nota-final-numero"></span>
+        </div>
+      </div>
+      
+      <div class="perguntas-pessoais">
+        <h3>Respostas Pessoais</h3>
+        <div class="respostas-miri"></div>
+        <div class="respostas-deudeu"></div>
+      </div>
+
+      <div class="card-botoes">
+        <button class="btn-editar">Editar</button>
+        <button class="btn-excluir">Excluir</button>
+      </div>
     </div>
   </template>
 
