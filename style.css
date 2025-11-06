@@ -5,13 +5,13 @@ body {
   padding: 0;
   background-color: #fff8f9;
   color: #333;
-  /* Espaço no topo para o menu fixo */
   padding-top: 80px; 
   padding-bottom: 40px;
-  background-image:
-    radial-gradient(circle at 10% 20%, #fdcb6e 4px, transparent 5px),
-    radial-gradient(circle at 70% 60%, #a29bfe 4px, transparent 5px);
-  background-size: 100px 100px;
+  
+  /* === A TUA ATUALIZAÇÃO DE FUNDO === */
+  /* Removemos as bolinhas e colocámos o gradiente */
+  background: linear-gradient(135deg, #f7f7af 0%, #c1ffc1 100%);
+  background-attachment: fixed; /* Para o fundo não rolar com a página */
 }
 
 h1 {
@@ -21,7 +21,7 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* === NOVO MENU FIXO GLOBAL (Versão Bonita) === */
+/* === MENU FIXO GLOBAL (Com animações) === */
 .global-header {
   position: fixed;
   top: 0;
@@ -33,7 +33,6 @@ h1 {
   padding: 10px 20px;
   box-sizing: border-box;
 }
-
 .global-header nav {
   display: flex;
   justify-content: space-around;
@@ -41,24 +40,295 @@ h1 {
   max-width: 800px;
   margin: 0 auto;
 }
-
 .global-header nav a {
   text-decoration: none;
-  /* Cor de fundo: um rosa muito suave */
   background-color: #fde2e8;
-  /* Cor do texto: rosa forte */
   color: #d6336c;
   font-weight: bold;
-  padding: 8px 14px; /* Um pouco mais de padding */
-  border-radius: 20px; /* Bordas arredondadas! */
-  transition: all 0.2s ease;
-  font-size: 0.9em;
-  text-align: center;
-  border: 1px solid #ffc0cb; /* Borda rosa claro */
+  padding: 8px 14px; 
+  border-radius: 20px; 
+  border: 1px solid #ffc0cb; 
+  
+  /* === ANIMAÇÃO === */
+  transition: all 0.3s ease;
+}
+.global-header nav a:hover {
+  background-color: #ffc0cb; 
+  color: #d6336c;
+  /* Animação de levantar e crescer */
+  transform: translateY(-2px) scale(1.05); 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.global-header nav a.active {
+  background-color: #d6336c; 
+  color: white; 
+  border: 1px solid #d6336c;
+  box-shadow: 0 2px 5px rgba(214, 51, 108, 0.3);
+}
+/* === Fim do Menu === */
+
+/* Formulários (CENTRADO) */
+form {
+  max-width: 600px;
+  margin: 20px auto; /* "auto" é o que centra o formulário */
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #fde2e8;
+}
+fieldset {
+  border: 2px dashed #ffc0cb;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+legend {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0 10px;
+  color: #333;
+}
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #555;
+}
+label.pergunta-pessoal, label.comentario-geral {
+  margin-top: 15px;
+  color: #d6336c;
+}
+input[type="text"],
+input[type="url"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1em;
+  transition: all 0.3s ease; /* Animação suave no focus */
+}
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: #ff85a2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 133, 162, 0.5);
 }
 
-/* Efeito ao passar o rato por cima */
-.global-header nav a:hover {
-  background-color: #ffc0cb; /* Fica rosa mais forte */
+/* Nomes coloridos */
+.nome-miri {
+  color: #E67E22;
+  background-color: #FFF5E6;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.nome-deudeu {
+  color: #27AE60;
+  background-color: #E9F7EF;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Botões (Com animações) */
+button,
+.btn-voltar,
+.btn-melhores {
+  margin: 10px 5px 0 0;
+  padding: 12px 20px;
+  cursor: pointer;
+  border: none;
+  background-color: #58cc02; /* Verde bonito */
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1em;
+  text-decoration: none;
+  display: inline-block;
+
+  /* === ANIMAÇÃO === */
+  transition: all 0.3s ease;
+}
+button:hover,
+.btn-voltar:hover,
+.btn-melhores:hover {
+  background-color: #4cab02;
+  /* Animação de levantar e crescer */
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Histórico (historico.html) */
+#busca {
+  display: block;
+  width: 50%;
+  min-width: 250px;
+  margin: 20px auto; /* Centrado */
+  padding: 12px;
+  font-size: 1.1em;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+}
+#categorias, #tabs-categorias {
+  text-align: center;
+  margin: 20px 10px;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+#categorias button, #tabs-categorias button {
+  background-color: #a29bfe; 
+  /* === ANIMAÇÃO === */
+  transition: all 0.3s ease;
+}
+#categorias button:hover, #tabs-categorias button:hover {
+  background-color: #7b2cbf;
+  transform: scale(1.05); /* Animação de crescer */
+}
+
+/* Card do Histórico (CENTRADO) */
+.card {
+  background: white;
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  max-width: 700px;
+  
+  /* === PEDIDO DE CENTRALIZAÇÃO === */
+  margin: 20px auto; /* "auto" é o que centra o card */
+}
+.card .imagem-obra {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto 15px auto; /* Centra a imagem dentro do card */
+  border-radius: 8px;
+}
+.card .titulo {
+  text-align: center;
   color: #d6336c;
-  transform: translateY(-2px); /* Efeito de "levantar" */
+  margin: 0 0 5px 0;
+}
+.card .categoria {
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  margin-top: 0;
+}
+.notas-container {
+  display: flex;
+  justify-content: space-around;
+  background: #fdfcff;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+}
+.nota-final {
+  text-align: center;
+}
+.nota-final-numero {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #4cab02;
+}
+.perguntas-pessoais, .comentarios-gerais {
+  margin-top: 20px;
+  background: #fdfcff;
+  border-radius: 8px;
+  padding: 15px;
+}
+.perguntas-pessoais h3, .comentarios-gerais h3 {
+  margin-top: 0;
+}
+.perguntas-pessoais p, .comentarios-gerais p {
+  margin: 5px 0;
+}
+.perguntas-pessoais strong, .comentarios-gerais strong {
+  color: #d6336c;
+}
+.respostas-miri, .respostas-deudeu,
+.comentario-miri, .comentario-deudeu {
+  margin-top: 10px;
+}
+.comentario-miri p, .comentario-deudeu p {
+  font-style: italic;
+}
+.card-botoes {
+  text-align: right;
+  margin-top: 20px;
+}
+.btn-editar {
+  background-color: #007bff;
+}
+.btn-editar:hover {
+  background-color: #0056b3;
+}
+.btn-excluir {
+  background-color: #dc3545;
+}
+.btn-excluir:hover {
+  background-color: #a71d2a;
+}
+
+/* Card de Recomendações (CENTRADO) */
+.card-recomendacao {
+  background: white;
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  position: relative;
+  
+  /* === PEDIDO DE CENTRALIZAÇÃO === */
+  margin: 20px auto; /* "auto" é o que centra o card */
+}
+.rec-titulo {
+  color: #d6336c;
+  margin: 0 0 10px 0;
+}
+.rec-info {
+  margin: 5px 0;
+  font-style: italic;
+}
+.rec-tipo {
+  font-weight: bold;
+  color: #7b2cbf;
+  background: #f3e8ff;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.rec-quem {
+  font-weight: bold;
+}
+.rec-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+  transition: all 0.3s ease; /* Animação */
+}
+.rec-link:hover {
+  text-decoration: underline;
+  transform: translateX(3px); /* Animação de "seta" */
+}
+.rec-excluir {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #dc3545;
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 0.8em;
+}
+.rec-excluir:hover {
+  background-color: #a71d2a;
+}
