@@ -1,4 +1,4 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
 // ATENÇÃO: Confirma que estes dados são os teus!
 const supabaseUrl = 'https://osmnpaopbeedyifyenxc.supabase.co';
