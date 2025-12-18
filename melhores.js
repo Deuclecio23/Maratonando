@@ -1,8 +1,8 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/+esm';
 
-// ATENÇÃO: Confirma que estes dados são os teus!
-const supabaseUrl = 'https://osmnpaopbeedyifyenxc.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zbW5wYW9wYmVlZHlpZnllbnhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0MTQwNjYsImV4cCI6MjA3Nzk5MDA2Nn0.sM3VVIiDQx53cqJBgGjNNP9GW0lXaUi6YX_gU1onsmI';
+// ATENÇÃO: Confirma se estes dados são os teus!
+const supabaseUrl = 'https://ojxgshhyzvczdxcpenxj.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qeGdzaGh5enZjemR4Y3BlbnhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyNDEyODEsImV4cCI6MjA2NzgxNzI4MX0.QoGWkfmu3TbgfbrT_gDOKNy6n8YxARFhy4NxrbsYtXY';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const nomesBonitos = {
@@ -33,7 +33,6 @@ function calcularMediaFinal(av) {
 
   let somaMediaFinal = 0;
   let totalCategoriasFinal = 0;
-
   for (const cat in medias) {
     if (medias[cat].count > 0) {
       const media = medias[cat].soma / medias[cat].count;
@@ -41,16 +40,12 @@ function calcularMediaFinal(av) {
       totalCategoriasFinal++;
     }
   }
-
   return totalCategoriasFinal > 0 ? (somaMediaFinal / totalCategoriasFinal) : 0;
 }
 
 async function carregarTopAvaliacoes() {
   const { data, error } = await supabase.from('avaliacoes').select('*');
-  if (error) {
-    alert('Erro ao carregar avaliações para o pódio!');
-    return [];
-  }
+  if (error) { console.error(error); return []; }
 
   return data.map(av => ({
     ...av,
@@ -72,17 +67,36 @@ function renderizarPodio(avaliacoes, categoria) {
     return;
   }
 
+  // Top 10
   filtradas.slice(0, 10).forEach((av, index) => {
     const card = document.createElement('div');
-    card.className = 'card';
+    
+    // Lógica das Classes e Medalhas
+    let rankClass = 'rank-outros';
+    let medalhaTexto = '#' + (index + 1);
+    
+    if (index === 0) {
+      rankClass = 'rank-1';
+      medalhaTexto = '🥇 TOP 1';
+    } else if (index === 1) {
+      rankClass = 'rank-2';
+      medalhaTexto = '🥈 TOP 2';
+    } else if (index === 2) {
+      rankClass = 'rank-3';
+      medalhaTexto = '🥉 TOP 3';
+    }
+
+    // Aplica a classe ao card
+    card.className = `card ${rankClass}`;
+    
     card.innerHTML = `
-      <div class="top-header" style="display: flex; justify-content: space-between; font-weight: bold;">
-        <span class="top-pos" style="color: #d6336c; font-size: 1.5em;">#${index + 1}</span>
-        <span class="top-nota" style="color: #4cab02; font-size: 1.5em;">${av.notaFinal.toFixed(1)}</span>
+      <div class="top-header" style="display: flex; justify-content: space-between; align-items: center; font-weight: bold;">
+        <span class="top-pos">${medalhaTexto}</span>
+        <span class="top-nota" style="color: #4cab02; font-size: 1.2em;">${av.notaFinal.toFixed(1)}</span>
       </div>
+      <img class="imagem-obra" src="${av.imagem_url}" alt="Capa de ${av.titulo}" />
       <h2 class="titulo">${av.titulo}</h2>
       <p class="categoria">${av.categoria}</p>
-      <img class="imagem-obra" src="${av.imagem_url}" alt="Capa de ${av.titulo}" />
     `;
     conteudo.appendChild(card);
   });
@@ -90,7 +104,6 @@ function renderizarPodio(avaliacoes, categoria) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   const todasAvaliacoes = await carregarTopAvaliacoes();
-  
   renderizarPodio(todasAvaliacoes, 'Geral');
 
   document.querySelectorAll('#tabs-categorias .tab').forEach(tab => {
