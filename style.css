@@ -321,6 +321,48 @@ button:hover,
   background-color: #a71d2a;
 }
 
+/* === ESTILOS DO PÓDIO (Rankings) === */
+
+/* TOP 1 - Ouro */
+.card.rank-1 {
+  border: 4px solid #FFD700; /* Ouro */
+  background: linear-gradient(to bottom, #fff, #fffdf0);
+  transform: scale(1.05); /* Um pouco maior */
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+  max-width: 650px;
+}
+.card.rank-1 .top-pos { color: #FFD700; text-shadow: 1px 1px 0 #b8860b; font-size: 2.5em !important; }
+.card.rank-1 .titulo { font-size: 2em; color: #DAA520; }
+
+/* TOP 2 - Prata */
+.card.rank-2 {
+  border: 4px solid #C0C0C0; /* Prata */
+  background: linear-gradient(to bottom, #fff, #f4f4f4);
+  max-width: 600px;
+  box-shadow: 0 8px 20px rgba(192, 192, 192, 0.4);
+}
+.card.rank-2 .top-pos { color: #A9A9A9; font-size: 2em !important; }
+
+/* TOP 3 - Bronze */
+.card.rank-3 {
+  border: 4px solid #CD7F32; /* Bronze */
+  background: linear-gradient(to bottom, #fff, #fff5ee);
+  max-width: 580px;
+  box-shadow: 0 8px 20px rgba(205, 127, 50, 0.3);
+}
+.card.rank-3 .top-pos { color: #CD7F32; font-size: 1.8em !important; }
+
+/* Rank 4 ao 10 - Reduzindo */
+.card.rank-outros {
+  border: 1px solid #eee;
+  max-width: 500px; /* Mais estreito */
+  padding: 15px; /* Menos padding */
+  opacity: 0.95;
+}
+.card.rank-outros .imagem-obra { max-width: 100px; } /* Imagem menor */
+.card.rank-outros .titulo { font-size: 1.3em; } /* Título menor */
+.card.rank-outros .top-header { margin-bottom: 5px; }
+
 
 /* === AJUSTES PARA TELEMÓVEL (Responsivo) === */
 /* Este código só é aplicado se a tela for menor que 768px */
@@ -409,4 +451,7 @@ button:hover,
     width: 100%;
     margin-top: 10px;
   }
+
+  /* Ajuste do pódio no telemóvel para não sair da tela */
+  .card.rank-1 { transform: scale(1); width: 95%; }
 }
