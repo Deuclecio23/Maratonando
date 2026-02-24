@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (selectExistente) {
         const titulosUnicos = new Set();
         data.forEach(obra => {
-          if (!titulosUnicos.has(obra.titulo)) {
+          if (!titulosUnicos.has(obra.titulo) && obra.categoria && !obra.categoria.toLowerCase().includes('filme')) {
             titulosUnicos.add(obra.titulo);
             const option = document.createElement('option');
             option.value = obra.titulo;
