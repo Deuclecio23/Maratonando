@@ -4,22 +4,47 @@ const supabaseUrl = 'https://osmnpaopbeedyifyenxc.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zbW5wYW9wYmVlZHlpZnllbnhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0MTQwNjYsImV4cCI6MjA3Nzk5MDA2Nn0.sM3VVIiDQx53cqJBgGjNNP9GW0lXaUi6YX_gU1onsmI';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Função auxiliar para calcular média entre nota antiga e nova
-function calcularMedia(antigo, novo) {
-  if (!novo.historia && !novo.personagens) return antigo; // Se a pessoa não avaliou agora, mantém o antigo
-  if (!antigo || !antigo.historia) return novo; // Se não havia avaliação antiga, usa a nova
-
-  const camposParaMedia = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa'];
-  const resultado = { ...novo };
-
-  camposParaMedia.forEach(campo => {
-    if (antigo[campo] !== null && novo[campo] !== null) {
-      resultado[campo] = parseFloat(((antigo[campo] + novo[campo]) / 2).toFixed(1));
-    }
-  });
+// Função para adicionar temporada e recalcular a média global
+function adicionarTemporada(antigo, novo, temporada) {
+  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa'];
+  // Se "antigo" existir, fazemos uma cópia, se não criamos um vazio
+  const resultado = antigo ? { ...antigo } : {};
   
-  // No comentário, juntamos as informações
-  resultado.comentario_geral = `(Anterior): ${antigo.comentario_geral || ''} | (Nova Temp): ${novo.comentario_geral || ''}`;
+  // Garantir que existe o objeto 'temporadas'
+  if (!resultado.temporadas) {
+    resultado.temporadas = {};
+    // Migrar dados antigos se eles existirem sem 'temporadas'
+    const temDadosAntigos = camposNumericos.some(c => resultado[c] !== undefined && resultado[c] !== null);
+    if (temDadosAntigos) {
+      const copiaAntiga = {};
+      Object.keys(resultado).forEach(k => {
+        if (k !== 'temporadas') copiaAntiga[k] = resultado[k];
+      });
+      // Assumimos que a avaliação existente era a "1" para não perder histórico
+      resultado.temporadas["1"] = copiaAntiga;
+    }
+  }
+
+  // Qual a chave a usar? (O número da temporada ou "Geral")
+  const chaveTemporada = temporada ? temporada.toString() : "Geral";
+  resultado.temporadas[chaveTemporada] = { ...novo };
+
+  // Recalcular as médias para o objeto principal
+  const todasAsTemps = Object.values(resultado.temporadas);
+  
+  camposNumericos.forEach(campo => {
+    let soma = 0;
+    let count = 0;
+    todasAsTemps.forEach(temp => {
+      if (temp[campo] !== null && temp[campo] !== undefined) {
+        soma += parseFloat(temp[campo]);
+        count++;
+      }
+    });
+    // Se tiver mais de uma, tira a média. Se não, é a nota.
+    resultado[campo] = count > 0 ? parseFloat((soma / count).toFixed(1)) : null;
+  });
+
   return resultado;
 }
 
@@ -30,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
 
     const titulo = document.getElementById('titulo').value;
-    const isTemporada = document.getElementById('temporada').value !== "";
+    const temporadaValue = document.getElementById('temporada').value;
 
     const miriNotas = {
       historia: +document.getElementById('miri_historia').value || null,
@@ -63,15 +88,15 @@ document.addEventListener('DOMContentLoaded', () => {
       .from('avaliacoes')
       .select('*')
       .eq('titulo', titulo)
-      .single();
+      .maybeSingle(); // Trocar single para maybeSingle para não dar erro se não existir
 
-    if (existente && isTemporada) {
-      // 2. Se existe e é temporada, calculamos a média
+    if (existente) {
+      // 2. Se existe, atualizamos adicionando a temporada ao grupo
       const updateData = {
         categoria: document.getElementById('categoria').value,
         imagem_url: document.getElementById('imagem_url').value,
-        miri: calcularMedia(existente.miri, miriNotas),
-        deudeu: calcularMedia(existente.deudeu, deudeuNotas)
+        miri: adicionarTemporada(existente.miri, miriNotas, temporadaValue),
+        deudeu: adicionarTemporada(existente.deudeu, deudeuNotas, temporadaValue)
       };
 
       const { error } = await supabase
@@ -79,21 +104,21 @@ document.addEventListener('DOMContentLoaded', () => {
         .update(updateData)
         .eq('id', existente.id);
 
-      if (error) alert('Erro ao atualizar temporada: ' + error.message);
-      else alert('Média da temporada atualizada com sucesso!');
+      if (error) alert('Erro ao atualizar: ' + error.message);
+      else alert('Avaliação da temporada adicionada à obra com sucesso!');
     } else {
-      // 3. Se não existe ou é obra completa, insere normal
+      // 3. Se não existe, insere a primeira avaliação já formatada com temporada (se for o caso) ou "Geral"
       const novaAvaliacao = {
         titulo,
         categoria: document.getElementById('categoria').value,
         imagem_url: document.getElementById('imagem_url').value,
-        miri: miriNotas,
-        deudeu: deudeuNotas
+        miri: adicionarTemporada(null, miriNotas, temporadaValue),
+        deudeu: adicionarTemporada(null, deudeuNotas, temporadaValue)
       };
 
       const { error } = await supabase.from('avaliacoes').insert([novaAvaliacao]);
       if (error) alert('Erro ao salvar: ' + error.message);
-      else alert('Guardado com sucesso!');
+      else alert('Obra guardada com sucesso!');
     }
 
     form.reset();

@@ -8,6 +8,8 @@ const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 const form = document.getElementById('editar-form');
 
+let avaliacaoOriginal = null;
+
 async function carregarAvaliacao() {
   if (!id) {
     alert('Ups, não encontrei o ID. Tenta de novo desde o histórico.');
@@ -22,66 +24,147 @@ async function carregarAvaliacao() {
     return;
   }
 
+  avaliacaoOriginal = data;
+
   document.getElementById('titulo').value = data.titulo;
   document.getElementById('categoria').value = data.categoria;
   document.getElementById('imagem_url').value = data.imagem_url;
 
-  const miri = data.miri || {};
-  document.getElementById('miri_historia').value = miri.historia || '';
-  document.getElementById('miri_personagens').value = miri.personagens || '';
-  document.getElementById('miri_visual_estilo').value = miri.visual_estilo || '';
-  document.getElementById('miri_emocao_vibe').value = miri.emocao_vibe || '';
-  document.getElementById('miri_surpresa').value = miri.surpresa || '';
-  document.getElementById('miri_personagem_favorito').value = miri.personagem_favorito || '';
-  document.getElementById('miri_momento_favorito').value = miri.momento_favorito || '';
-  document.getElementById('miri_frase_marcante').value = miri.frase_marcante || ''; 
-  document.getElementById('miri_ver_de_novo').value = miri.ver_de_novo || '';       
-  document.getElementById('miri_comentario_geral').value = miri.comentario_geral || ''; 
+  const seletorContainer = document.getElementById('seletor-temporada-container');
+  const seletor = document.getElementById('seletor_temporada');
+  seletor.innerHTML = '';
 
+  let temTemporadas = false;
+  let chavesTemporadas = [];
+
+  if (data.miri && data.miri.temporadas) {
+    chavesTemporadas = Object.keys(data.miri.temporadas);
+    temTemporadas = true;
+  } else if (data.deudeu && data.deudeu.temporadas) {
+    // Caso Miri não tenha avaliado mas Deudeu sim (cenário improvável mas seguro)
+    chavesTemporadas = Object.keys(data.deudeu.temporadas);
+    temTemporadas = true;
+  }
+
+  if (temTemporadas) {
+    seletorContainer.style.display = 'block';
+    chavesTemporadas.sort().forEach(chave => {
+      const opt = document.createElement('option');
+      opt.value = chave;
+      opt.textContent = chave === 'Geral' ? 'Nota Geral / Obra Completa' : `Temporada ${chave}`;
+      seletor.appendChild(opt);
+    });
+
+    // Mostra a primeira por padrão
+    preencherFormularioComTemporada(chavesTemporadas[0]);
+
+    seletor.addEventListener('change', (e) => {
+      preencherFormularioComTemporada(e.target.value);
+    });
+  } else {
+    // Avaliação antiga, sem estrutura de temporadas
+    seletorContainer.style.display = 'none';
+    preencherFormularioAntigo(data);
+  }
+}
+
+function preencherFormularioComTemporada(chave) {
+  const miri = (avaliacaoOriginal.miri && avaliacaoOriginal.miri.temporadas && avaliacaoOriginal.miri.temporadas[chave]) || {};
+  const deudeu = (avaliacaoOriginal.deudeu && avaliacaoOriginal.deudeu.temporadas && avaliacaoOriginal.deudeu.temporadas[chave]) || {};
+
+  preencherCamposUsuario('miri', miri);
+  preencherCamposUsuario('deudeu', deudeu);
+}
+
+function preencherFormularioAntigo(data) {
+  const miri = data.miri || {};
   const deudeu = data.deudeu || {};
-  document.getElementById('deudeu_historia').value = deudeu.historia || '';
-  document.getElementById('deudeu_personagens').value = deudeu.personagens || '';
-  document.getElementById('deudeu_visual_estilo').value = deudeu.visual_estilo || '';
-  document.getElementById('deudeu_emocao_vibe').value = deudeu.emocao_vibe || '';
-  document.getElementById('deudeu_surpresa').value = deudeu.surpresa || '';
-  document.getElementById('deudeu_personagem_favorito').value = deudeu.personagem_favorito || '';
-  document.getElementById('deudeu_momento_favorito').value = deudeu.momento_favorito || '';
-  document.getElementById('deudeu_frase_marcante').value = deudeu.frase_marcante || ''; 
-  document.getElementById('deudeu_ver_de_novo').value = deudeu.ver_de_novo || '';       
-  document.getElementById('deudeu_comentario_geral').value = deudeu.comentario_geral || ''; 
+
+  preencherCamposUsuario('miri', miri);
+  preencherCamposUsuario('deudeu', deudeu);
+}
+
+function preencherCamposUsuario(prefixo, dados) {
+  document.getElementById(`${prefixo}_historia`).value = dados.historia || '';
+  document.getElementById(`${prefixo}_personagens`).value = dados.personagens || '';
+  document.getElementById(`${prefixo}_visual_estilo`).value = dados.visual_estilo || '';
+  document.getElementById(`${prefixo}_emocao_vibe`).value = dados.emocao_vibe || '';
+  document.getElementById(`${prefixo}_surpresa`).value = dados.surpresa || '';
+  document.getElementById(`${prefixo}_personagem_favorito`).value = dados.personagem_favorito || '';
+  document.getElementById(`${prefixo}_momento_favorito`).value = dados.momento_favorito || '';
+  document.getElementById(`${prefixo}_frase_marcante`).value = dados.frase_marcante || '';
+  document.getElementById(`${prefixo}_ver_de_novo`).value = dados.ver_de_novo || '';
+  document.getElementById(`${prefixo}_comentario_geral`).value = dados.comentario_geral || '';
+}
+
+function extrairCamposUsuario(prefixo) {
+  return {
+    historia: parseFloat(document.getElementById(`${prefixo}_historia`).value) || null,
+    personagens: parseFloat(document.getElementById(`${prefixo}_personagens`).value) || null,
+    visual_estilo: parseFloat(document.getElementById(`${prefixo}_visual_estilo`).value) || null,
+    emocao_vibe: parseFloat(document.getElementById(`${prefixo}_emocao_vibe`).value) || null,
+    surpresa: parseFloat(document.getElementById(`${prefixo}_surpresa`).value) || null,
+    personagem_favorito: document.getElementById(`${prefixo}_personagem_favorito`).value,
+    momento_favorito: document.getElementById(`${prefixo}_momento_favorito`).value,
+    frase_marcante: document.getElementById(`${prefixo}_frase_marcante`).value,
+    ver_de_novo: document.getElementById(`${prefixo}_ver_de_novo`).value,
+    comentario_geral: document.getElementById(`${prefixo}_comentario_geral`).value
+  };
+}
+
+// Mesma lógica do index.js para não perder a informação original da pessoa e recalcular a média geral com as edições
+function recalcularESalvarTemporada(antigaOriginal, novaEditada, chaveEditada) {
+  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa'];
+  const resultado = antigaOriginal ? JSON.parse(JSON.stringify(antigaOriginal)) : {};
+
+  if (!resultado.temporadas) {
+    resultado.temporadas = {};
+    const temDadosAntigos = camposNumericos.some(c => resultado[c] !== undefined && resultado[c] !== null);
+    if (temDadosAntigos) {
+      const copiaAntiga = {};
+      Object.keys(resultado).forEach(k => {
+        if (k !== 'temporadas') copiaAntiga[k] = resultado[k];
+      });
+      // migração no momento do salvamento (segurança)
+      resultado.temporadas["1"] = copiaAntiga;
+    }
+  }
+
+  resultado.temporadas[chaveEditada] = { ...novaEditada };
+
+  const todasAsTemps = Object.values(resultado.temporadas);
+  camposNumericos.forEach(campo => {
+    let soma = 0;
+    let count = 0;
+    todasAsTemps.forEach(temp => {
+      if (temp[campo] !== null && temp[campo] !== undefined) {
+        soma += parseFloat(temp[campo]);
+        count++;
+      }
+    });
+    resultado[campo] = count > 0 ? parseFloat((soma / count).toFixed(1)) : null;
+  });
+
+  return resultado;
 }
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  const seletorContainer = document.getElementById('seletor-temporada-container');
+  const seletor = document.getElementById('seletor_temporada');
+  // Se está a editar um ficheiro sem temporadas convertidas, usa "Geral" para forçar a nova estrutura, ou "1".
+  const chaveEditada = (seletorContainer.style.display === 'none') ? 'Geral' : seletor.value;
+
+  const novaMiri = extrairCamposUsuario('miri');
+  const novaDeudeu = extrairCamposUsuario('deudeu');
+
   const atualizada = {
     titulo: document.getElementById('titulo').value,
     categoria: document.getElementById('categoria').value,
     imagem_url: document.getElementById('imagem_url').value,
-    miri: {
-      historia: parseFloat(document.getElementById('miri_historia').value) || null,
-      personagens: parseFloat(document.getElementById('miri_personagens').value) || null,
-      visual_estilo: parseFloat(document.getElementById('miri_visual_estilo').value) || null,
-      emocao_vibe: parseFloat(document.getElementById('miri_emocao_vibe').value) || null,
-      surpresa: parseFloat(document.getElementById('miri_surpresa').value) || null,
-      personagem_favorito: document.getElementById('miri_personagem_favorito').value,
-      momento_favorito: document.getElementById('miri_momento_favorito').value,
-      frase_marcante: document.getElementById('miri_frase_marcante').value, 
-      ver_de_novo: document.getElementById('miri_ver_de_novo').value,       
-      comentario_geral: document.getElementById('miri_comentario_geral').value 
-    },
-    deudeu: {
-      historia: parseFloat(document.getElementById('deudeu_historia').value) || null,
-      personagens: parseFloat(document.getElementById('deudeu_personagens').value) || null,
-      visual_estilo: parseFloat(document.getElementById('deudeu_visual_estilo').value) || null,
-      emocao_vibe: parseFloat(document.getElementById('deudeu_emocao_vibe').value) || null,
-      surpresa: parseFloat(document.getElementById('deudeu_surpresa').value) || null,
-      personagem_favorito: document.getElementById('deudeu_personagem_favorito').value,
-      momento_favorito: document.getElementById('deudeu_momento_favorito').value,
-      frase_marcante: document.getElementById('deudeu_frase_marcante').value, 
-      ver_de_novo: document.getElementById('deudeu_ver_de_novo').value,       
-      comentario_geral: document.getElementById('deudeu_comentario_geral').value 
-    }
+    miri: recalcularESalvarTemporada(avaliacaoOriginal.miri, novaMiri, chaveEditada),
+    deudeu: recalcularESalvarTemporada(avaliacaoOriginal.deudeu, novaDeudeu, chaveEditada)
   };
 
   const { error } = await supabase.from('avaliacoes').update(atualizada).eq('id', id);

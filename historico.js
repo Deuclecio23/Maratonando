@@ -23,12 +23,12 @@ const categoriasDeNotas = Object.keys(nomesBonitos);
 async function carregarAvaliacoes() {
   historico.innerHTML = '<p>A carregar o baú...</p>';
   const { data, error } = await supabase.from('avaliacoes').select('*').order('inserted_at', { ascending: false });
-  
+
   if (error) {
     alert('Erro ao carregar o baú!');
     return;
   }
-  
+
   todasAvaliacoes = data || [];
   renderizarAvaliacoes(todasAvaliacoes);
 }
@@ -52,7 +52,7 @@ function renderizarAvaliacoes(lista) {
     const respostasDeudeu = clone.querySelector('.respostas-deudeu');
     const comentarioMiri = clone.querySelector('.comentario-miri');
     const comentarioDeudeu = clone.querySelector('.comentario-deudeu');
-    
+
     nc.innerHTML = '<h3>Notas (Média dos dois)</h3>';
     respostasMiri.innerHTML = '<span class="nome-miri">Miri:</span>';
     respostasDeudeu.innerHTML = '<span class="nome-deudeu">Deudeu:</span>';
@@ -61,7 +61,7 @@ function renderizarAvaliacoes(lista) {
 
     const medias = {};
     const pessoas = ['miri', 'deudeu'];
-    
+
     pessoas.forEach(pessoa => {
       const dados = av[pessoa];
       if (dados) {
@@ -74,24 +74,66 @@ function renderizarAvaliacoes(lista) {
         });
 
         const containerRespostas = (pessoa === 'miri') ? respostasMiri : respostasDeudeu;
-        if (dados.personagem_favorito) {
-          containerRespostas.appendChild(criarParagrafo("Personagem:", dados.personagem_favorito));
-        }
-        if (dados.momento_favorito) {
-          containerRespostas.appendChild(criarParagrafo("Momento:", dados.momento_favorito));
-        }
-        if (dados.frase_marcante) {
-          containerRespostas.appendChild(criarParagrafo("Frase:", dados.frase_marcante));
-        }
-        if (dados.ver_de_novo) {
-          containerRespostas.appendChild(criarParagrafo("Víamos de novo?", dados.ver_de_novo));
-        }
-        
         const containerComentarios = (pessoa === 'miri') ? comentarioMiri : comentarioDeudeu;
-        if (dados.comentario_geral) {
-          const p = document.createElement('p');
-          p.textContent = dados.comentario_geral;
-          containerComentarios.appendChild(p);
+
+        // Função para apresentar as respostas em tela
+        const renderizarRespostas = (origemDados, tituloExtra) => {
+          let temConteudo = false;
+          const detalhesDiv = document.createElement('div');
+
+          if (tituloExtra) {
+            const h4 = document.createElement('h4');
+            h4.textContent = tituloExtra;
+            h4.style.marginTop = '10px';
+            h4.style.fontSize = '0.85em';
+            h4.style.color = '#777';
+            h4.style.textTransform = 'uppercase';
+            detalhesDiv.appendChild(h4);
+          }
+
+          if (origemDados.personagem_favorito) {
+            detalhesDiv.appendChild(criarParagrafo("Personagem:", origemDados.personagem_favorito));
+            temConteudo = true;
+          }
+          if (origemDados.momento_favorito) {
+            detalhesDiv.appendChild(criarParagrafo("Momento:", origemDados.momento_favorito));
+            temConteudo = true;
+          }
+          if (origemDados.frase_marcante) {
+            detalhesDiv.appendChild(criarParagrafo("Frase:", origemDados.frase_marcante));
+            temConteudo = true;
+          }
+          if (origemDados.ver_de_novo) {
+            detalhesDiv.appendChild(criarParagrafo("Víamos de novo?", origemDados.ver_de_novo));
+            temConteudo = true;
+          }
+
+          if (temConteudo) {
+            containerRespostas.appendChild(detalhesDiv);
+          }
+
+          if (origemDados.comentario_geral) {
+            const p = document.createElement('p');
+            if (tituloExtra) {
+              p.innerHTML = `<strong style="font-size: 0.85em; color: #777; text-transform: uppercase;">${tituloExtra}</strong><br/>${origemDados.comentario_geral}`;
+              p.style.marginBottom = '10px';
+            } else {
+              p.textContent = origemDados.comentario_geral;
+            }
+            containerComentarios.appendChild(p);
+          }
+        };
+
+        if (dados.temporadas) {
+          // Se tiver temporadas guardadas
+          const tempsOrd = Object.keys(dados.temporadas).sort();
+          tempsOrd.forEach(t => {
+            const rotulo = (t === "Geral" || t === "1") && tempsOrd.length === 1 ? null : (t === "Geral" ? "Geral" : `Temporada ${t}`);
+            renderizarRespostas(dados.temporadas[t], rotulo);
+          });
+        } else {
+          // Código legado
+          renderizarRespostas(dados, null);
         }
       }
     });
@@ -104,7 +146,7 @@ function renderizarAvaliacoes(lista) {
         const media = medias[cat].soma / medias[cat].count;
         somaMediaFinal += media;
         totalCategoriasFinal++;
-        
+
         const p = document.createElement('p');
         p.textContent = `${nomesBonitos[cat]}: ${media.toFixed(1)}`;
         nc.appendChild(p);
@@ -147,14 +189,14 @@ function criarBotoesCategoria() {
   const categoriasUnicas = [...new Set(todasAvaliacoes.map(av => av.categoria))];
   const categoriasContainer = document.getElementById('categorias');
   categoriasContainer.innerHTML = '';
-  
+
   const btnTodos = document.createElement('button');
   btnTodos.textContent = 'Ver Tudo';
   btnTodos.onclick = () => renderizarAvaliacoes(todasAvaliacoes);
   categoriasContainer.appendChild(btnTodos);
 
   categoriasUnicas.forEach(cat => {
-    if(cat) {
+    if (cat) {
       const btn = document.createElement('button');
       btn.textContent = cat;
       btn.classList.add('categoria-btn');
