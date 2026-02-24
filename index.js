@@ -9,7 +9,7 @@ function adicionarTemporada(antigo, novo, temporada) {
   const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa'];
   // Se "antigo" existir, fazemos uma cópia, se não criamos um vazio
   const resultado = antigo ? { ...antigo } : {};
-  
+
   // Garantir que existe o objeto 'temporadas'
   if (!resultado.temporadas) {
     resultado.temporadas = {};
@@ -31,7 +31,7 @@ function adicionarTemporada(antigo, novo, temporada) {
 
   // Recalcular as médias para o objeto principal
   const todasAsTemps = Object.values(resultado.temporadas);
-  
+
   camposNumericos.forEach(campo => {
     let soma = 0;
     let count = 0;
@@ -48,8 +48,45 @@ function adicionarTemporada(antigo, novo, temporada) {
   return resultado;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const form = document.getElementById('avaliacao-form');
+  const tituloInput = document.getElementById('titulo');
+  const categoriaSelect = document.getElementById('categoria');
+  const imagemUrlInput = document.getElementById('imagem_url');
+
+  let obrasExistentes = [];
+
+  // Buscar obras existentes para sugestão
+  try {
+    const { data, error } = await supabase.from('avaliacoes').select('titulo, categoria, imagem_url');
+    if (!error && data) {
+      obrasExistentes = data;
+      const datalist = document.getElementById('sugestoes-obras');
+      if (datalist) {
+        const titulosUnicos = new Set();
+        data.forEach(obra => {
+          if (!titulosUnicos.has(obra.titulo)) {
+            titulosUnicos.add(obra.titulo);
+            const option = document.createElement('option');
+            option.value = obra.titulo;
+            datalist.appendChild(option);
+          }
+        });
+      }
+    }
+  } catch (err) {
+    console.error('Erro ao buscar obras para sugestão:', err);
+  }
+
+  // Auto-preencher categoria e imagem ao selecionar uma obra existente
+  tituloInput.addEventListener('input', (e) => {
+    const tituloDigitado = e.target.value;
+    const obraEncontrada = obrasExistentes.find(o => o.titulo === tituloDigitado);
+    if (obraEncontrada) {
+      if (obraEncontrada.categoria) categoriaSelect.value = obraEncontrada.categoria;
+      if (obraEncontrada.imagem_url) imagemUrlInput.value = obraEncontrada.imagem_url;
+    }
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();

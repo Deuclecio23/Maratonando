@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Miri & Deudeu - Nova Avaliação</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
   <header class="global-header">
@@ -22,8 +24,9 @@
 
   <form id="avaliacao-form">
     <label>Nome da Coisa (Filme, Série...):
-      <input type="text" id="titulo" required />
-    </label><br/>
+      <input type="text" id="titulo" list="sugestoes-obras" autocomplete="off" required />
+      <datalist id="sugestoes-obras"></datalist>
+    </label><br />
 
     <label>Tipo:
       <select id="categoria" required>
@@ -37,24 +40,24 @@
         <option value="Filme de Anime">Filme de Anime</option>
         <option value="Filme Coreano">Filme Coreano</option>
       </select>
-    </label><br/>
+    </label><br />
 
     <label>Link da Capa/Poster:
       <input type="url" id="imagem_url" required />
-    </label><br/>
+    </label><br />
 
     <label>Temporada (Opcional - deixe vazio para Obra Completa):
       <input type="number" id="temporada" min="1" placeholder="Ex: 1" />
-    </label><br/>
+    </label><br />
 
     <fieldset>
       <legend><span class="nome-miri">Notas da Miri</span></legend>
-      <label>História: <input type="number" id="miri_historia" min="0" max="10" /></label><br/>
-      <label>Personagens: <input type="number" id="miri_personagens" min="0" max="10" /></label><br/>
-      <label>Visual e Estilo: <input type="number" id="miri_visual_estilo" min="0" max="10" /></label><br/>
-      <label>Emoção / Vibe: <input type="number" id="miri_emocao_vibe" min="0" max="10" /></label><br/>
-      <label>Nível de Surpresa: <input type="number" id="miri_surpresa" min="0" max="10" /></label><br/>
-      
+      <label>História: <input type="number" id="miri_historia" min="0" max="10" /></label><br />
+      <label>Personagens: <input type="number" id="miri_personagens" min="0" max="10" /></label><br />
+      <label>Visual e Estilo: <input type="number" id="miri_visual_estilo" min="0" max="10" /></label><br />
+      <label>Emoção / Vibe: <input type="number" id="miri_emocao_vibe" min="0" max="10" /></label><br />
+      <label>Nível de Surpresa: <input type="number" id="miri_surpresa" min="0" max="10" /></label><br />
+
       <label class="pergunta-pessoal">Personagem que mais gostou?
         <input type="text" id="miri_personagem_favorito" />
       </label>
@@ -74,12 +77,12 @@
 
     <fieldset>
       <legend><span class="nome-deudeu">Notas do Deudeu</span></legend>
-      <label>História: <input type="number" id="deudeu_historia" min="0" max="10" /></label><br/>
-      <label>Personagens: <input type="number" id="deudeu_personagens" min="0" max="10" /></label><br/>
-      <label>Visual e Estilo: <input type="number" id="deudeu_visual_estilo" min="0" max="10" /></label><br/>
-      <label>Emoção / Vibe: <input type="number" id="deudeu_emocao_vibe" min="0" max="10" /></label><br/>
-      <label>Nível de Surpresa: <input type="number" id="deudeu_surpresa" min="0" max="10" /></label><br/>
-      
+      <label>História: <input type="number" id="deudeu_historia" min="0" max="10" /></label><br />
+      <label>Personagens: <input type="number" id="deudeu_personagens" min="0" max="10" /></label><br />
+      <label>Visual e Estilo: <input type="number" id="deudeu_visual_estilo" min="0" max="10" /></label><br />
+      <label>Emoção / Vibe: <input type="number" id="deudeu_emocao_vibe" min="0" max="10" /></label><br />
+      <label>Nível de Surpresa: <input type="number" id="deudeu_surpresa" min="0" max="10" /></label><br />
+
       <label class="pergunta-pessoal">Personagem que mais gostou?
         <input type="text" id="deudeu_personagem_favorito" />
       </label>
@@ -102,4 +105,5 @@
 
   <script type="module" src="index.js"></script>
 </body>
+
 </html>
