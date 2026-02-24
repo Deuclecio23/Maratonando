@@ -23,9 +23,14 @@
   <h1>Bora avaliar uma coisinha nova!</h1>
 
   <form id="avaliacao-form">
+    <label>Já avaliou algo desta obra? (Selecione se for nova temporada)
+      <select id="obra_existente">
+        <option value="">Não, é uma obra nova!</option>
+      </select>
+    </label><br />
+
     <label>Nome da Coisa (Filme, Série...):
-      <input type="text" id="titulo" list="sugestoes-obras" autocomplete="off" required />
-      <datalist id="sugestoes-obras"></datalist>
+      <input type="text" id="titulo" required />
     </label><br />
 
     <label>Tipo:

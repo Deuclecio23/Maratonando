@@ -61,15 +61,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const { data, error } = await supabase.from('avaliacoes').select('titulo, categoria, imagem_url');
     if (!error && data) {
       obrasExistentes = data;
-      const datalist = document.getElementById('sugestoes-obras');
-      if (datalist) {
+      const selectExistente = document.getElementById('obra_existente');
+      if (selectExistente) {
         const titulosUnicos = new Set();
         data.forEach(obra => {
           if (!titulosUnicos.has(obra.titulo)) {
             titulosUnicos.add(obra.titulo);
             const option = document.createElement('option');
             option.value = obra.titulo;
-            datalist.appendChild(option);
+            option.textContent = obra.titulo;
+            selectExistente.appendChild(option);
           }
         });
       }
@@ -79,14 +80,27 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Auto-preencher categoria e imagem ao selecionar uma obra existente
-  tituloInput.addEventListener('input', (e) => {
-    const tituloDigitado = e.target.value;
-    const obraEncontrada = obrasExistentes.find(o => o.titulo === tituloDigitado);
-    if (obraEncontrada) {
-      if (obraEncontrada.categoria) categoriaSelect.value = obraEncontrada.categoria;
-      if (obraEncontrada.imagem_url) imagemUrlInput.value = obraEncontrada.imagem_url;
-    }
-  });
+  const selectExistente = document.getElementById('obra_existente');
+  if (selectExistente) {
+    selectExistente.addEventListener('change', (e) => {
+      const tituloSelecionado = e.target.value;
+      if (tituloSelecionado) {
+        const obraEncontrada = obrasExistentes.find(o => o.titulo === tituloSelecionado);
+        if (obraEncontrada) {
+          tituloInput.value = obraEncontrada.titulo;
+          tituloInput.readOnly = true; // Impede que o usuário mude o nome e crie uma obra duplicada
+          if (obraEncontrada.categoria) categoriaSelect.value = obraEncontrada.categoria;
+          if (obraEncontrada.imagem_url) imagemUrlInput.value = obraEncontrada.imagem_url;
+        }
+      } else {
+        // Obra nova
+        tituloInput.value = '';
+        tituloInput.readOnly = false;
+        categoriaSelect.value = '';
+        imagemUrlInput.value = '';
+      }
+    });
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
