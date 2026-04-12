@@ -1,457 +1,931 @@
-/* Reset Básico e Fonte Nova */
+/* ============================================
+   MARATONANDO — MIRI & DEUDEU 💕
+   Design System: Romântico • Pessoal • Íntimo
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@400;600;700&display=swap');
+
+/* === VARIÁVEIS GLOBAIS === */
+:root {
+  /* Rosa romântico */
+  --pink-100: #fff0f3;
+  --pink-200: #ffd6e0;
+  --pink-300: #ffafc5;
+  --pink-400: #ff85a2;
+  --pink-500: #e91e8c;
+  --pink-600: #c2185b;
+
+  /* Amarelo da Miri 💛 */
+  --miri-main: #f5c518;
+  --miri-dark: #c49b00;
+  --miri-light: #fffde7;
+  --miri-border: #ffe082;
+
+  /* Verde do Deudeu 💚 */
+  --deudeu-main: #2e9e50;
+  --deudeu-dark: #1b6b35;
+  --deudeu-light: #e8f5e9;
+  --deudeu-border: #a5d6a7;
+
+  /* Neutros */
+  --text-dark: #3d2c35;
+  --text-mid: #6b5560;
+  --text-light: #a08898;
+  --white: #ffffff;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 182, 205, 0.4);
+
+  /* Sombras */
+  --shadow-soft: 0 4px 24px rgba(214, 51, 108, 0.08);
+  --shadow-card: 0 8px 32px rgba(180, 40, 90, 0.10);
+  --shadow-hover: 0 12px 40px rgba(180, 40, 90, 0.18);
+}
+
+/* === RESET BÁSICO === */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* === BODY — FUNDO ROMÁNTICO === */
 body {
   font-family: 'Nunito', Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #fff8f9;
-  color: #333;
-  padding-top: 80px; 
-  padding-bottom: 40px;
-  
-  /* === O TEU FUNDO GRADIENTE === */
-  background: linear-gradient(135deg, #f7f7af 0%, #c1ffc1 100%);
-  background-attachment: fixed; /* Para o fundo não rolar com a página */
+  padding-top: 80px;
+  padding-bottom: 50px;
+  color: var(--text-dark);
+  min-height: 100vh;
+
+  /* Gradiente suave rosado */
+  background: linear-gradient(150deg, #fff0f6 0%, #fce4ec 35%, #f8f0ff 70%, #fff0f3 100%);
+  background-attachment: fixed;
+
+  /* Padrão de corações muito sutil */
+  position: relative;
 }
 
+/* Padrão de fundo sutil */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(233, 30, 140, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* === TIPOGRAFIA === */
 h1 {
-  color: #d6336c;
+  font-family: 'Playfair Display', Georgia, serif;
+  color: var(--pink-500);
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 30px;
+  margin-bottom: 24px;
+  font-size: 2.2em;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 8px rgba(233, 30, 140, 0.12);
+
+  /* Animação de entrada */
+  animation: fadeSlideDown 0.6s ease both;
 }
 
-/* === MENU FIXO GLOBAL (Com animações) === */
+h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* === MENU FIXO === */
 .global-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #ffffff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  padding: 10px 20px;
-  box-sizing: border-box;
+  padding: 12px 20px;
+
+  /* Glassmorphism no header */
+  background: rgba(255, 240, 246, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 2px 20px rgba(233, 30, 140, 0.08);
 }
+
 .global-header nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
   max-width: 800px;
   margin: 0 auto;
+  gap: 6px;
 }
+
 .global-header nav a {
   text-decoration: none;
-  background-color: #fde2e8;
-  color: #d6336c;
-  font-weight: bold;
-  padding: 8px 14px; 
-  border-radius: 20px; 
-  border: 1px solid #ffc0cb; 
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--pink-600);
+  font-weight: 700;
+  font-size: 0.88em;
+  padding: 8px 16px;
+  border-radius: 24px;
+  border: 1.5px solid var(--pink-300);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
 }
-.global-header nav a:hover {
-  background-color: #ffc0cb; 
-  color: #d6336c;
-  transform: translateY(-2px) scale(1.05); 
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.global-header nav a.active {
-  background-color: #d6336c; 
-  color: white; 
-  border: 1px solid #d6336c;
-  box-shadow: 0 2px 5px rgba(214, 51, 108, 0.3);
-}
-/* === Fim do Menu === */
 
-/* Formulários (CENTRADO) */
+.global-header nav a:hover {
+  background: var(--pink-200);
+  border-color: var(--pink-400);
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 6px 16px rgba(233, 30, 140, 0.2);
+}
+
+.global-header nav a.active {
+  background: linear-gradient(135deg, var(--pink-500) 0%, var(--pink-600) 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(233, 30, 140, 0.35);
+}
+
+/* === FORMULÁRIOS === */
 form {
-  max-width: 600px;
-  margin: 20px auto; /* "auto" é o que centra o formulário */
-  padding: 25px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  border: 1px solid #fde2e8;
+  max-width: 620px;
+  margin: 24px auto;
+  padding: 32px;
+
+  /* Glassmorphism leve */
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
+  border: 1.5px solid var(--glass-border);
+  box-shadow: var(--shadow-card);
+
+  animation: fadeSlideUp 0.5s ease 0.1s both;
 }
+
+/* === FIELDSETS === */
 fieldset {
-  border: 2px dashed #ffc0cb;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  padding: 15px;
+  border-radius: 14px;
+  margin-bottom: 24px;
+  padding: 20px 18px;
+  border: none;
+  position: relative;
 }
+
+/* Fieldset da MIRI — Amarelo 💛 */
+fieldset:nth-of-type(1) {
+  background: linear-gradient(135deg, var(--miri-light) 0%, rgba(255, 253, 231, 0.6) 100%);
+  border: 2px solid var(--miri-border);
+  box-shadow: 0 4px 16px rgba(245, 197, 24, 0.12);
+}
+
+/* Fieldset do DEUDEU — Verde 💚 */
+fieldset:nth-of-type(2) {
+  background: linear-gradient(135deg, var(--deudeu-light) 0%, rgba(232, 245, 233, 0.6) 100%);
+  border: 2px solid var(--deudeu-border);
+  box-shadow: 0 4px 16px rgba(46, 158, 80, 0.12);
+}
+
 legend {
-  font-size: 1.2em;
-  font-weight: bold;
-  padding: 0 10px;
-  color: #333;
+  font-size: 1.15em;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: 'Playfair Display', serif;
 }
+
 label {
   display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #555;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: var(--text-mid);
+  font-size: 0.95em;
 }
+
 label.pergunta-pessoal, label.comentario-geral {
-  margin-top: 15px;
-  color: #d6336c;
+  margin-top: 16px;
+  color: var(--pink-600);
 }
+
+/* Inputs e selects */
 input[type="text"],
 input[type="url"],
 input[type="number"],
 select,
 textarea {
   width: 100%;
-  padding: 10px;
+  padding: 11px 14px;
   box-sizing: border-box;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: 1.5px solid var(--pink-200);
+  border-radius: 10px;
   font-family: 'Nunito', sans-serif;
-  font-size: 1em;
-  transition: all 0.3s ease; /* Animação suave no focus */
+  font-size: 0.97em;
+  color: var(--text-dark);
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.25s ease;
+  outline: none;
 }
+
 input[type="text"]:focus,
 input[type="url"]:focus,
 input[type="number"]:focus,
-select:focus {
-  border-color: #ff85a2;
-  outline: none;
-  box-shadow: 0 0 5px rgba(255, 133, 162, 0.5);
+select:focus,
+textarea:focus {
+  border-color: var(--pink-400);
+  box-shadow: 0 0 0 3px rgba(233, 30, 140, 0.12);
+  background: white;
 }
 
-/* Nomes coloridos */
+/* Fieldset MIRI — inputs com focus amarelo */
+fieldset:nth-of-type(1) input:focus,
+fieldset:nth-of-type(1) select:focus,
+fieldset:nth-of-type(1) textarea:focus {
+  border-color: var(--miri-main);
+  box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.18);
+}
+
+/* Fieldset DEUDEU — inputs com focus verde */
+fieldset:nth-of-type(2) input:focus,
+fieldset:nth-of-type(2) select:focus,
+fieldset:nth-of-type(2) textarea:focus {
+  border-color: var(--deudeu-main);
+  box-shadow: 0 0 0 3px rgba(46, 158, 80, 0.18);
+}
+
+/* === NOMES COLORIDOS === */
 .nome-miri {
-  color: #E67E22;
-  background-color: #FFF5E6;
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-.nome-deudeu {
-  color: #27AE60;
-  background-color: #E9F7EF;
-  padding: 2px 8px;
-  border-radius: 4px;
+  color: var(--miri-dark);
+  background: linear-gradient(135deg, var(--miri-light), var(--miri-border));
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
 }
 
-/* Botões (Com animações) */
+.nome-deudeu {
+  color: var(--deudeu-dark);
+  background: linear-gradient(135deg, var(--deudeu-light), var(--deudeu-border));
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
+
+/* === BOTÕES GLOBAIS (Rosa/Fúcsia) === */
 button,
 .btn-voltar,
 .btn-melhores {
   margin: 10px 5px 0 0;
-  padding: 12px 20px;
+  padding: 12px 22px;
   cursor: pointer;
   border: none;
-  background-color: #58cc02; /* Verde bonito */
+  background: linear-gradient(135deg, var(--pink-500) 0%, var(--pink-600) 100%);
   color: white;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 1em;
+  border-radius: 24px;
+  font-weight: 700;
+  font-size: 0.97em;
+  font-family: 'Nunito', sans-serif;
   text-decoration: none;
   display: inline-block;
-  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 14px rgba(233, 30, 140, 0.3);
+  position: relative;
+  overflow: hidden;
 }
+
+button::after,
+.btn-voltar::after,
+.btn-melhores::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+
 button:hover,
 .btn-voltar:hover,
 .btn-melhores:hover {
-  background-color: #4cab02;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(233, 30, 140, 0.4);
 }
 
-/* Histórico (historico.html) */
+button:active,
+.btn-voltar:active,
+.btn-melhores:active {
+  transform: translateY(-1px) scale(1.01);
+}
+
+/* === HISTÓRICO — Barra de busca === */
 #busca {
   display: block;
   width: 50%;
-  min-width: 250px;
-  margin: 20px auto; /* Centrado */
-  padding: 12px;
-  font-size: 1.1em;
-  border-radius: 20px;
-  border: 1px solid #ddd;
+  min-width: 260px;
+  margin: 24px auto;
+  padding: 13px 20px;
+  font-size: 1em;
+  font-family: 'Nunito', sans-serif;
+  border-radius: 28px;
+  border: 1.5px solid var(--pink-300);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  color: var(--text-dark);
+  outline: none;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-soft);
 }
+
+#busca:focus {
+  border-color: var(--pink-400);
+  box-shadow: 0 0 0 3px rgba(233, 30, 140, 0.12), var(--shadow-soft);
+}
+
+/* === CATEGORIAS & TABS === */
 #categorias, #tabs-categorias {
   text-align: center;
-  margin: 20px 10px;
+  margin: 16px 10px;
   flex-wrap: wrap;
   display: flex;
   justify-content: center;
   gap: 8px;
 }
+
 #categorias button, #tabs-categorias button {
-  background-color: #a29bfe; 
-  transition: all 0.3s ease;
-}
-#categorias button:hover, #tabs-categorias button:hover {
-  background-color: #7b2cbf;
-  transform: scale(1.05); /* Animação de crescer */
+  background: linear-gradient(135deg, #9c6fe8 0%, #7b4fc9 100%);
+  box-shadow: 0 3px 10px rgba(123, 79, 201, 0.25);
+  border-radius: 20px;
+  font-size: 0.88em;
+  padding: 8px 16px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Card do Histórico (CENTRADO) */
-.card {
-  background: white;
-  border: 1px solid #eee;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  max-width: 700px;
-  margin: 20px auto; /* "auto" é o que centra o card */
+#categorias button:hover, #tabs-categorias button:hover {
+  background: linear-gradient(135deg, #7b4fc9 0%, #5c2fa0 100%);
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 6px 16px rgba(123, 79, 201, 0.35);
 }
+
+/* === CARD DO HISTÓRICO === */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid var(--glass-border);
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+  max-width: 700px;
+  margin: 20px auto;
+
+  animation: fadeSlideUp 0.45s ease both;
+}
+
 .card .imagem-obra {
-  max-width: 150px;
+  max-width: 140px;
   height: auto;
   display: block;
-  margin: 0 auto 15px auto; /* Centra a imagem dentro do card */
-  border-radius: 8px;
+  margin: 0 auto 16px auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
+
 .card .titulo {
   text-align: center;
-  color: #d6336c;
-  margin: 0 0 5px 0;
+  color: var(--pink-500);
+  margin: 0 0 4px 0;
+  font-family: 'Playfair Display', serif;
 }
+
 .card .categoria {
   text-align: center;
   font-style: italic;
-  color: #555;
+  color: var(--text-light);
   margin-top: 0;
+  font-size: 0.9em;
 }
+
+/* Notas Container */
 .notas-container {
   display: flex;
   justify-content: space-around;
-  background: #fdfcff;
-  border-radius: 8px;
-  padding: 15px;
-  margin: 15px 0;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  border: 1px solid rgba(255, 182, 205, 0.3);
 }
+
 .nota-final {
   text-align: center;
 }
+
 .nota-final-numero {
-  font-size: 2.5em;
-  font-weight: bold;
-  color: #4cab02;
+  font-size: 2.6em;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  background: linear-gradient(135deg, var(--pink-500), var(--pink-600));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
+/* Perguntas e Comentários */
 .perguntas-pessoais, .comentarios-gerais {
-  margin-top: 20px;
-  background: #fdfcff;
-  border-radius: 8px;
-  padding: 15px;
+  margin-top: 16px;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 182, 205, 0.2);
 }
+
 .perguntas-pessoais h3, .comentarios-gerais h3 {
   margin-top: 0;
+  font-family: 'Playfair Display', serif;
+  color: var(--pink-500);
+  font-size: 1em;
 }
+
 .perguntas-pessoais p, .comentarios-gerais p {
   margin: 5px 0;
+  color: var(--text-mid);
 }
+
 .perguntas-pessoais strong, .comentarios-gerais strong {
-  color: #d6336c;
+  color: var(--pink-600);
 }
-.respostas-miri, .respostas-deudeu,
-.comentario-miri, .comentario-deudeu {
-  margin-top: 10px;
+
+.respostas-miri, .comentario-miri {
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-top: 8px;
+  background: rgba(255, 253, 231, 0.7);
+  border-left: 3px solid var(--miri-main);
 }
+
+.respostas-deudeu, .comentario-deudeu {
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-top: 8px;
+  background: rgba(232, 245, 233, 0.7);
+  border-left: 3px solid var(--deudeu-main);
+}
+
 .comentario-miri p, .comentario-deudeu p {
   font-style: italic;
 }
+
+/* Botões do Card */
 .card-botoes {
   text-align: right;
   margin-top: 20px;
-}
-.btn-editar {
-  background-color: #007bff;
-}
-.btn-editar:hover {
-  background-color: #0056b3;
-}
-.btn-excluir {
-  background-color: #dc3545;
-}
-.btn-excluir:hover {
-  background-color: #a71d2a;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-/* Card de Recomendações (CENTRADO) */
+.btn-editar {
+  background: linear-gradient(135deg, #42a5f5 0%, #1976d2 100%);
+  box-shadow: 0 3px 10px rgba(25, 118, 210, 0.3);
+}
+
+.btn-editar:hover {
+  background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+  box-shadow: 0 6px 18px rgba(25, 118, 210, 0.4);
+}
+
+.btn-excluir {
+  background: linear-gradient(135deg, #ef5350 0%, #c62828 100%);
+  box-shadow: 0 3px 10px rgba(198, 40, 40, 0.3);
+}
+
+.btn-excluir:hover {
+  background: linear-gradient(135deg, #c62828 0%, #8b0000 100%);
+  box-shadow: 0 6px 18px rgba(198, 40, 40, 0.4);
+}
+
+/* === CARD DE RECOMENDAÇÕES === */
 .card-recomendacao {
-  background: white;
-  border: 1px solid #eee;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid var(--glass-border);
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
   max-width: 600px;
   position: relative;
-  margin: 20px auto; /* "auto" é o que centra o card */
+  margin: 20px auto;
+
+  animation: fadeSlideUp 0.45s ease both;
 }
+
 .rec-titulo {
-  color: #d6336c;
+  color: var(--pink-500);
   margin: 0 0 10px 0;
+  font-family: 'Playfair Display', serif;
 }
+
 .rec-info {
   margin: 5px 0;
   font-style: italic;
+  color: var(--text-mid);
 }
+
 .rec-tipo {
-  font-weight: bold;
+  font-weight: 700;
   color: #7b2cbf;
   background: #f3e8ff;
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 0.88em;
 }
+
 .rec-quem {
-  font-weight: bold;
+  font-weight: 700;
 }
+
 .rec-link {
-  display: inline-block;
-  margin-top: 10px;
-  color: #007bff;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  color: var(--pink-500);
   text-decoration: none;
-  transition: all 0.3s ease; /* Animação */
+  font-weight: 600;
+  transition: all 0.25s ease;
 }
+
 .rec-link:hover {
   text-decoration: underline;
-  transform: translateX(3px); /* Animação de "seta" */
+  transform: translateX(4px);
 }
+
 .rec-excluir {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  background-color: #dc3545;
+  top: 14px;
+  right: 14px;
+  background: linear-gradient(135deg, #ef5350 0%, #c62828 100%);
   margin: 0;
-  padding: 6px 10px;
+  padding: 6px 12px;
   font-size: 0.8em;
+  box-shadow: 0 2px 8px rgba(198, 40, 40, 0.3);
 }
+
 .rec-excluir:hover {
-  background-color: #a71d2a;
+  background: linear-gradient(135deg, #c62828 0%, #8b0000 100%);
 }
 
-/* === ESTILOS DO PÓDIO (Rankings) === */
+/* === PÓDIO (Rankings) === */
 
-/* TOP 1 - Ouro */
+/* TOP 1 — Ouro */
 .card.rank-1 {
-  border: 4px solid #FFD700; /* Ouro */
-  background: linear-gradient(to bottom, #fff, #fffdf0);
-  transform: scale(1.05); /* Um pouco maior */
-  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
-  max-width: 650px;
+  border: 2.5px solid #FFD700;
+  background: linear-gradient(160deg, rgba(255,253,240,0.9) 0%, rgba(255,245,180,0.7) 100%);
+  transform: scale(1.04);
+  box-shadow: 0 12px 40px rgba(255, 215, 0, 0.3), var(--shadow-card);
+  max-width: 660px;
+  position: relative;
 }
-.card.rank-1 .top-pos { color: #FFD700; text-shadow: 1px 1px 0 #b8860b; font-size: 2.5em !important; }
-.card.rank-1 .titulo { font-size: 2em; color: #DAA520; }
 
-/* TOP 2 - Prata */
+/* Brilho animado no TOP 1 */
+.card.rank-1::after {
+  content: '✨';
+  position: absolute;
+  top: -12px;
+  right: 16px;
+  font-size: 1.6em;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.card.rank-1 .top-pos { color: #c9a800; text-shadow: 1px 1px 0 #8b7000; font-size: 2.5em !important; }
+.card.rank-1 .titulo { font-size: 1.9em; color: #b8860b; }
+
+/* TOP 2 — Prata */
 .card.rank-2 {
-  border: 4px solid #C0C0C0; /* Prata */
-  background: linear-gradient(to bottom, #fff, #f4f4f4);
-  max-width: 600px;
-  box-shadow: 0 8px 20px rgba(192, 192, 192, 0.4);
+  border: 2px solid #C0C0C0;
+  background: linear-gradient(160deg, rgba(255,255,255,0.9) 0%, rgba(240,240,248,0.7) 100%);
+  max-width: 620px;
+  box-shadow: 0 8px 28px rgba(192, 192, 192, 0.3), var(--shadow-card);
 }
-.card.rank-2 .top-pos { color: #A9A9A9; font-size: 2em !important; }
 
-/* TOP 3 - Bronze */
+.card.rank-2 .top-pos { color: #9e9e9e; font-size: 2em !important; }
+
+/* TOP 3 — Bronze */
 .card.rank-3 {
-  border: 4px solid #CD7F32; /* Bronze */
-  background: linear-gradient(to bottom, #fff, #fff5ee);
-  max-width: 580px;
-  box-shadow: 0 8px 20px rgba(205, 127, 50, 0.3);
+  border: 2px solid #CD7F32;
+  background: linear-gradient(160deg, rgba(255,255,255,0.9) 0%, rgba(255,245,238,0.7) 100%);
+  max-width: 590px;
+  box-shadow: 0 8px 24px rgba(205, 127, 50, 0.22), var(--shadow-card);
 }
+
 .card.rank-3 .top-pos { color: #CD7F32; font-size: 1.8em !important; }
 
-/* Rank 4 ao 10 - Reduzindo */
+/* Rank 4–10 */
 .card.rank-outros {
-  border: 1px solid #eee;
-  max-width: 500px; /* Mais estreito */
-  padding: 15px; /* Menos padding */
+  border: 1.5px solid var(--glass-border);
+  max-width: 520px;
+  padding: 16px;
   opacity: 0.95;
 }
-.card.rank-outros .imagem-obra { max-width: 100px; } /* Imagem menor */
-.card.rank-outros .titulo { font-size: 1.3em; } /* Título menor */
+
+.card.rank-outros .imagem-obra { max-width: 100px; }
+.card.rank-outros .titulo { font-size: 1.3em; }
 .card.rank-outros .top-header { margin-bottom: 5px; }
 
+/* === PÓDIO VISUAL (layout 2-1-3) === */
 
-/* === AJUSTES PARA TELEMÓVEL (Responsivo) === */
-/* Este código só é aplicado se a tela for menor que 768px */
+/* Container principal do pódio */
+.podio-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;       /* alinha os slots pela base — efeito de altura */
+  gap: 12px;
+  padding: 20px 16px 0;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Cada coluna do pódio */
+.podio-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 300px;
+}
+
+/* 1º lugar fica mais alto (sobe o card) */
+.podio-slot-1 { margin-bottom: 0; }
+.podio-slot-2 { margin-bottom: -30px; }   /* 2º um pouco mais baixo */
+.podio-slot-3 { margin-bottom: -60px; }   /* 3º o mais baixo */
+
+/* Card do Pódio (top 3) */
+.podio-card {
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  padding: 16px 12px 0;
+  border-radius: 16px 16px 0 0;   /* cantos arredondados apenas em cima */
+  margin: 0;
+  box-shadow: var(--shadow-card);
+}
+
+/* Medalha grande em cima do card */
+.podio-medalha {
+  font-size: 2.6em;
+  margin-bottom: 6px;
+  animation: medalhaEntrada 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.podio-slot-1 .podio-medalha { font-size: 3em; animation-delay: 0s; }
+.podio-slot-2 .podio-medalha { animation-delay: 0.15s; }
+.podio-slot-3 .podio-medalha { animation-delay: 0.3s; }
+
+/* Nota dentro do card do pódio */
+.podio-nota {
+  font-family: 'Playfair Display', serif;
+  font-size: 2em;
+  font-weight: 700;
+  margin: 6px 0 0;
+  background: linear-gradient(135deg, var(--pink-500), var(--pink-600));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Pedestal físico abaixo do card */
+.podio-pedestal {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 0 8px 8px;
+  font-weight: 800;
+  font-family: 'Nunito', sans-serif;
+  letter-spacing: 0.5px;
+  font-size: 0.85em;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Alturas e cores dos pedestais */
+.podio-pedestal-1 {
+  height: 80px;
+  background: linear-gradient(180deg, #FFD700 0%, #b8860b 100%);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+  font-size: 1em;
+}
+.podio-pedestal-2 {
+  height: 58px;
+  background: linear-gradient(180deg, #d0d0d0 0%, #8a8a8a 100%);
+  box-shadow: 0 4px 14px rgba(180, 180, 180, 0.5);
+}
+.podio-pedestal-3 {
+  height: 40px;
+  background: linear-gradient(180deg, #d4915a 0%, #8c5a2e 100%);
+  box-shadow: 0 4px 14px rgba(205, 127, 50, 0.4);
+}
+
+.podio-pedestal-label {
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.88em;
+}
+
+/* Ajuste dos títulos dentro dos cards do pódio */
+.podio-card .titulo {
+  font-size: 1em;
+  margin: 4px 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.podio-card .imagem-obra {
+  max-width: 110px;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+/* 1º lugar — imagem maior */
+.podio-slot-1 .podio-card .imagem-obra { max-width: 130px; }
+
+/* Brilho animado no card TOP 1 */
+.card.rank-1.podio-card::after {
+  content: '✨';
+  position: absolute;
+  top: -16px;
+  right: 8px;
+  font-size: 1.4em;
+  animation: sparkle 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Divisor entre pódio e lista */
+.podio-divisor {
+  text-align: center;
+  margin: 48px auto 24px;
+  color: var(--text-light);
+  font-size: 0.88em;
+  font-weight: 700;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 500px;
+}
+.podio-divisor::before,
+.podio-divisor::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--pink-300), transparent);
+}
+
+/* Card de lista (4º em diante) */
+.lista-card {
+  animation-delay: calc(var(--i, 0) * 0.07s);
+}
+
+/* Animação de entrada das medalhas */
+@keyframes medalhaEntrada {
+  from { opacity: 0; transform: translateY(-20px) scale(0.5); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* === ANIMAÇÕES === */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sparkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50%       { transform: scale(1.3) rotate(15deg); opacity: 0.75; }
+}
+
+/* === RESPONSIVO (Mobile) === */
 @media (max-width: 768px) {
-  
-  /* Diminui o padding do topo (o menu é mais pequeno) */
+
   body {
-    padding-top: 100px; /* Mais espaço para o menu que quebra a linha */
-    padding-bottom: 20px;
+    padding-top: 108px;
+    padding-bottom: 24px;
   }
-  
-  /* Faz o menu quebrar a linha e centrar */
+
+  h1 {
+    font-size: 1.7em;
+    margin-top: 16px;
+  }
+
   .global-header nav {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px; /* Espaço entre os botões quando quebram a linha */
+    gap: 6px;
   }
-  
-  /* Botões do menu um pouco mais pequenos */
+
   .global-header nav a {
-    padding: 6px 12px;
-    font-size: 0.85em;
+    padding: 6px 13px;
+    font-size: 0.82em;
   }
 
-  /* Títulos mais pequenos */
-  h1 {
-    font-size: 1.8em;
-  }
-
-  /* === CORREÇÃO DAS "PROPORÇÕES TORTAS" === */
-  /* Faz os formulários e cards usarem 90% da largura (centrados) */
   form,
   .card,
   .card-recomendacao {
-    width: 90%;
+    width: 92%;
     margin-left: auto;
     margin-right: auto;
-    padding: 15px;
+    padding: 18px;
   }
-  
-  /* === BOTÕES MAIORES (O teu pedido!) === */
-  /* Faz os botões principais ocuparem 100% da largura */
+
   button,
   .btn-voltar,
   .btn-melhores {
     width: 100%;
-    padding: 15px; /* Mais altos para ser fácil de tocar */
-    font-size: 1.1em;
-    margin: 10px 0; /* Espaçamento vertical */
-    box-sizing: border-box; /* Importante para o width 100% */
+    padding: 15px;
+    font-size: 1.05em;
+    margin: 10px 0;
   }
-  
-  /* Faz os botões "Editar" e "Excluir" empilharem */
+
   .card-botoes {
-    display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: 10px;
-    text-align: center;
   }
-  
+
   .card-botoes .btn-editar,
   .card-botoes .btn-excluir {
     width: 100%;
     margin: 0;
+    text-align: center;
   }
 
-  /* Ajusta os botões de categoria e tabs */
   #categorias, #tabs-categorias {
     gap: 5px;
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-  #categorias button, #tabs-categorias button {
-    padding: 8px 10px;
-    font-size: 0.9em;
+    padding: 0 5%;
   }
 
-  /* Ajusta a barra de busca */
+  #categorias button, #tabs-categorias button {
+    padding: 7px 12px;
+    font-size: 0.85em;
+  }
+
   #busca {
     width: 90%;
   }
 
-  /* Ajusta o card de recomendações */
   .rec-excluir {
-    position: static; /* Tira o botão de apagar da posição absoluta */
+    position: static;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 12px;
+    text-align: center;
+    display: block;
   }
 
-  /* Ajuste do pódio no telemóvel para não sair da tela */
-  .card.rank-1 { transform: scale(1); width: 95%; }
+  .card.rank-1 {
+    transform: scale(1);
+    width: 95%;
+  }
+
+  /* Pódio em mobile — empilha verticalmente com 1º no topo */
+  .podio-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 10px 12px 0;
+  }
+
+  .podio-slot {
+    width: 92%;
+    max-width: 100%;
+    margin-bottom: 0 !important;
+  }
+
+  .podio-slot-1 { order: 1; }
+  .podio-slot-2 { order: 2; }
+  .podio-slot-3 { order: 3; }
+
+  .podio-card {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .podio-pedestal-1 { height: 52px; }
+  .podio-pedestal-2 { height: 44px; }
+  .podio-pedestal-3 { height: 36px; }
+
+  .podio-divisor { margin: 32px auto 20px; }
 }
