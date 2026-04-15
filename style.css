@@ -619,27 +619,438 @@ button:active,
 
 .card.rank-2 .top-pos { color: #9e9e9e; font-size: 2em !important; }
 
-/* TOP 3 — Bronze */
-.card.rank-3 {
-  border: 2px solid #CD7F32;
-  background: linear-gradient(160deg, rgba(255,255,255,0.9) 0%, rgba(255,245,238,0.7) 100%);
-  max-width: 590px;
-  box-shadow: 0 8px 24px rgba(205, 127, 50, 0.22), var(--shadow-card);
+/* === PÓDIO — Sistema de Raridade Mineral === */
+
+/* ─── Keyframes do Top 3 ─── */
+
+/* 3º Esmeralda — animação super básica (pulso + lenta varredura de luz) */
+@keyframes esmeraldaPulse {
+  0%, 100% { box-shadow: 0 6px 18px rgba(80,200,120,0.25), var(--shadow-card); }
+  50%       { box-shadow: 0 8px 30px rgba(80,200,120,0.4),  0 0 16px rgba(80,200,120,0.15); }
 }
 
-.card.rank-3 .top-pos { color: #CD7F32; font-size: 1.8em !important; }
+@keyframes esmeraldaShimmer {
+  0%   { background-position: 200% 0; opacity: 0; }
+  20%  { opacity: 0.6; }
+  80%  { opacity: 0.6; }
+  100% { background-position: -100% 0; opacity: 0; }
+}
 
-/* Rank 4–10 */
+/* 2º Diamante — brilho cristal pulsante estático com flutuação (efeito médio) */
+@keyframes diamanteFloat {
+  0%, 100% { 
+    transform: translateY(0);
+    box-shadow: 0 10px 40px rgba(0,180,255,0.3), var(--shadow-card); 
+  }
+  50% { 
+    transform: translateY(-8px);
+    box-shadow: 0 22px 60px rgba(0,230,255,0.45), 0 0 30px rgba(80,220,255,0.2); 
+  }
+}
+
+@keyframes diamanteShimmer {
+  0%   { background-position: 200% 0; opacity: 0; }
+  15%  { opacity: 0.8; }
+  85%  { opacity: 0.8; }
+  100% { background-position: -100% 0; opacity: 0; }
+}
+
+/* 1º Kyawthuite — aura âmbar pulsante (super luxuoso) */
+@keyframes kyawGlow {
+  0%   { box-shadow: 0 18px 65px rgba(255,120,0,0.5),  0 0 45px rgba(255,80,0,0.22),  var(--shadow-card); }
+  33%  { box-shadow: 0 28px 90px rgba(255,190,0,0.65), 0 0 70px rgba(255,210,0,0.32), var(--shadow-card); }
+  66%  { box-shadow: 0 20px 70px rgba(255,60,0,0.55),  0 0 55px rgba(255,110,0,0.28), var(--shadow-card); }
+  100% { box-shadow: 0 18px 65px rgba(255,120,0,0.5),  0 0 45px rgba(255,80,0,0.22),  var(--shadow-card); }
+}
+
+/* 1º Kyawthuite — varredura dourada via background */
+@keyframes kyawShimmer {
+  0%   { background-position: 200% 0; opacity: 0; }
+  15%  { opacity: 0.75; }
+  85%  { opacity: 0.75; }
+  100% { background-position: -100% 0; opacity: 0; }
+}
+
+/* 1º Kyawthuite — fundo âmbar respirando */
+@keyframes kyawBg {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+.card.rank-esmeralda {
+  border: 2px solid #50c878;
+  background: linear-gradient(160deg, rgba(240,255,248,0.93) 0%, rgba(220,255,235,0.85) 100%);
+  position: relative;
+  animation: esmeraldaPulse 3s ease-in-out infinite;
+}
+
+/* Varredura verde suave (bem lenta e contida) */
+.card.rank-esmeralda::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 40%, rgba(130, 255, 170, 0.45) 50%, transparent 60%);
+  background-size: 250% 100%;
+  background-position: 200% 0;
+  animation: esmeraldaShimmer 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card.rank-esmeralda .podio-nota {
+  background: linear-gradient(135deg, #2e8b57, #50c878);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 2;
+}
+
+.card.rank-esmeralda .titulo { color: #1a5e35; position: relative; z-index: 2; }
+.card.rank-esmeralda * { position: relative; z-index: 2; }
+
+/* ─── TOP 2: DIAMANTE ─── */
+.card.rank-diamante {
+  border: 2px solid rgba(80,210,255,0.7);
+  background: linear-gradient(160deg, rgba(238,252,255,0.96) 0%, rgba(195,238,255,0.87) 100%);
+  position: relative;
+  animation: diamanteFloat 3s ease-in-out infinite;
+}
+
+/* Varredura cristal leve e nítida */
+.card.rank-diamante::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 35%, rgba(150, 240, 255, 0.7) 50%, transparent 65%);
+  background-size: 250% 100%;
+  background-position: 200% 0;
+  animation: diamanteShimmer 2.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card.rank-diamante .podio-nota {
+  background: linear-gradient(135deg, #00b4d8, #0077b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 2;
+}
+
+.card.rank-diamante .titulo { color: #00567a; position: relative; z-index: 2; }
+.card.rank-diamante * { position: relative; z-index: 2; }
+
+/* ─── TOP 1: KYAWTHUITE ─── */
+.card.rank-kyawthuite {
+  border: 2.5px solid rgba(255,155,0,0.8);
+  background: linear-gradient(150deg, #fff8f0, #ffeec8, #ffd98a, #fff5e0, #ffeec8, #fff8f0);
+  background-size: 300% 300%;
+  position: relative;
+  /* overflow: hidden foi removido para não cortar a estrelinha */
+  animation: kyawGlow 3.2s ease-in-out infinite, kyawBg 5s ease infinite;
+}
+
+/* Varredura dourada reescrita para não transbordar */
+.card.rank-kyawthuite::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 35%, rgba(255,220,100,0.7) 50%, transparent 65%);
+  background-size: 250% 100%;
+  background-position: 200% 0;
+  animation: kyawShimmer 2.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Sparkle flutuante */
+.card.rank-kyawthuite::after {
+  content: '✨';
+  position: absolute;
+  top: -18px;
+  right: 10px;
+  font-size: 1.7em;
+  animation: sparkle 1.6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.card.rank-kyawthuite .podio-nota {
+  background: linear-gradient(135deg, #ff8c00, #ffd700, #ff5e00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.5em;
+}
+
+.card.rank-kyawthuite .titulo { color: #7a3800; font-size: 1.1em; }
+.card.rank-kyawthuite * { position: relative; z-index: 2; }
+
+/* ─── PEDESTAIS atualizados ─── */
+.podio-pedestal-1 {
+  height: 80px;
+  background: linear-gradient(180deg, #ffc200 0%, #ff7200 55%, #b04400 100%);
+  box-shadow: 0 6px 28px rgba(255,140,0,0.6);
+  font-size: 1em;
+}
+
+.podio-pedestal-2 {
+  height: 58px;
+  background: linear-gradient(180deg, #48cae4 0%, #0077b6 100%);
+  box-shadow: 0 4px 16px rgba(0,160,210,0.55);
+}
+
+.podio-pedestal-3 {
+  height: 40px;
+  background: linear-gradient(180deg, #50c878 0%, #2e8b57 100%);
+  box-shadow: 0 4px 14px rgba(46,139,87,0.45);
+}
+
+/* === BADGE de Tier (nos cards de lista) === */
+.tier-badge-inline {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.73em;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+/* === CARDS DE LISTA (4º em diante) === */
+
+/* Base comum */
 .card.rank-outros {
-  border: 1.5px solid var(--glass-border);
-  max-width: 520px;
-  padding: 16px;
-  opacity: 0.95;
+  max-width: 560px;
+  padding: 16px 20px;
+  opacity: 1;
+  animation: fadeSlideUp calc(0.3s + var(--pos, 0) * 0.07s) ease both;
 }
 
-.card.rank-outros .imagem-obra { max-width: 100px; }
-.card.rank-outros .titulo { font-size: 1.3em; }
-.card.rank-outros .top-header { margin-bottom: 5px; }
+/* Layout do cabeçalho */
+.lista-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.lista-pos {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  line-height: 1;
+  min-width: 2.2em;
+}
+
+.lista-nota {
+  margin-left: auto;
+  font-weight: 800;
+  font-size: 1.2em;
+  color: var(--pink-500);
+  font-family: 'Playfair Display', serif;
+}
+
+/* ── 4º — PLATINA ── */
+.card.rank-platina {
+  border: 2px solid rgba(155,170,220,0.65);
+  background: linear-gradient(150deg, #f8f9ff 0%, #edf0ff 45%, #dde3ff 100%);
+  box-shadow: 0 8px 28px rgba(100,120,200,0.14), var(--shadow-card);
+  max-width: 530px;
+}
+
+.rank-platina-pos {
+  font-size: 1.6em;
+  background: linear-gradient(135deg, #8090b8, #aab8e0, #6070a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.rank-platina-badge {
+  background: linear-gradient(135deg, #d0d8f8, #b0bce8);
+  color: #364090;
+}
+
+.card.rank-platina .titulo      { font-size: 1.35em; color: #3a4898; }
+.card.rank-platina .imagem-obra { max-width: 112px; box-shadow: 0 6px 20px rgba(80,100,180,0.16); }
+.card.rank-platina .lista-nota  { color: #6070a8; font-size: 1.3em; }
+
+/* ── 5º — OURO ── */
+.card.rank-ouro {
+  border: 2px solid rgba(208,168,0,0.75);
+  background: linear-gradient(150deg, #fffde7 0%, #fff9c0 45%, #fff090 100%);
+  box-shadow: 0 7px 26px rgba(200,165,0,0.18), var(--shadow-card);
+  max-width: 525px;
+}
+
+.rank-ouro-pos {
+  font-size: 1.4em;
+  background: linear-gradient(135deg, #c9a800, #f5c518, #b07a00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 1px 2px rgba(170,120,0,0.2));
+}
+
+.rank-ouro-badge {
+  background: linear-gradient(135deg, #fff59d, #ffd700);
+  color: #6a4800;
+}
+
+.card.rank-ouro .titulo      { font-size: 1.3em; color: #7a5500; }
+.card.rank-ouro .imagem-obra { max-width: 108px; box-shadow: 0 5px 16px rgba(190,150,0,0.2); }
+.card.rank-ouro .lista-nota  { color: #b09000; font-size: 1.28em; }
+
+/* ── 6º — PRATA ── */
+.card.rank-prata {
+  border: 2px solid #b8b8b8;
+  background: linear-gradient(150deg, #ffffff 0%, #f2f2f5 50%, #e4e4ec 100%);
+  box-shadow: 0 6px 22px rgba(130,130,155,0.18), var(--shadow-card);
+  max-width: 520px;
+}
+
+.rank-prata-pos {
+  font-size: 1.25em;
+  background: linear-gradient(135deg, #9e9e9e, #cccccc, #808080);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.rank-prata-badge {
+  background: linear-gradient(135deg, #e8e8e8, #c8c8c8);
+  color: #444;
+}
+
+.card.rank-prata .titulo      { font-size: 1.2em; color: #505050; }
+.card.rank-prata .imagem-obra { max-width: 100px; box-shadow: 0 5px 14px rgba(130,130,130,0.16); }
+.card.rank-prata .lista-nota  { color: #7a7a7a; font-size: 1.2em; }
+
+/* ── 7º — BRONZE ── */
+.card.rank-bronze-tier {
+  border: 2px solid #cd7f32;
+  background: linear-gradient(150deg, #fff8f0 0%, #ffe8c5 50%, #ffcf90 100%);
+  box-shadow: 0 5px 20px rgba(180,100,30,0.16), var(--shadow-card);
+  max-width: 515px;
+}
+
+.rank-bronze-tier-pos {
+  font-size: 1.15em;
+  background: linear-gradient(135deg, #cd7f32, #a0522d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.rank-bronze-tier-badge {
+  background: linear-gradient(135deg, #ffe0b2, #ffb74d);
+  color: #6a2e08;
+}
+
+.card.rank-bronze-tier .titulo      { font-size: 1.15em; color: #6a3010; }
+.card.rank-bronze-tier .imagem-obra { max-width: 95px; box-shadow: 0 4px 12px rgba(170,90,20,0.14); }
+.card.rank-bronze-tier .lista-nota  { color: #b86020; font-size: 1.15em; }
+
+/* ── 8º — MÁRMORE ── */
+.card.rank-marmore {
+  border: 1.5px solid #c0c0c5;
+  background:
+    linear-gradient(118deg, transparent 25%, rgba(190,190,205,0.13) 45%, transparent 65%),
+    linear-gradient(150deg, #fafafa 0%, #f0f0f2 50%, #e8e8ea 100%);
+  box-shadow: 0 5px 18px rgba(140,140,155,0.14), var(--shadow-card);
+  max-width: 510px;
+}
+
+.rank-marmore-pos {
+  font-size: 1.1em;
+  color: #7a7a88;
+  letter-spacing: 0.5px;
+}
+
+.rank-marmore-badge {
+  background: linear-gradient(135deg, #f0f0f0, #dcdce0);
+  color: #555;
+  font-style: italic;
+}
+
+.card.rank-marmore .titulo      { font-size: 1.1em; color: #505058; font-style: italic; }
+.card.rank-marmore .imagem-obra { max-width: 92px; filter: saturate(85%); }
+.card.rank-marmore .lista-nota  { color: #909098; font-size: 1.1em; }
+
+/* ── 9º — PEDRA ── */
+.card.rank-pedra {
+  border: 1.5px solid #a0a0a0;
+  background: linear-gradient(150deg, #f5f5f5 0%, #e8e8e8 55%, #d8d8d8 100%);
+  box-shadow: 0 4px 16px rgba(100,100,100,0.12), var(--shadow-soft);
+  max-width: 505px;
+}
+
+.rank-pedra-pos {
+  font-size: 1.05em;
+  color: #707070;
+}
+
+.rank-pedra-badge {
+  background: linear-gradient(135deg, #e0e0e0, #c8c8c8);
+  color: #505050;
+}
+
+.card.rank-pedra .titulo      { font-size: 1.05em; color: #505050; }
+.card.rank-pedra .imagem-obra { max-width: 88px; filter: grayscale(20%); }
+.card.rank-pedra .lista-nota  { color: #888; font-size: 1.05em; }
+
+/* ── 10º — AREIA ── */
+.card.rank-areia {
+  border: 1.5px solid #c5a870;
+  background: linear-gradient(150deg, #faf5e4 0%, #f5e8c0 55%, #ecd8a0 100%);
+  box-shadow: 0 4px 14px rgba(175,145,75,0.12), var(--shadow-soft);
+  max-width: 500px;
+  opacity: 0.93;
+}
+
+.rank-areia-pos {
+  font-size: 1em;
+  color: #967030;
+}
+
+.rank-areia-badge {
+  background: linear-gradient(135deg, #f0e0a8, #d4bc82);
+  color: #5e3e10;
+}
+
+.card.rank-areia .titulo      { font-size: 1em; color: #6e4818; }
+.card.rank-areia .imagem-obra { max-width: 84px; filter: sepia(15%); }
+.card.rank-areia .lista-nota  { color: #96700a; font-size: 1em; }
+
+/* ── 11º+ — NORMAL ── */
+.card.rank-normal {
+  border: 1.5px solid var(--glass-border);
+  max-width: 500px;
+  opacity: 0.84;
+  box-shadow: var(--shadow-soft);
+}
+
+.rank-normal-pos  { font-size: 1em; color: var(--text-light); }
+.card.rank-normal .imagem-obra { max-width: 80px; }
+.card.rank-normal .titulo      { font-size: 1em; }
+.card.rank-normal .lista-nota  { font-size: 1em; }
+
+/* Divisor suave para 11º+ */
+.podio-divisor-resto {
+  opacity: 0.62;
+  font-size: 0.76em;
+  margin-top: 22px;
+}
 
 /* === PÓDIO VISUAL (layout 2-1-3) === */
 
