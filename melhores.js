@@ -57,9 +57,9 @@ function criarCardPodio(av, index) {
   const card = document.createElement('div');
 
   const configs = [
-    { rankClass: 'rank-1', medalha: '🥇', label: 'TOP 1', slot: 'podio-slot-1' },
-    { rankClass: 'rank-2', medalha: '🥈', label: 'TOP 2', slot: 'podio-slot-2' },
-    { rankClass: 'rank-3', medalha: '🥉', label: 'TOP 3', slot: 'podio-slot-3' },
+    { rankClass: 'rank-kyawthuite', medalha: '🔮', pedLabel: 'KYAWTHUITE' },
+    { rankClass: 'rank-diamante',   medalha: '💎', pedLabel: 'DIAMANTE'   },
+    { rankClass: 'rank-esmeralda',  medalha: '❇️', pedLabel: 'ESMERALDA'  },
   ];
 
   const cfg = configs[index];
@@ -71,19 +71,42 @@ function criarCardPodio(av, index) {
     <p class="categoria">${av.categoria}</p>
     <div class="podio-nota">${av.notaFinal.toFixed(1)}</div>
     <div class="podio-pedestal podio-pedestal-${index + 1}">
-      <span class="podio-pedestal-label">${cfg.label}</span>
+      <span class="podio-pedestal-label">${cfg.pedLabel}</span>
     </div>
   `;
   return card;
 }
 
-function criarCardLista(av, index) {
+function getTierInfo(pos) {
+  const tiers = {
+    4:  { tier: 'rank-platina',     nome: 'Platina',    emoji: '🔘' },
+    5:  { tier: 'rank-ouro',        nome: 'Ouro',       emoji: '🌟' },
+    6:  { tier: 'rank-prata',       nome: 'Prata',      emoji: '🩶' },
+    7:  { tier: 'rank-bronze-tier', nome: 'Bronze',     emoji: '🔶' },
+    8:  { tier: 'rank-marmore',     nome: 'Mármore',    emoji: '◈' },
+    9:  { tier: 'rank-pedra',       nome: 'Pedra',      emoji: '🪨' },
+    10: { tier: 'rank-areia',       nome: 'Areia',      emoji: '⌛' },
+  };
+  if (tiers[pos]) return { ...tiers[pos], label: `#${pos}` };
+  return { tier: 'rank-normal', nome: null, emoji: null, label: `#${pos}` };
+}
+
+function criarCardLista(av, posicao) {
   const card = document.createElement('div');
-  card.className = 'card rank-outros lista-card';
+  const { tier, nome, emoji, label } = getTierInfo(posicao);
+
+  card.className = `card rank-outros lista-card ${tier}`;
+  card.style.setProperty('--pos', posicao - 3);
+
+  const badgeHtml = nome
+    ? `<span class="tier-badge-inline ${tier}-badge">${emoji} ${nome}</span>`
+    : '';
+
   card.innerHTML = `
-    <div class="top-header" style="display: flex; justify-content: space-between; align-items: center; font-weight: bold;">
-      <span class="top-pos" style="font-size:1.1em; color:#a08898;">#${index + 1}</span>
-      <span class="top-nota" style="color: #e91e8c; font-size: 1.15em; font-weight:700;">${av.notaFinal.toFixed(1)}</span>
+    <div class="lista-header">
+      <span class="lista-pos ${tier}-pos">${label}</span>
+      ${badgeHtml}
+      <span class="lista-nota">${av.notaFinal.toFixed(1)}</span>
     </div>
     <img class="imagem-obra" src="${av.imagem_url}" alt="Capa de ${av.titulo}" />
     <h2 class="titulo">${av.titulo}</h2>
@@ -107,7 +130,8 @@ function renderizarPodio(avaliacoes, categoria) {
   }
 
   const top3 = filtradas.slice(0, 3);
-  const resto = filtradas.slice(3, 10);
+  const top4a10 = filtradas.slice(3, 10);
+  const resto = filtradas.slice(10);
 
   // === PÓDIO VISUAL (Top 3) ===
   // Ordem visual: 2º (esquerda), 1º (centro), 3º (direita)
@@ -126,15 +150,27 @@ function renderizarPodio(avaliacoes, categoria) {
 
   conteudo.appendChild(podioWrapper);
 
-  // === LISTA (4º em diante) ===
+  // === TOP 4–10 (destaque gradual) ===
+  if (top4a10.length > 0) {
+    const divisorTop = document.createElement('div');
+    divisorTop.className = 'podio-divisor';
+    divisorTop.innerHTML = '<span>✦ Top 10 ✦</span>';
+    conteudo.appendChild(divisorTop);
+
+    top4a10.forEach((av, i) => {
+      conteudo.appendChild(criarCardLista(av, i + 4));
+    });
+  }
+
+  // === 11º EM DIANTE (normal) ===
   if (resto.length > 0) {
-    const divisor = document.createElement('div');
-    divisor.className = 'podio-divisor';
-    divisor.innerHTML = '<span>✦ Mais obras ✦</span>';
-    conteudo.appendChild(divisor);
+    const divisorResto = document.createElement('div');
+    divisorResto.className = 'podio-divisor podio-divisor-resto';
+    divisorResto.innerHTML = '<span>· Mais obras ·</span>';
+    conteudo.appendChild(divisorResto);
 
     resto.forEach((av, i) => {
-      conteudo.appendChild(criarCardLista(av, i + 4));
+      conteudo.appendChild(criarCardLista(av, i + 11));
     });
   }
 }
