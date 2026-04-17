@@ -23,11 +23,12 @@
   <h1>💕 Bora avaliar uma coisinha nova!</h1>
 
   <form id="avaliacao-form">
-    <label>Já avaliou algo desta obra? (Selecione se for nova temporada)
-      <select id="obra_existente">
-        <option value="">Não, é uma obra nova!</option>
-      </select>
-    </label><br />
+    <div class="search-container">
+      <label>Já avaliou algo desta obra? (Selecione se for nova temporada)
+        <input type="text" id="busca_obra" placeholder="Pesquisar obra existente..." autocomplete="off" />
+        <div id="lista_obras" class="search-results hidden"></div>
+      </label>
+    </div>
 
     <label>Nome da Coisa (Filme, Série...):
       <input type="text" id="titulo" required />
@@ -65,8 +66,7 @@
       <label>Visual / Estilo: <input type="number" id="miri_visual_estilo" min="0" max="10" step="0.1" /></label><br />
       <label>Emoção / Vibe: <input type="number" id="miri_emocao_vibe" min="0" max="10" step="0.1" /></label><br />
       <label>Nível de Surpresa / Originalidade: <input type="number" id="miri_surpresa" min="0" max="10" step="0.1" /></label><br />
-      <label>Som: <input type="number" id="miri_som" min="0" max="10" step="0.1" /></label><br />
-      <label>Música: <input type="number" id="miri_musica" min="0" max="10" step="0.1" /></label><br />
+      <label>Som / Música: <input type="number" id="miri_som_musica" min="0" max="10" step="0.1" /></label><br />
       <label>Ritmo: <input type="number" id="miri_ritmo" min="0" max="10" step="0.1" /></label><br />
       <label>Final: <input type="number" id="miri_final" min="0" max="10" step="0.1" /></label><br />
 
@@ -97,8 +97,7 @@
       <label>Visual / Estilo: <input type="number" id="deudeu_visual_estilo" min="0" max="10" step="0.1" /></label><br />
       <label>Emoção / Vibe: <input type="number" id="deudeu_emocao_vibe" min="0" max="10" step="0.1" /></label><br />
       <label>Nível de Surpresa / Originalidade: <input type="number" id="deudeu_surpresa" min="0" max="10" step="0.1" /></label><br />
-      <label>Som: <input type="number" id="deudeu_som" min="0" max="10" step="0.1" /></label><br />
-      <label>Música: <input type="number" id="deudeu_musica" min="0" max="10" step="0.1" /></label><br />
+      <label>Som / Música: <input type="number" id="deudeu_som_musica" min="0" max="10" step="0.1" /></label><br />
       <label>Ritmo: <input type="number" id="deudeu_ritmo" min="0" max="10" step="0.1" /></label><br />
       <label>Final: <input type="number" id="deudeu_final" min="0" max="10" step="0.1" /></label><br />
 

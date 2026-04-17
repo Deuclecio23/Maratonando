@@ -102,8 +102,8 @@ function preencherCamposUsuario(prefixo, dados) {
   document.getElementById(`${prefixo}_visual_estilo`).value = dados.visual_estilo || '';
   document.getElementById(`${prefixo}_emocao_vibe`).value = dados.emocao_vibe || '';
   document.getElementById(`${prefixo}_surpresa`).value = dados.surpresa || '';
-  document.getElementById(`${prefixo}_som`).value = dados.som || '';
-  document.getElementById(`${prefixo}_musica`).value = dados.musica || '';
+  const somMusica = dados.som_musica ?? (dados.som !== undefined && dados.musica !== undefined ? (dados.som + dados.musica) / 2 : (dados.som ?? dados.musica ?? ''));
+  document.getElementById(`${prefixo}_som_musica`).value = typeof somMusica === 'number' ? somMusica.toFixed(1) : somMusica;
   document.getElementById(`${prefixo}_ritmo`).value = dados.ritmo || '';
   document.getElementById(`${prefixo}_final`).value = dados.final || '';
   document.getElementById(`${prefixo}_personagem_favorito`).value = dados.personagem_favorito || '';
@@ -114,7 +114,7 @@ function preencherCamposUsuario(prefixo, dados) {
 }
 
 function extrairCamposUsuario(prefixo) {
-  const campos = ['historia', 'personagens', 'atuacao', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som', 'musica', 'ritmo', 'final'];
+  const campos = ['historia', 'personagens', 'atuacao', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som_musica', 'ritmo', 'final'];
   const notas = {};
 
   campos.forEach(c => {
@@ -134,7 +134,7 @@ function extrairCamposUsuario(prefixo) {
 
 // Mesma lógica do index.js para não perder a informação original da pessoa e recalcular a média geral com as edições
 function recalcularESalvarTemporada(antigaOriginal, novaEditada, chaveEditada) {
-  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som', 'musica', 'ritmo', 'final', 'atuacao'];
+  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som_musica', 'ritmo', 'final', 'atuacao'];
   const resultado = antigaOriginal ? JSON.parse(JSON.stringify(antigaOriginal)) : {};
 
   if (!resultado.temporadas) {

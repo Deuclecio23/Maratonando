@@ -18,8 +18,7 @@ const nomesBonitos = {
   visual_estilo: "Visual / Estilo",
   emocao_vibe: "Emoção / Vibe",
   surpresa: "Nível de Surpresa / Originalidade",
-  som: "Som",
-  musica: "Música",
+  som_musica: "Som / Música",
   ritmo: "Ritmo",
   final: "Final"
 };

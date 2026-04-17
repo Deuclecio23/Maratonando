@@ -6,7 +6,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Função para adicionar temporada e recalcular a média global
 function adicionarTemporada(antigo, novo, temporada) {
-  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som', 'musica', 'ritmo', 'final', 'atuacao'];
+  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som_musica', 'ritmo', 'final', 'atuacao'];
   // Se "antigo" existir, fazemos uma cópia, se não criamos um vazio
   const resultado = antigo ? { ...antigo } : {};
 
@@ -79,51 +79,77 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const { data, error } = await supabase.from('avaliacoes').select('titulo, categoria, imagem_url');
     if (!error && data) {
-      obrasExistentes = data;
-      const selectExistente = document.getElementById('obra_existente');
-      if (selectExistente) {
-        const titulosUnicos = new Set();
-        data.forEach(obra => {
-          if (!titulosUnicos.has(obra.titulo) && obra.categoria && !obra.categoria.toLowerCase().includes('filme')) {
-            titulosUnicos.add(obra.titulo);
-            const option = document.createElement('option');
-            option.value = obra.titulo;
-            option.textContent = obra.titulo;
-            selectExistente.appendChild(option);
-          }
-        });
-      }
+      // Filtrar títulos únicos
+      const titulosUnicos = new Set();
+      data.forEach(obra => {
+        if (!titulosUnicos.has(obra.titulo)) {
+          titulosUnicos.add(obra.titulo);
+          obrasExistentes.push(obra);
+        }
+      });
     }
   } catch (err) {
     console.error('Erro ao buscar obras para sugestão:', err);
   }
 
-  // Auto-preencher categoria e imagem ao selecionar uma obra existente
-  const selectExistente = document.getElementById('obra_existente');
-  if (selectExistente) {
-    selectExistente.addEventListener('change', (e) => {
-      const tituloSelecionado = e.target.value;
-      if (tituloSelecionado) {
-        const obraEncontrada = obrasExistentes.find(o => o.titulo === tituloSelecionado);
-        if (obraEncontrada) {
-          tituloInput.value = obraEncontrada.titulo;
-          tituloInput.readOnly = true; // Impede que o usuário mude o nome e crie uma obra duplicada
-          if (obraEncontrada.categoria) {
-            categoriaSelect.value = obraEncontrada.categoria;
-            atualizarVisibilidadeAtuacao();
-          }
-          if (obraEncontrada.imagem_url) imagemUrlInput.value = obraEncontrada.imagem_url;
-        }
-      } else {
-        // Obra nova
-        tituloInput.value = '';
-        tituloInput.readOnly = false;
-        categoriaSelect.value = '';
-        atualizarVisibilidadeAtuacao();
-        imagemUrlInput.value = '';
-      }
+  const buscaObraInput = document.getElementById('busca_obra');
+  const listaObrasContainer = document.getElementById('lista_obras');
+
+  function renderizarResultadosBusca(lista) {
+    listaObrasContainer.innerHTML = '';
+    if (lista.length === 0) {
+      listaObrasContainer.innerHTML = '<div class="search-no-results">Nenhuma obra encontrada</div>';
+      listaObrasContainer.classList.remove('hidden');
+      return;
+    }
+
+    lista.forEach(obra => {
+      const item = document.createElement('div');
+      item.className = 'search-item';
+      item.innerHTML = `<span>${obra.titulo}</span> <span class="search-cat">${obra.categoria}</span>`;
+      item.addEventListener('click', () => selecionaObra(obra));
+      listaObrasContainer.appendChild(item);
     });
+    listaObrasContainer.classList.remove('hidden');
   }
+
+  function selecionaObra(obra) {
+    buscaObraInput.value = obra.titulo;
+    tituloInput.value = obra.titulo;
+    tituloInput.readOnly = true;
+    if (obra.categoria) {
+      categoriaSelect.value = obra.categoria;
+      atualizarVisibilidadeAtuacao();
+    }
+    if (obra.imagem_url) imagemUrlInput.value = obra.imagem_url;
+    listaObrasContainer.classList.add('hidden');
+  }
+
+  buscaObraInput.addEventListener('input', (e) => {
+    const termo = e.target.value.toLowerCase();
+    if (termo.length === 0) {
+      listaObrasContainer.classList.add('hidden');
+      tituloInput.value = '';
+      tituloInput.readOnly = false;
+      categoriaSelect.value = '';
+      atualizarVisibilidadeAtuacao();
+      imagemUrlInput.value = '';
+      return;
+    }
+
+    const filtradas = obrasExistentes.filter(o => 
+      o.titulo.toLowerCase().includes(termo)
+    ).slice(0, 10); // Limitar a 10 resultados
+
+    renderizarResultadosBusca(filtradas);
+  });
+
+  // Fechar lista ao clicar fora
+  document.addEventListener('click', (e) => {
+    if (!buscaObraInput.contains(e.target) && !listaObrasContainer.contains(e.target)) {
+      listaObrasContainer.classList.add('hidden');
+    }
+  });
 
   // Função auxiliar para extrair a nota sem ignorar o Zero
   function extrairNota(id) {
@@ -144,8 +170,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       visual_estilo: extrairNota('miri_visual_estilo'),
       emocao_vibe: extrairNota('miri_emocao_vibe'),
       surpresa: extrairNota('miri_surpresa'),
-      som: extrairNota('miri_som'),
-      musica: extrairNota('miri_musica'),
+      som_musica: extrairNota('miri_som_musica'),
       ritmo: extrairNota('miri_ritmo'),
       final: extrairNota('miri_final'),
       personagem_favorito: document.getElementById('miri_personagem_favorito').value,
@@ -162,8 +187,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       visual_estilo: extrairNota('deudeu_visual_estilo'),
       emocao_vibe: extrairNota('deudeu_emocao_vibe'),
       surpresa: extrairNota('deudeu_surpresa'),
-      som: extrairNota('deudeu_som'),
-      musica: extrairNota('deudeu_musica'),
+      som_musica: extrairNota('deudeu_som_musica'),
       ritmo: extrairNota('deudeu_ritmo'),
       final: extrairNota('deudeu_final'),
       personagem_favorito: document.getElementById('deudeu_personagem_favorito').value,
@@ -214,5 +238,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     form.reset();
+    buscaObraInput.value = '';
+    tituloInput.readOnly = false;
   });
 });

@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    MARATONANDO — MIRI & DEUDEU 💕
    Design System: Romântico • Pessoal • Íntimo
    ============================================ */
@@ -42,7 +42,9 @@
 }
 
 /* === RESET BÁSICO === */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -75,7 +77,7 @@ body::before {
   z-index: 0;
 }
 
-body > * {
+body>* {
   position: relative;
   z-index: 1;
 }
@@ -209,7 +211,8 @@ label {
   font-size: 0.95em;
 }
 
-label.pergunta-pessoal, label.comentario-geral {
+label.pergunta-pessoal,
+label.comentario-geral {
   margin-top: 16px;
   color: var(--pink-600);
 }
@@ -307,7 +310,7 @@ button::after,
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -349,7 +352,8 @@ button:active,
 }
 
 /* === CATEGORIAS & TABS === */
-#categorias, #tabs-categorias {
+#categorias,
+#tabs-categorias {
   text-align: center;
   margin: 16px 10px;
   flex-wrap: wrap;
@@ -358,7 +362,8 @@ button:active,
   gap: 8px;
 }
 
-#categorias button, #tabs-categorias button {
+#categorias button,
+#tabs-categorias button {
   background: linear-gradient(135deg, #9c6fe8 0%, #7b4fc9 100%);
   box-shadow: 0 3px 10px rgba(123, 79, 201, 0.25);
   border-radius: 20px;
@@ -367,7 +372,8 @@ button:active,
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-#categorias button:hover, #tabs-categorias button:hover {
+#categorias button:hover,
+#tabs-categorias button:hover {
   background: linear-gradient(135deg, #7b4fc9 0%, #5c2fa0 100%);
   transform: translateY(-2px) scale(1.06);
   box-shadow: 0 6px 16px rgba(123, 79, 201, 0.35);
@@ -438,7 +444,8 @@ button:active,
 }
 
 /* Perguntas e Comentários */
-.perguntas-pessoais, .comentarios-gerais {
+.perguntas-pessoais,
+.comentarios-gerais {
   margin-top: 16px;
   background: rgba(255, 255, 255, 0.55);
   border-radius: 12px;
@@ -446,23 +453,27 @@ button:active,
   border: 1px solid rgba(255, 182, 205, 0.2);
 }
 
-.perguntas-pessoais h3, .comentarios-gerais h3 {
+.perguntas-pessoais h3,
+.comentarios-gerais h3 {
   margin-top: 0;
   font-family: 'Playfair Display', serif;
   color: var(--pink-500);
   font-size: 1em;
 }
 
-.perguntas-pessoais p, .comentarios-gerais p {
+.perguntas-pessoais p,
+.comentarios-gerais p {
   margin: 5px 0;
   color: var(--text-mid);
 }
 
-.perguntas-pessoais strong, .comentarios-gerais strong {
+.perguntas-pessoais strong,
+.comentarios-gerais strong {
   color: var(--pink-600);
 }
 
-.respostas-miri, .comentario-miri {
+.respostas-miri,
+.comentario-miri {
   padding: 10px 12px;
   border-radius: 8px;
   margin-top: 8px;
@@ -470,7 +481,8 @@ button:active,
   border-left: 3px solid var(--miri-main);
 }
 
-.respostas-deudeu, .comentario-deudeu {
+.respostas-deudeu,
+.comentario-deudeu {
   padding: 10px 12px;
   border-radius: 8px;
   margin-top: 8px;
@@ -478,7 +490,8 @@ button:active,
   border-left: 3px solid var(--deudeu-main);
 }
 
-.comentario-miri p, .comentario-deudeu p {
+.comentario-miri p,
+.comentario-deudeu p {
   font-style: italic;
 }
 
@@ -593,7 +606,7 @@ button:active,
 /* TOP 1 — Ouro */
 .card.rank-1 {
   border: 2.5px solid #FFD700;
-  background: linear-gradient(160deg, rgba(255,253,240,0.9) 0%, rgba(255,245,180,0.7) 100%);
+  background: linear-gradient(160deg, rgba(255, 253, 240, 0.9) 0%, rgba(255, 245, 180, 0.7) 100%);
   transform: scale(1.04);
   box-shadow: 0 12px 40px rgba(255, 215, 0, 0.3), var(--shadow-card);
   max-width: 660px;
@@ -610,18 +623,29 @@ button:active,
   animation: sparkle 2s ease-in-out infinite;
 }
 
-.card.rank-1 .top-pos { color: #c9a800; text-shadow: 1px 1px 0 #8b7000; font-size: 2.5em !important; }
-.card.rank-1 .titulo { font-size: 1.9em; color: #b8860b; }
+.card.rank-1 .top-pos {
+  color: #c9a800;
+  text-shadow: 1px 1px 0 #8b7000;
+  font-size: 2.5em !important;
+}
+
+.card.rank-1 .titulo {
+  font-size: 1.9em;
+  color: #b8860b;
+}
 
 /* TOP 2 — Prata */
 .card.rank-2 {
   border: 2px solid #C0C0C0;
-  background: linear-gradient(160deg, rgba(255,255,255,0.9) 0%, rgba(240,240,248,0.7) 100%);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 248, 0.7) 100%);
   max-width: 620px;
   box-shadow: 0 8px 28px rgba(192, 192, 192, 0.3), var(--shadow-card);
 }
 
-.card.rank-2 .top-pos { color: #9e9e9e; font-size: 2em !important; }
+.card.rank-2 .top-pos {
+  color: #9e9e9e;
+  font-size: 2em !important;
+}
 
 /* === PÓDIO — Sistema de Raridade Mineral === */
 
@@ -629,61 +653,128 @@ button:active,
 
 /* 3º Esmeralda — animação super básica (pulso + lenta varredura de luz) */
 @keyframes esmeraldaPulse {
-  0%, 100% { box-shadow: 0 6px 18px rgba(80,200,120,0.25), var(--shadow-card); }
-  50%       { box-shadow: 0 8px 30px rgba(80,200,120,0.4),  0 0 16px rgba(80,200,120,0.15); }
+
+  0%,
+  100% {
+    box-shadow: 0 6px 18px rgba(80, 200, 120, 0.25), var(--shadow-card);
+  }
+
+  50% {
+    box-shadow: 0 8px 30px rgba(80, 200, 120, 0.4), 0 0 16px rgba(80, 200, 120, 0.15);
+  }
 }
 
 @keyframes esmeraldaShimmer {
-  0%   { background-position: 200% 0; opacity: 0; }
-  20%  { opacity: 0.6; }
-  80%  { opacity: 0.6; }
-  100% { background-position: -100% 0; opacity: 0; }
+  0% {
+    background-position: 200% 0;
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.6;
+  }
+
+  100% {
+    background-position: -100% 0;
+    opacity: 0;
+  }
 }
 
 /* 2º Diamante — brilho cristal pulsante estático com flutuação (efeito médio) */
 @keyframes diamanteFloat {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateY(0);
-    box-shadow: 0 10px 40px rgba(0,180,255,0.3), var(--shadow-card); 
+    box-shadow: 0 10px 40px rgba(0, 180, 255, 0.3), var(--shadow-card);
   }
-  50% { 
+
+  50% {
     transform: translateY(-8px);
-    box-shadow: 0 22px 60px rgba(0,230,255,0.45), 0 0 30px rgba(80,220,255,0.2); 
+    box-shadow: 0 22px 60px rgba(0, 230, 255, 0.45), 0 0 30px rgba(80, 220, 255, 0.2);
   }
 }
 
 @keyframes diamanteShimmer {
-  0%   { background-position: 200% 0; opacity: 0; }
-  15%  { opacity: 0.8; }
-  85%  { opacity: 0.8; }
-  100% { background-position: -100% 0; opacity: 0; }
+  0% {
+    background-position: 200% 0;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.8;
+  }
+
+  85% {
+    opacity: 0.8;
+  }
+
+  100% {
+    background-position: -100% 0;
+    opacity: 0;
+  }
 }
 
 /* 1º Kyawthuite — aura âmbar pulsante (super luxuoso) */
 @keyframes kyawGlow {
-  0%   { box-shadow: 0 18px 65px rgba(255,120,0,0.5),  0 0 45px rgba(255,80,0,0.22),  var(--shadow-card); }
-  33%  { box-shadow: 0 28px 90px rgba(255,190,0,0.65), 0 0 70px rgba(255,210,0,0.32), var(--shadow-card); }
-  66%  { box-shadow: 0 20px 70px rgba(255,60,0,0.55),  0 0 55px rgba(255,110,0,0.28), var(--shadow-card); }
-  100% { box-shadow: 0 18px 65px rgba(255,120,0,0.5),  0 0 45px rgba(255,80,0,0.22),  var(--shadow-card); }
+  0% {
+    box-shadow: 0 18px 65px rgba(255, 120, 0, 0.5), 0 0 45px rgba(255, 80, 0, 0.22), var(--shadow-card);
+  }
+
+  33% {
+    box-shadow: 0 28px 90px rgba(255, 190, 0, 0.65), 0 0 70px rgba(255, 210, 0, 0.32), var(--shadow-card);
+  }
+
+  66% {
+    box-shadow: 0 20px 70px rgba(255, 60, 0, 0.55), 0 0 55px rgba(255, 110, 0, 0.28), var(--shadow-card);
+  }
+
+  100% {
+    box-shadow: 0 18px 65px rgba(255, 120, 0, 0.5), 0 0 45px rgba(255, 80, 0, 0.22), var(--shadow-card);
+  }
 }
 
 /* 1º Kyawthuite — varredura dourada via background */
 @keyframes kyawShimmer {
-  0%   { background-position: 200% 0; opacity: 0; }
-  15%  { opacity: 0.75; }
-  85%  { opacity: 0.75; }
-  100% { background-position: -100% 0; opacity: 0; }
+  0% {
+    background-position: 200% 0;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.75;
+  }
+
+  85% {
+    opacity: 0.75;
+  }
+
+  100% {
+    background-position: -100% 0;
+    opacity: 0;
+  }
 }
 
 /* 1º Kyawthuite — fundo âmbar respirando */
 @keyframes kyawBg {
-  0%, 100% { background-position: 0% 50%; }
-  50%       { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .card.rank-esmeralda {
   border: 2px solid #50c878;
-  background: linear-gradient(160deg, rgba(240,255,248,0.93) 0%, rgba(220,255,235,0.85) 100%);
+  background: linear-gradient(160deg, rgba(240, 255, 248, 0.93) 0%, rgba(220, 255, 235, 0.85) 100%);
   position: relative;
   animation: esmeraldaPulse 3s ease-in-out infinite;
 }
@@ -711,13 +802,21 @@ button:active,
   z-index: 2;
 }
 
-.card.rank-esmeralda .titulo { color: #1a5e35; position: relative; z-index: 2; }
-.card.rank-esmeralda * { position: relative; z-index: 2; }
+.card.rank-esmeralda .titulo {
+  color: #1a5e35;
+  position: relative;
+  z-index: 2;
+}
+
+.card.rank-esmeralda * {
+  position: relative;
+  z-index: 2;
+}
 
 /* ─── TOP 2: DIAMANTE ─── */
 .card.rank-diamante {
-  border: 2px solid rgba(80,210,255,0.7);
-  background: linear-gradient(160deg, rgba(238,252,255,0.96) 0%, rgba(195,238,255,0.87) 100%);
+  border: 2px solid rgba(80, 210, 255, 0.7);
+  background: linear-gradient(160deg, rgba(238, 252, 255, 0.96) 0%, rgba(195, 238, 255, 0.87) 100%);
   position: relative;
   animation: diamanteFloat 3s ease-in-out infinite;
 }
@@ -745,12 +844,20 @@ button:active,
   z-index: 2;
 }
 
-.card.rank-diamante .titulo { color: #00567a; position: relative; z-index: 2; }
-.card.rank-diamante * { position: relative; z-index: 2; }
+.card.rank-diamante .titulo {
+  color: #00567a;
+  position: relative;
+  z-index: 2;
+}
+
+.card.rank-diamante * {
+  position: relative;
+  z-index: 2;
+}
 
 /* ─── TOP 1: KYAWTHUITE ─── */
 .card.rank-kyawthuite {
-  border: 2.5px solid rgba(255,155,0,0.8);
+  border: 2.5px solid rgba(255, 155, 0, 0.8);
   background: linear-gradient(150deg, #fff8f0, #ffeec8, #ffd98a, #fff5e0, #ffeec8, #fff8f0);
   background-size: 300% 300%;
   position: relative;
@@ -764,7 +871,7 @@ button:active,
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(110deg, transparent 35%, rgba(255,220,100,0.7) 50%, transparent 65%);
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 220, 100, 0.7) 50%, transparent 65%);
   background-size: 250% 100%;
   background-position: 200% 0;
   animation: kyawShimmer 2.8s ease-in-out infinite;
@@ -792,27 +899,34 @@ button:active,
   font-size: 2.5em;
 }
 
-.card.rank-kyawthuite .titulo { color: #7a3800; font-size: 1.1em; }
-.card.rank-kyawthuite * { position: relative; z-index: 2; }
+.card.rank-kyawthuite .titulo {
+  color: #7a3800;
+  font-size: 1.1em;
+}
+
+.card.rank-kyawthuite * {
+  position: relative;
+  z-index: 2;
+}
 
 /* ─── PEDESTAIS atualizados ─── */
 .podio-pedestal-1 {
   height: 80px;
   background: linear-gradient(180deg, #ffc200 0%, #ff7200 55%, #b04400 100%);
-  box-shadow: 0 6px 28px rgba(255,140,0,0.6);
+  box-shadow: 0 6px 28px rgba(255, 140, 0, 0.6);
   font-size: 1em;
 }
 
 .podio-pedestal-2 {
   height: 58px;
   background: linear-gradient(180deg, #48cae4 0%, #0077b6 100%);
-  box-shadow: 0 4px 16px rgba(0,160,210,0.55);
+  box-shadow: 0 4px 16px rgba(0, 160, 210, 0.55);
 }
 
 .podio-pedestal-3 {
   height: 40px;
   background: linear-gradient(180deg, #50c878 0%, #2e8b57 100%);
-  box-shadow: 0 4px 14px rgba(46,139,87,0.45);
+  box-shadow: 0 4px 14px rgba(46, 139, 87, 0.45);
 }
 
 /* === BADGE de Tier (nos cards de lista) === */
@@ -866,9 +980,9 @@ button:active,
 
 /* ── 4º — PLATINA ── */
 .card.rank-platina {
-  border: 2px solid rgba(155,170,220,0.65);
+  border: 2px solid rgba(155, 170, 220, 0.65);
   background: linear-gradient(150deg, #f8f9ff 0%, #edf0ff 45%, #dde3ff 100%);
-  box-shadow: 0 8px 28px rgba(100,120,200,0.14), var(--shadow-card);
+  box-shadow: 0 8px 28px rgba(100, 120, 200, 0.14), var(--shadow-card);
   max-width: 530px;
 }
 
@@ -885,15 +999,26 @@ button:active,
   color: #364090;
 }
 
-.card.rank-platina .titulo      { font-size: 1.35em; color: #3a4898; }
-.card.rank-platina .imagem-obra { max-width: 112px; box-shadow: 0 6px 20px rgba(80,100,180,0.16); }
-.card.rank-platina .lista-nota  { color: #6070a8; font-size: 1.3em; }
+.card.rank-platina .titulo {
+  font-size: 1.35em;
+  color: #3a4898;
+}
+
+.card.rank-platina .imagem-obra {
+  max-width: 112px;
+  box-shadow: 0 6px 20px rgba(80, 100, 180, 0.16);
+}
+
+.card.rank-platina .lista-nota {
+  color: #6070a8;
+  font-size: 1.3em;
+}
 
 /* ── 5º — OURO ── */
 .card.rank-ouro {
-  border: 2px solid rgba(208,168,0,0.75);
+  border: 2px solid rgba(208, 168, 0, 0.75);
   background: linear-gradient(150deg, #fffde7 0%, #fff9c0 45%, #fff090 100%);
-  box-shadow: 0 7px 26px rgba(200,165,0,0.18), var(--shadow-card);
+  box-shadow: 0 7px 26px rgba(200, 165, 0, 0.18), var(--shadow-card);
   max-width: 525px;
 }
 
@@ -903,7 +1028,7 @@ button:active,
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 1px 2px rgba(170,120,0,0.2));
+  filter: drop-shadow(0 1px 2px rgba(170, 120, 0, 0.2));
 }
 
 .rank-ouro-badge {
@@ -911,15 +1036,26 @@ button:active,
   color: #6a4800;
 }
 
-.card.rank-ouro .titulo      { font-size: 1.3em; color: #7a5500; }
-.card.rank-ouro .imagem-obra { max-width: 108px; box-shadow: 0 5px 16px rgba(190,150,0,0.2); }
-.card.rank-ouro .lista-nota  { color: #b09000; font-size: 1.28em; }
+.card.rank-ouro .titulo {
+  font-size: 1.3em;
+  color: #7a5500;
+}
+
+.card.rank-ouro .imagem-obra {
+  max-width: 108px;
+  box-shadow: 0 5px 16px rgba(190, 150, 0, 0.2);
+}
+
+.card.rank-ouro .lista-nota {
+  color: #b09000;
+  font-size: 1.28em;
+}
 
 /* ── 6º — PRATA ── */
 .card.rank-prata {
   border: 2px solid #b8b8b8;
   background: linear-gradient(150deg, #ffffff 0%, #f2f2f5 50%, #e4e4ec 100%);
-  box-shadow: 0 6px 22px rgba(130,130,155,0.18), var(--shadow-card);
+  box-shadow: 0 6px 22px rgba(130, 130, 155, 0.18), var(--shadow-card);
   max-width: 520px;
 }
 
@@ -936,15 +1072,26 @@ button:active,
   color: #444;
 }
 
-.card.rank-prata .titulo      { font-size: 1.2em; color: #505050; }
-.card.rank-prata .imagem-obra { max-width: 100px; box-shadow: 0 5px 14px rgba(130,130,130,0.16); }
-.card.rank-prata .lista-nota  { color: #7a7a7a; font-size: 1.2em; }
+.card.rank-prata .titulo {
+  font-size: 1.2em;
+  color: #505050;
+}
+
+.card.rank-prata .imagem-obra {
+  max-width: 100px;
+  box-shadow: 0 5px 14px rgba(130, 130, 130, 0.16);
+}
+
+.card.rank-prata .lista-nota {
+  color: #7a7a7a;
+  font-size: 1.2em;
+}
 
 /* ── 7º — BRONZE ── */
 .card.rank-bronze-tier {
   border: 2px solid #cd7f32;
   background: linear-gradient(150deg, #fff8f0 0%, #ffe8c5 50%, #ffcf90 100%);
-  box-shadow: 0 5px 20px rgba(180,100,30,0.16), var(--shadow-card);
+  box-shadow: 0 5px 20px rgba(180, 100, 30, 0.16), var(--shadow-card);
   max-width: 515px;
 }
 
@@ -961,17 +1108,28 @@ button:active,
   color: #6a2e08;
 }
 
-.card.rank-bronze-tier .titulo      { font-size: 1.15em; color: #6a3010; }
-.card.rank-bronze-tier .imagem-obra { max-width: 95px; box-shadow: 0 4px 12px rgba(170,90,20,0.14); }
-.card.rank-bronze-tier .lista-nota  { color: #b86020; font-size: 1.15em; }
+.card.rank-bronze-tier .titulo {
+  font-size: 1.15em;
+  color: #6a3010;
+}
+
+.card.rank-bronze-tier .imagem-obra {
+  max-width: 95px;
+  box-shadow: 0 4px 12px rgba(170, 90, 20, 0.14);
+}
+
+.card.rank-bronze-tier .lista-nota {
+  color: #b86020;
+  font-size: 1.15em;
+}
 
 /* ── 8º — MÁRMORE ── */
 .card.rank-marmore {
   border: 1.5px solid #c0c0c5;
   background:
-    linear-gradient(118deg, transparent 25%, rgba(190,190,205,0.13) 45%, transparent 65%),
+    linear-gradient(118deg, transparent 25%, rgba(190, 190, 205, 0.13) 45%, transparent 65%),
     linear-gradient(150deg, #fafafa 0%, #f0f0f2 50%, #e8e8ea 100%);
-  box-shadow: 0 5px 18px rgba(140,140,155,0.14), var(--shadow-card);
+  box-shadow: 0 5px 18px rgba(140, 140, 155, 0.14), var(--shadow-card);
   max-width: 510px;
 }
 
@@ -987,15 +1145,27 @@ button:active,
   font-style: italic;
 }
 
-.card.rank-marmore .titulo      { font-size: 1.1em; color: #505058; font-style: italic; }
-.card.rank-marmore .imagem-obra { max-width: 92px; filter: saturate(85%); }
-.card.rank-marmore .lista-nota  { color: #909098; font-size: 1.1em; }
+.card.rank-marmore .titulo {
+  font-size: 1.1em;
+  color: #505058;
+  font-style: italic;
+}
+
+.card.rank-marmore .imagem-obra {
+  max-width: 92px;
+  filter: saturate(85%);
+}
+
+.card.rank-marmore .lista-nota {
+  color: #909098;
+  font-size: 1.1em;
+}
 
 /* ── 9º — PEDRA ── */
 .card.rank-pedra {
   border: 1.5px solid #a0a0a0;
   background: linear-gradient(150deg, #f5f5f5 0%, #e8e8e8 55%, #d8d8d8 100%);
-  box-shadow: 0 4px 16px rgba(100,100,100,0.12), var(--shadow-soft);
+  box-shadow: 0 4px 16px rgba(100, 100, 100, 0.12), var(--shadow-soft);
   max-width: 505px;
 }
 
@@ -1009,15 +1179,26 @@ button:active,
   color: #505050;
 }
 
-.card.rank-pedra .titulo      { font-size: 1.05em; color: #505050; }
-.card.rank-pedra .imagem-obra { max-width: 88px; filter: grayscale(20%); }
-.card.rank-pedra .lista-nota  { color: #888; font-size: 1.05em; }
+.card.rank-pedra .titulo {
+  font-size: 1.05em;
+  color: #505050;
+}
+
+.card.rank-pedra .imagem-obra {
+  max-width: 88px;
+  filter: grayscale(20%);
+}
+
+.card.rank-pedra .lista-nota {
+  color: #888;
+  font-size: 1.05em;
+}
 
 /* ── 10º — AREIA ── */
 .card.rank-areia {
   border: 1.5px solid #c5a870;
   background: linear-gradient(150deg, #faf5e4 0%, #f5e8c0 55%, #ecd8a0 100%);
-  box-shadow: 0 4px 14px rgba(175,145,75,0.12), var(--shadow-soft);
+  box-shadow: 0 4px 14px rgba(175, 145, 75, 0.12), var(--shadow-soft);
   max-width: 500px;
   opacity: 0.93;
 }
@@ -1032,9 +1213,20 @@ button:active,
   color: #5e3e10;
 }
 
-.card.rank-areia .titulo      { font-size: 1em; color: #6e4818; }
-.card.rank-areia .imagem-obra { max-width: 84px; filter: sepia(15%); }
-.card.rank-areia .lista-nota  { color: #96700a; font-size: 1em; }
+.card.rank-areia .titulo {
+  font-size: 1em;
+  color: #6e4818;
+}
+
+.card.rank-areia .imagem-obra {
+  max-width: 84px;
+  filter: sepia(15%);
+}
+
+.card.rank-areia .lista-nota {
+  color: #96700a;
+  font-size: 1em;
+}
 
 /* ── 11º+ — NORMAL ── */
 .card.rank-normal {
@@ -1044,10 +1236,22 @@ button:active,
   box-shadow: var(--shadow-soft);
 }
 
-.rank-normal-pos  { font-size: 1em; color: var(--text-light); }
-.card.rank-normal .imagem-obra { max-width: 80px; }
-.card.rank-normal .titulo      { font-size: 1em; }
-.card.rank-normal .lista-nota  { font-size: 1em; }
+.rank-normal-pos {
+  font-size: 1em;
+  color: var(--text-light);
+}
+
+.card.rank-normal .imagem-obra {
+  max-width: 80px;
+}
+
+.card.rank-normal .titulo {
+  font-size: 1em;
+}
+
+.card.rank-normal .lista-nota {
+  font-size: 1em;
+}
 
 /* Divisor suave para 11º+ */
 .podio-divisor-resto {
@@ -1062,7 +1266,8 @@ button:active,
 .podio-wrapper {
   display: flex;
   justify-content: center;
-  align-items: flex-end;       /* alinha os slots pela base — efeito de altura */
+  align-items: flex-end;
+  /* alinha os slots pela base — efeito de altura */
   gap: 12px;
   padding: 20px 16px 0;
   max-width: 960px;
@@ -1079,9 +1284,20 @@ button:active,
 }
 
 /* 1º lugar fica mais alto (sobe o card) */
-.podio-slot-1 { margin-bottom: 0; }
-.podio-slot-2 { margin-bottom: -30px; }   /* 2º um pouco mais baixo */
-.podio-slot-3 { margin-bottom: -60px; }   /* 3º o mais baixo */
+.podio-slot-1 {
+  margin-bottom: 0;
+}
+
+.podio-slot-2 {
+  margin-bottom: -30px;
+}
+
+/* 2º um pouco mais baixo */
+.podio-slot-3 {
+  margin-bottom: -60px;
+}
+
+/* 3º o mais baixo */
 
 /* Card do Pódio (top 3) */
 .podio-card {
@@ -1089,7 +1305,8 @@ button:active,
   max-width: 100%;
   text-align: center;
   padding: 16px 12px 0;
-  border-radius: 16px 16px 0 0;   /* cantos arredondados apenas em cima */
+  border-radius: 16px 16px 0 0;
+  /* cantos arredondados apenas em cima */
   margin: 0;
   box-shadow: var(--shadow-card);
 }
@@ -1101,9 +1318,18 @@ button:active,
   animation: medalhaEntrada 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
-.podio-slot-1 .podio-medalha { font-size: 3em; animation-delay: 0s; }
-.podio-slot-2 .podio-medalha { animation-delay: 0.15s; }
-.podio-slot-3 .podio-medalha { animation-delay: 0.3s; }
+.podio-slot-1 .podio-medalha {
+  font-size: 3em;
+  animation-delay: 0s;
+}
+
+.podio-slot-2 .podio-medalha {
+  animation-delay: 0.15s;
+}
+
+.podio-slot-3 .podio-medalha {
+  animation-delay: 0.3s;
+}
 
 /* Nota dentro do card do pódio */
 .podio-nota {
@@ -1129,7 +1355,7 @@ button:active,
   letter-spacing: 0.5px;
   font-size: 0.85em;
   color: white;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* Alturas e cores dos pedestais */
@@ -1139,11 +1365,13 @@ button:active,
   box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
   font-size: 1em;
 }
+
 .podio-pedestal-2 {
   height: 58px;
   background: linear-gradient(180deg, #d0d0d0 0%, #8a8a8a 100%);
   box-shadow: 0 4px 14px rgba(180, 180, 180, 0.5);
 }
+
 .podio-pedestal-3 {
   height: 40px;
   background: linear-gradient(180deg, #d4915a 0%, #8c5a2e 100%);
@@ -1169,11 +1397,13 @@ button:active,
 .podio-card .imagem-obra {
   max-width: 110px;
   border-radius: 8px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
 /* 1º lugar — imagem maior */
-.podio-slot-1 .podio-card .imagem-obra { max-width: 130px; }
+.podio-slot-1 .podio-card .imagem-obra {
+  max-width: 130px;
+}
 
 /* Brilho animado no card TOP 1 */
 .card.rank-1.podio-card::after {
@@ -1199,6 +1429,7 @@ button:active,
   gap: 12px;
   max-width: 500px;
 }
+
 .podio-divisor::before,
 .podio-divisor::after {
   content: '';
@@ -1214,24 +1445,54 @@ button:active,
 
 /* Animação de entrada das medalhas */
 @keyframes medalhaEntrada {
-  from { opacity: 0; transform: translateY(-20px) scale(0.5); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* === ANIMAÇÕES === */
 @keyframes fadeSlideDown {
-  from { opacity: 0; transform: translateY(-16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes sparkle {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
-  50%       { transform: scale(1.3) rotate(15deg); opacity: 0.75; }
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.3) rotate(15deg);
+    opacity: 0.75;
+  }
 }
 
 /* === RESPONSIVO (Mobile) === */
@@ -1292,12 +1553,14 @@ button:active,
     margin: 0;
   }
 
-  #categorias, #tabs-categorias {
+  #categorias,
+  #tabs-categorias {
     gap: 5px;
     padding: 0 5%;
   }
 
-  #categorias button, #tabs-categorias button {
+  #categorias button,
+  #tabs-categorias button {
     padding: 7px 12px;
     font-size: 0.85em;
   }
@@ -1333,17 +1596,33 @@ button:active,
     margin-bottom: 0 !important;
   }
 
-  .podio-slot-1 { order: 1; }
-  .podio-slot-2 { order: 2; }
-  .podio-slot-3 { order: 3; }
+  .podio-slot-1 {
+    order: 1;
+  }
+
+  .podio-slot-2 {
+    order: 2;
+  }
+
+  .podio-slot-3 {
+    order: 3;
+  }
 
   .podio-card {
     border-radius: 16px 16px 0 0;
   }
 
-  .podio-pedestal-1 { height: 52px; }
-  .podio-pedestal-2 { height: 44px; }
-  .podio-divisor { margin: 32px auto 20px; }
+  .podio-pedestal-1 {
+    height: 52px;
+  }
+
+  .podio-pedestal-2 {
+    height: 44px;
+  }
+
+  .podio-divisor {
+    margin: 32px auto 20px;
+  }
 }
 
 .hidden {
@@ -1371,6 +1650,7 @@ button:active,
 }
 
 @media (max-width: 768px) {
+
   #historico,
   #lista-recomendacoes-container {
     grid-template-columns: 1fr;
@@ -1448,4 +1728,67 @@ button:active,
 .btn-ver:hover {
   background: linear-gradient(135deg, #f57c00 0%, #e65100 100%);
   box-shadow: 0 6px 18px rgba(255, 140, 0, 0.4);
+}
+
+
+/* === NOVOS COMPONENTES === */
+.hidden {
+  display: none !important;
+}
+
+/* Searchable Obra Dropdown */
+.search-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1.5px solid var(--pink-300);
+  border-radius: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(233, 30, 140, 0.15);
+  margin-top: 4px;
+  animation: fadeSlideDown 0.2s ease both;
+}
+
+.search-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid var(--pink-100);
+  color: var(--text-dark);
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-item:last-child {
+  border-bottom: none;
+}
+
+.search-item:hover {
+  background: var(--pink-100);
+  color: var(--pink-600);
+  padding-left: 20px;
+}
+
+.search-item .search-cat {
+  font-size: 0.8em;
+  color: var(--text-light);
+  font-weight: 400;
+}
+
+.search-no-results {
+  padding: 10px 15px;
+  color: var(--text-light);
+  font-style: italic;
+  text-align: center;
 }
