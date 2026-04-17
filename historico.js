@@ -14,9 +14,14 @@ let todasAvaliacoes = [];
 const nomesBonitos = {
   historia: "História",
   personagens: "Personagens",
-  visual_estilo: "Visual e Estilo",
+  atuacao: "Atuação",
+  visual_estilo: "Visual / Estilo",
   emocao_vibe: "Emoção / Vibe",
-  surpresa: "Nível de Surpresa"
+  surpresa: "Nível de Surpresa / Originalidade",
+  som: "Som",
+  musica: "Música",
+  ritmo: "Ritmo",
+  final: "Final"
 };
 const categoriasDeNotas = Object.keys(nomesBonitos);
 
@@ -48,6 +53,8 @@ function renderizarAvaliacoes(lista) {
     clone.querySelector('.imagem-obra').alt = `Capa de ${av.titulo}`;
 
     const nc = clone.querySelector('.notas-categorias');
+    const boxPerguntas = clone.querySelector('.perguntas-pessoais');
+    const boxComentarios = clone.querySelector('.comentarios-gerais');
     const respostasMiri = clone.querySelector('.respostas-miri');
     const respostasDeudeu = clone.querySelector('.respostas-deudeu');
     const comentarioMiri = clone.querySelector('.comentario-miri');
@@ -154,6 +161,11 @@ function renderizarAvaliacoes(lista) {
     }
 
     const notaFinal = totalCategoriasFinal > 0 ? (somaMediaFinal / totalCategoriasFinal).toFixed(1) : 'N/A';
+    
+    if (totalCategoriasFinal > 0) {
+      console.log(`DEBUG [${av.titulo}]: Categorias no Histórico: ${totalCategoriasFinal}. Média Final calculada: ${notaFinal}`);
+    }
+
     clone.querySelector('.nota-final-numero').textContent = notaFinal;
 
     clone.querySelector('.btn-excluir').addEventListener('click', async () => {
@@ -165,6 +177,14 @@ function renderizarAvaliacoes(lista) {
 
     clone.querySelector('.btn-editar').addEventListener('click', () => {
       window.location.href = `editar.html?id=${av.id}`;
+    });
+
+    clone.querySelector('.btn-ver').addEventListener('click', () => {
+      document.getElementById('modal-titulo').textContent = av.titulo;
+      document.getElementById('modal-notas').innerHTML = nc.innerHTML;
+      document.getElementById('modal-perguntas').innerHTML = boxPerguntas.innerHTML;
+      document.getElementById('modal-comentarios').innerHTML = boxComentarios.innerHTML;
+      document.getElementById('modal-detalhes').classList.remove('hidden');
     });
 
     historico.appendChild(clone);
@@ -215,3 +235,21 @@ async function init() {
 }
 
 init();
+
+// Logica de Fechar Modal
+const modalDetalhes = document.getElementById('modal-detalhes');
+const closeModalBtn = document.getElementById('close-modal-detalhes');
+
+if (closeModalBtn) {
+  closeModalBtn.addEventListener('click', () => {
+    modalDetalhes.classList.add('hidden');
+  });
+}
+
+if (modalDetalhes) {
+  modalDetalhes.addEventListener('click', (e) => {
+    if (e.target === modalDetalhes) {
+      modalDetalhes.classList.add('hidden');
+    }
+  });
+}

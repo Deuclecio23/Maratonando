@@ -6,7 +6,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Função para adicionar temporada e recalcular a média global
 function adicionarTemporada(antigo, novo, temporada) {
-  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa'];
+  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som', 'musica', 'ritmo', 'final', 'atuacao'];
   // Se "antigo" existir, fazemos uma cópia, se não criamos um vazio
   const resultado = antigo ? { ...antigo } : {};
 
@@ -54,6 +54,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   const categoriaSelect = document.getElementById('categoria');
   const imagemUrlInput = document.getElementById('imagem_url');
 
+  // Lógica para mostrar/esconder campo Atuação
+  function atualizarVisibilidadeAtuacao() {
+    const cat = categoriaSelect.value;
+    const esconder = ['Animes', 'Desenho animado', 'Filme de desenho animado', 'Filme de Anime'].includes(cat);
+    
+    document.getElementById('miri_atuacao_container').classList.toggle('hidden', esconder);
+    document.getElementById('deudeu_atuacao_container').classList.toggle('hidden', esconder);
+    
+    // Se esconder, limpamos o valor
+    if (esconder) {
+      document.getElementById('miri_atuacao').value = '';
+      document.getElementById('deudeu_atuacao').value = '';
+    }
+  }
+
+  categoriaSelect.addEventListener('change', atualizarVisibilidadeAtuacao);
+  // Inicializar
+  atualizarVisibilidadeAtuacao();
+
   let obrasExistentes = [];
 
   // Buscar obras existentes para sugestão
@@ -89,7 +108,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (obraEncontrada) {
           tituloInput.value = obraEncontrada.titulo;
           tituloInput.readOnly = true; // Impede que o usuário mude o nome e crie uma obra duplicada
-          if (obraEncontrada.categoria) categoriaSelect.value = obraEncontrada.categoria;
+          if (obraEncontrada.categoria) {
+            categoriaSelect.value = obraEncontrada.categoria;
+            atualizarVisibilidadeAtuacao();
+          }
           if (obraEncontrada.imagem_url) imagemUrlInput.value = obraEncontrada.imagem_url;
         }
       } else {
@@ -97,9 +119,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         tituloInput.value = '';
         tituloInput.readOnly = false;
         categoriaSelect.value = '';
+        atualizarVisibilidadeAtuacao();
         imagemUrlInput.value = '';
       }
     });
+  }
+
+  // Função auxiliar para extrair a nota sem ignorar o Zero
+  function extrairNota(id) {
+    const val = document.getElementById(id).value;
+    return (val === "" || val === null) ? null : Number(val);
   }
 
   form.addEventListener('submit', async (e) => {
@@ -109,11 +138,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const temporadaValue = document.getElementById('temporada').value;
 
     const miriNotas = {
-      historia: +document.getElementById('miri_historia').value || null,
-      personagens: +document.getElementById('miri_personagens').value || null,
-      visual_estilo: +document.getElementById('miri_visual_estilo').value || null,
-      emocao_vibe: +document.getElementById('miri_emocao_vibe').value || null,
-      surpresa: +document.getElementById('miri_surpresa').value || null,
+      historia: extrairNota('miri_historia'),
+      personagens: extrairNota('miri_personagens'),
+      atuacao: extrairNota('miri_atuacao'),
+      visual_estilo: extrairNota('miri_visual_estilo'),
+      emocao_vibe: extrairNota('miri_emocao_vibe'),
+      surpresa: extrairNota('miri_surpresa'),
+      som: extrairNota('miri_som'),
+      musica: extrairNota('miri_musica'),
+      ritmo: extrairNota('miri_ritmo'),
+      final: extrairNota('miri_final'),
       personagem_favorito: document.getElementById('miri_personagem_favorito').value,
       momento_favorito: document.getElementById('miri_momento_favorito').value,
       frase_marcante: document.getElementById('miri_frase_marcante').value,
@@ -122,17 +156,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     const deudeuNotas = {
-      historia: +document.getElementById('deudeu_historia').value || null,
-      personagens: +document.getElementById('deudeu_personagens').value || null,
-      visual_estilo: +document.getElementById('deudeu_visual_estilo').value || null,
-      emocao_vibe: +document.getElementById('deudeu_emocao_vibe').value || null,
-      surpresa: +document.getElementById('deudeu_surpresa').value || null,
+      historia: extrairNota('deudeu_historia'),
+      personagens: extrairNota('deudeu_personagens'),
+      atuacao: extrairNota('deudeu_atuacao'),
+      visual_estilo: extrairNota('deudeu_visual_estilo'),
+      emocao_vibe: extrairNota('deudeu_emocao_vibe'),
+      surpresa: extrairNota('deudeu_surpresa'),
+      som: extrairNota('deudeu_som'),
+      musica: extrairNota('deudeu_musica'),
+      ritmo: extrairNota('deudeu_ritmo'),
+      final: extrairNota('deudeu_final'),
       personagem_favorito: document.getElementById('deudeu_personagem_favorito').value,
       momento_favorito: document.getElementById('deudeu_momento_favorito').value,
       frase_marcante: document.getElementById('deudeu_frase_marcante').value,
       ver_de_novo: document.getElementById('deudeu_ver_de_novo').value,
       comentario_geral: document.getElementById('deudeu_comentario_geral').value
     };
+
+    console.log("DEBUG: Notas extraídas antes de salvar", { miriNotas, deudeuNotas });
 
     // 1. Verificar se a obra já existe
     const { data: existente } = await supabase

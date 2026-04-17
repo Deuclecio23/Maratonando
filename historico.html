@@ -56,11 +56,26 @@
       </div>
 
       <div class="card-botoes">
+        <button class="btn-ver">Ver</button>
         <button class="btn-editar">Editar</button>
         <button class="btn-excluir">Excluir</button>
       </div>
     </div>
   </template>
+
+  <!-- Modal Detalhes -->
+  <div id="modal-detalhes" class="modal-bg hidden">
+    <div class="modal-content">
+      <span class="close-modal" id="close-modal-detalhes">&times;</span>
+      <h2 id="modal-titulo"></h2>
+      
+      <div id="modal-notas" class="notas-container" style="flex-direction: column; align-items: center;"></div>
+      
+      <div id="modal-perguntas" class="perguntas-pessoais"></div>
+      
+      <div id="modal-comentarios" class="comentarios-gerais"></div>
+    </div>
+  </div>
 
   <script type="module" src="historico.js"></script>
 </body>

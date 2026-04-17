@@ -74,7 +74,18 @@ function preencherFormularioComTemporada(chave) {
 
   preencherCamposUsuario('miri', miri);
   preencherCamposUsuario('deudeu', deudeu);
+  atualizarVisibilidadeAtuacao();
 }
+
+function atualizarVisibilidadeAtuacao() {
+  const cat = document.getElementById('categoria').value;
+  const esconder = ['Animes', 'Desenho animado', 'Filme de desenho animado', 'Filme de Anime'].includes(cat);
+  
+  document.getElementById('miri_atuacao_container').classList.toggle('hidden', esconder);
+  document.getElementById('deudeu_atuacao_container').classList.toggle('hidden', esconder);
+}
+
+document.getElementById('categoria').addEventListener('change', atualizarVisibilidadeAtuacao);
 
 function preencherFormularioAntigo(data) {
   const miri = data.miri || {};
@@ -87,9 +98,14 @@ function preencherFormularioAntigo(data) {
 function preencherCamposUsuario(prefixo, dados) {
   document.getElementById(`${prefixo}_historia`).value = dados.historia || '';
   document.getElementById(`${prefixo}_personagens`).value = dados.personagens || '';
+  document.getElementById(`${prefixo}_atuacao`).value = dados.atuacao || '';
   document.getElementById(`${prefixo}_visual_estilo`).value = dados.visual_estilo || '';
   document.getElementById(`${prefixo}_emocao_vibe`).value = dados.emocao_vibe || '';
   document.getElementById(`${prefixo}_surpresa`).value = dados.surpresa || '';
+  document.getElementById(`${prefixo}_som`).value = dados.som || '';
+  document.getElementById(`${prefixo}_musica`).value = dados.musica || '';
+  document.getElementById(`${prefixo}_ritmo`).value = dados.ritmo || '';
+  document.getElementById(`${prefixo}_final`).value = dados.final || '';
   document.getElementById(`${prefixo}_personagem_favorito`).value = dados.personagem_favorito || '';
   document.getElementById(`${prefixo}_momento_favorito`).value = dados.momento_favorito || '';
   document.getElementById(`${prefixo}_frase_marcante`).value = dados.frase_marcante || '';
@@ -98,12 +114,16 @@ function preencherCamposUsuario(prefixo, dados) {
 }
 
 function extrairCamposUsuario(prefixo) {
+  const campos = ['historia', 'personagens', 'atuacao', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som', 'musica', 'ritmo', 'final'];
+  const notas = {};
+
+  campos.forEach(c => {
+    const val = document.getElementById(`${prefixo}_${c}`).value;
+    notas[c] = (val === "" || val === null) ? null : Number(val);
+  });
+
   return {
-    historia: parseFloat(document.getElementById(`${prefixo}_historia`).value) || null,
-    personagens: parseFloat(document.getElementById(`${prefixo}_personagens`).value) || null,
-    visual_estilo: parseFloat(document.getElementById(`${prefixo}_visual_estilo`).value) || null,
-    emocao_vibe: parseFloat(document.getElementById(`${prefixo}_emocao_vibe`).value) || null,
-    surpresa: parseFloat(document.getElementById(`${prefixo}_surpresa`).value) || null,
+    ...notas,
     personagem_favorito: document.getElementById(`${prefixo}_personagem_favorito`).value,
     momento_favorito: document.getElementById(`${prefixo}_momento_favorito`).value,
     frase_marcante: document.getElementById(`${prefixo}_frase_marcante`).value,
@@ -114,7 +134,7 @@ function extrairCamposUsuario(prefixo) {
 
 // Mesma lógica do index.js para não perder a informação original da pessoa e recalcular a média geral com as edições
 function recalcularESalvarTemporada(antigaOriginal, novaEditada, chaveEditada) {
-  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa'];
+  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som', 'musica', 'ritmo', 'final', 'atuacao'];
   const resultado = antigaOriginal ? JSON.parse(JSON.stringify(antigaOriginal)) : {};
 
   if (!resultado.temporadas) {
@@ -166,6 +186,8 @@ form.addEventListener('submit', async (e) => {
     miri: recalcularESalvarTemporada(avaliacaoOriginal.miri, novaMiri, chaveEditada),
     deudeu: recalcularESalvarTemporada(avaliacaoOriginal.deudeu, novaDeudeu, chaveEditada)
   };
+
+  console.log("DEBUG: Notas editadas antes de salvar", { novaMiri, novaDeudeu });
 
   const { error } = await supabase.from('avaliacoes').update(atualizada).eq('id', id);
 

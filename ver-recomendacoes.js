@@ -31,12 +31,18 @@ async function carregarRecomendacoes() {
     clone.querySelector('.rec-quem').textContent = rec.quem_sugeriu;
     
     const link = clone.querySelector('.rec-link');
-    if (rec.link_extra) {
-      link.href = rec.link_extra;
+    const valorLink = (rec.link_extra || "").trim();
+    if (valorLink) {
+      link.href = valorLink;
+      link.style.display = 'inline-block';
     } else {
-      link.style.display = 'none'; // Esconde o link se não existir
+      link.style.display = 'none'; // Esconde o link se não existir ou for apenas espaços
     }
     
+    clone.querySelector('.rec-editar').addEventListener('click', () => {
+      window.location.href = `editar-recomendacao.html?id=${rec.id}`;
+    });
+
     clone.querySelector('.rec-excluir').addEventListener('click', async () => {
       if (confirm(`Queres mesmo apagar a sugestão "${rec.titulo}"?`)) {
         await supabase.from('recomendacoes').delete().eq('id', rec.id);

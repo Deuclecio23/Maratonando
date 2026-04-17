@@ -8,9 +8,14 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const nomesBonitos = {
   historia: "História",
   personagens: "Personagens",
-  visual_estilo: "Visual e Estilo",
+  atuacao: "Atuação",
+  visual_estilo: "Visual / Estilo",
   emocao_vibe: "Emoção / Vibe",
-  surpresa: "Nível de Surpresa"
+  surpresa: "Nível de Surpresa / Originalidade",
+  som: "Som",
+  musica: "Música",
+  ritmo: "Ritmo",
+  final: "Final"
 };
 const categoriasDeNotas = Object.keys(nomesBonitos);
 
@@ -40,7 +45,13 @@ function calcularMediaFinal(av) {
       totalCategoriasFinal++;
     }
   }
-  return totalCategoriasFinal > 0 ? (somaMediaFinal / totalCategoriasFinal) : 0;
+  const resultadoFinal = totalCategoriasFinal > 0 ? (somaMediaFinal / totalCategoriasFinal) : 0;
+  
+  if (totalCategoriasFinal > 0) {
+    console.log(`DEBUG [${av.titulo}]: Categorias contadas: ${totalCategoriasFinal}. Soma total das médias: ${somaMediaFinal.toFixed(2)}. Média Final: ${resultadoFinal.toFixed(2)}`);
+  }
+
+  return resultadoFinal;
 }
 
 async function carregarTopAvaliacoes() {
@@ -162,17 +173,7 @@ function renderizarPodio(avaliacoes, categoria) {
     });
   }
 
-  // === 11º EM DIANTE (normal) ===
-  if (resto.length > 0) {
-    const divisorResto = document.createElement('div');
-    divisorResto.className = 'podio-divisor podio-divisor-resto';
-    divisorResto.innerHTML = '<span>· Mais obras ·</span>';
-    conteudo.appendChild(divisorResto);
 
-    resto.forEach((av, i) => {
-      conteudo.appendChild(criarCardLista(av, i + 11));
-    });
-  }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
