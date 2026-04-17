@@ -74,18 +74,7 @@ function preencherFormularioComTemporada(chave) {
 
   preencherCamposUsuario('miri', miri);
   preencherCamposUsuario('deudeu', deudeu);
-  atualizarVisibilidadeAtuacao();
 }
-
-function atualizarVisibilidadeAtuacao() {
-  const cat = document.getElementById('categoria').value;
-  const esconder = ['Animes', 'Desenho animado', 'Filme de desenho animado', 'Filme de Anime'].includes(cat);
-  
-  document.getElementById('miri_atuacao_container').classList.toggle('hidden', esconder);
-  document.getElementById('deudeu_atuacao_container').classList.toggle('hidden', esconder);
-}
-
-document.getElementById('categoria').addEventListener('change', atualizarVisibilidadeAtuacao);
 
 function preencherFormularioAntigo(data) {
   const miri = data.miri || {};
@@ -96,16 +85,15 @@ function preencherFormularioAntigo(data) {
 }
 
 function preencherCamposUsuario(prefixo, dados) {
-  document.getElementById(`${prefixo}_historia`).value = dados.historia || '';
-  document.getElementById(`${prefixo}_personagens`).value = dados.personagens || '';
-  document.getElementById(`${prefixo}_atuacao`).value = dados.atuacao || '';
-  document.getElementById(`${prefixo}_visual_estilo`).value = dados.visual_estilo || '';
-  document.getElementById(`${prefixo}_emocao_vibe`).value = dados.emocao_vibe || '';
-  document.getElementById(`${prefixo}_surpresa`).value = dados.surpresa || '';
+  document.getElementById(`${prefixo}_historia`).value = dados.historia ?? '';
+  document.getElementById(`${prefixo}_personagens`).value = dados.personagens ?? '';
+  document.getElementById(`${prefixo}_visual_estilo`).value = dados.visual_estilo ?? '';
+  document.getElementById(`${prefixo}_emocao_vibe`).value = dados.emocao_vibe ?? '';
+  document.getElementById(`${prefixo}_surpresa`).value = dados.surpresa ?? '';
   const somMusica = dados.som_musica ?? (dados.som !== undefined && dados.musica !== undefined ? (dados.som + dados.musica) / 2 : (dados.som ?? dados.musica ?? ''));
   document.getElementById(`${prefixo}_som_musica`).value = typeof somMusica === 'number' ? somMusica.toFixed(1) : somMusica;
-  document.getElementById(`${prefixo}_ritmo`).value = dados.ritmo || '';
-  document.getElementById(`${prefixo}_final`).value = dados.final || '';
+  document.getElementById(`${prefixo}_ritmo`).value = dados.ritmo ?? '';
+  document.getElementById(`${prefixo}_final`).value = dados.final ?? '';
   document.getElementById(`${prefixo}_personagem_favorito`).value = dados.personagem_favorito || '';
   document.getElementById(`${prefixo}_momento_favorito`).value = dados.momento_favorito || '';
   document.getElementById(`${prefixo}_frase_marcante`).value = dados.frase_marcante || '';
@@ -114,7 +102,7 @@ function preencherCamposUsuario(prefixo, dados) {
 }
 
 function extrairCamposUsuario(prefixo) {
-  const campos = ['historia', 'personagens', 'atuacao', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som_musica', 'ritmo', 'final'];
+  const campos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som_musica', 'ritmo', 'final'];
   const notas = {};
 
   campos.forEach(c => {
@@ -134,7 +122,7 @@ function extrairCamposUsuario(prefixo) {
 
 // Mesma lógica do index.js para não perder a informação original da pessoa e recalcular a média geral com as edições
 function recalcularESalvarTemporada(antigaOriginal, novaEditada, chaveEditada) {
-  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som_musica', 'ritmo', 'final', 'atuacao'];
+  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som_musica', 'ritmo', 'final'];
   const resultado = antigaOriginal ? JSON.parse(JSON.stringify(antigaOriginal)) : {};
 
   if (!resultado.temporadas) {
@@ -171,31 +159,41 @@ function recalcularESalvarTemporada(antigaOriginal, novaEditada, chaveEditada) {
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const seletorContainer = document.getElementById('seletor-temporada-container');
-  const seletor = document.getElementById('seletor_temporada');
-  // Se está a editar um ficheiro sem temporadas convertidas, usa "Geral" para forçar a nova estrutura, ou "1".
-  const chaveEditada = (seletorContainer.style.display === 'none') ? 'Geral' : seletor.value;
+  try {
+    if (!avaliacaoOriginal) {
+      alert('Ainda não carregamos os dados originais. Espera um segundo e tenta de novo!');
+      return;
+    }
 
-  const novaMiri = extrairCamposUsuario('miri');
-  const novaDeudeu = extrairCamposUsuario('deudeu');
+    const seletorContainer = document.getElementById('seletor-temporada-container');
+    const seletor = document.getElementById('seletor_temporada');
+    // Se está a editar um ficheiro sem temporadas convertidas, usa "1" para migrar os dados antigos corretamente sem duplicar.
+    const chaveEditada = (seletorContainer.style.display === 'none') ? '1' : seletor.value;
 
-  const atualizada = {
-    titulo: document.getElementById('titulo').value,
-    categoria: document.getElementById('categoria').value,
-    imagem_url: document.getElementById('imagem_url').value,
-    miri: recalcularESalvarTemporada(avaliacaoOriginal.miri, novaMiri, chaveEditada),
-    deudeu: recalcularESalvarTemporada(avaliacaoOriginal.deudeu, novaDeudeu, chaveEditada)
-  };
+    const novaMiri = extrairCamposUsuario('miri');
+    const novaDeudeu = extrairCamposUsuario('deudeu');
 
-  console.log("DEBUG: Notas editadas antes de salvar", { novaMiri, novaDeudeu });
+    const atualizada = {
+      titulo: document.getElementById('titulo').value,
+      categoria: document.getElementById('categoria').value,
+      imagem_url: document.getElementById('imagem_url').value,
+      miri: recalcularESalvarTemporada(avaliacaoOriginal.miri, novaMiri, chaveEditada),
+      deudeu: recalcularESalvarTemporada(avaliacaoOriginal.deudeu, novaDeudeu, chaveEditada)
+    };
 
-  const { error } = await supabase.from('avaliacoes').update(atualizada).eq('id', id);
+    console.log("DEBUG: Notas editadas antes de salvar", { novaMiri, novaDeudeu });
 
-  if (error) {
-    alert('Erro ao atualizar a avaliação!');
-  } else {
-    alert('Avaliação atualizada com sucesso!');
-    window.location.href = 'historico.html';
+    const { error } = await supabase.from('avaliacoes').update(atualizada).eq('id', id);
+
+    if (error) {
+      alert('Erro ao atualizar a avaliação: ' + error.message);
+    } else {
+      alert('Avaliação atualizada com sucesso!');
+      window.location.href = 'historico.html';
+    }
+  } catch (err) {
+    console.error('Erro catatrófico ao salvar:', err);
+    alert('Aconteceu um erro ao tentar salvar: ' + err.message);
   }
 });
 

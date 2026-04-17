@@ -8,7 +8,6 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const nomesBonitos = {
   historia: "História",
   personagens: "Personagens",
-  atuacao: "Atuação",
   visual_estilo: "Visual / Estilo",
   emocao_vibe: "Emoção / Vibe",
   surpresa: "Nível de Surpresa / Originalidade",

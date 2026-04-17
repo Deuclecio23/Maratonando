@@ -6,7 +6,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Função para adicionar temporada e recalcular a média global
 function adicionarTemporada(antigo, novo, temporada) {
-  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som_musica', 'ritmo', 'final', 'atuacao'];
+  const camposNumericos = ['historia', 'personagens', 'visual_estilo', 'emocao_vibe', 'surpresa', 'som_musica', 'ritmo', 'final'];
   // Se "antigo" existir, fazemos uma cópia, se não criamos um vazio
   const resultado = antigo ? { ...antigo } : {};
 
@@ -54,24 +54,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const categoriaSelect = document.getElementById('categoria');
   const imagemUrlInput = document.getElementById('imagem_url');
 
-  // Lógica para mostrar/esconder campo Atuação
-  function atualizarVisibilidadeAtuacao() {
-    const cat = categoriaSelect.value;
-    const esconder = ['Animes', 'Desenho animado', 'Filme de desenho animado', 'Filme de Anime'].includes(cat);
-    
-    document.getElementById('miri_atuacao_container').classList.toggle('hidden', esconder);
-    document.getElementById('deudeu_atuacao_container').classList.toggle('hidden', esconder);
-    
-    // Se esconder, limpamos o valor
-    if (esconder) {
-      document.getElementById('miri_atuacao').value = '';
-      document.getElementById('deudeu_atuacao').value = '';
-    }
-  }
-
-  categoriaSelect.addEventListener('change', atualizarVisibilidadeAtuacao);
-  // Inicializar
-  atualizarVisibilidadeAtuacao();
 
   let obrasExistentes = [];
 
@@ -119,7 +101,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     tituloInput.readOnly = true;
     if (obra.categoria) {
       categoriaSelect.value = obra.categoria;
-      atualizarVisibilidadeAtuacao();
     }
     if (obra.imagem_url) imagemUrlInput.value = obra.imagem_url;
     listaObrasContainer.classList.add('hidden');
@@ -132,7 +113,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       tituloInput.value = '';
       tituloInput.readOnly = false;
       categoriaSelect.value = '';
-      atualizarVisibilidadeAtuacao();
       imagemUrlInput.value = '';
       return;
     }
@@ -166,7 +146,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const miriNotas = {
       historia: extrairNota('miri_historia'),
       personagens: extrairNota('miri_personagens'),
-      atuacao: extrairNota('miri_atuacao'),
       visual_estilo: extrairNota('miri_visual_estilo'),
       emocao_vibe: extrairNota('miri_emocao_vibe'),
       surpresa: extrairNota('miri_surpresa'),
@@ -183,7 +162,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const deudeuNotas = {
       historia: extrairNota('deudeu_historia'),
       personagens: extrairNota('deudeu_personagens'),
-      atuacao: extrairNota('deudeu_atuacao'),
       visual_estilo: extrairNota('deudeu_visual_estilo'),
       emocao_vibe: extrairNota('deudeu_emocao_vibe'),
       surpresa: extrairNota('deudeu_surpresa'),
